@@ -1,8 +1,8 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "libs/libft/libft.h"
-# include "libs/mlx_linux/mlx.h"
+# include "libft.h"
+# include "mlx.h"
 
 # define ESC 65307
 # define W 119
@@ -12,11 +12,10 @@
 
 typedef struct s_data
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	int	x;
-	int	y;
-
+	void	*mlx;
+	void	*win;
+	int		x;
+	int		y;
 }	t_data;
 
 int	ft_exit(t_data *data);
