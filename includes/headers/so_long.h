@@ -11,23 +11,28 @@
 # define W 119
 # define A 97
 # define S 115
-# define D 100 
+# define D 100
 
-typedef struct s_data
+typedef struct s_map
+{
+	int	x;
+	int	y;
+	int	tile_size;
+	char	**map;
+}	t_map;
+
+typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
-	int		x;
-	int		y;
-	int		tile_size;
-	char	**map;
-}	t_data;
+	t_map	*map;
+}	t_game;
 
-void	create_map(char *filename, t_data *data);
+void	create_map(char *filename, t_game *game);
 
 int	read_map(int fd);
 int	open_map(char *filename);
-int	ft_exit(t_data *data);
-int	ft_hotkey(int keycode, t_data *data);
+int	ft_exit(t_game *game);
+int	ft_hotkey(int keycode, t_game *game);
 
 #endif

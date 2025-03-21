@@ -1,16 +1,16 @@
 #include "../includes/headers/so_long.h"
 
-void	free_map(t_data *data)
+void	free_map(t_map *map)
 {
 	int	index;
 
 	index = 0;
-	while (data->map[index])
+	while (map->map[index])
 	{
-		free(data->map[index]);
+		free(map->map[index]);
 		index++;
 	}
-	free(data->map);
+	free(map->map);
 	ft_printf("Error malloc map[index]\n");
 	exit(1);
 }
@@ -31,7 +31,7 @@ int	open_map(char *filename)
 
 int		read_map(int fd)
 {
-	int		map_size;
+	int	map_size;
 	char	*line;
 
 	map_size = 0;
@@ -46,7 +46,7 @@ int		read_map(int fd)
 	return (map_size);
 }
 
-void	create_map(char *filename, t_data *data)
+void	create_map(char *filename, t_game *game)
 {
 	int		fd;
 	char	*line;
@@ -57,8 +57,8 @@ void	create_map(char *filename, t_data *data)
 	fd = open_map(filename);
 	map_size = read_map(fd);
 	close (fd);
-	data->map = (char **)malloc(sizeof(char *) * (map_size));
-	if (!data->map)
+	game->map->map = (char **)malloc(sizeof(char *) * (map_size));
+	if (!game->map->map)
 	{
 		ft_printf("Map malloc error\n");
 		exit(1);
@@ -72,10 +72,10 @@ void	create_map(char *filename, t_data *data)
 		line_size = ft_strlen(line);
 		if (line[line_size] == '\n')
 			line[line_size] = '\0';
-		data->map[index] = (char *)malloc(sizeof(char) * (line_size + 1));
-		if (!data->map[index])
-			free_map(data);
-		ft_strlcpy(data->map[index], line, line_size + 1);
+		game->map->map[index] = (char *)malloc(sizeof(char) * (line_size + 1));
+		if (!game->map->map[index])
+			free_map(game->map);
+		ft_strlcpy(game->map->map[index], line, line_size + 1);
 		index++;
 		free(line);
 	}

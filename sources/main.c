@@ -1,44 +1,52 @@
 #include "../includes/headers/so_long.h"
 
-int	start_game(t_data *data)
+int	start_game(t_game *game)
 {
-	data->mlx = mlx_init();
-	if (!data->mlx)
+	game->mlx = mlx_init();
+	if (!game->mlx)
 	{
-		ft_putstr_fd("MiniLibX initialization Error\n", 1);
+		ft_printf("MiniLibX initialization Error\n");
 		return (1);
 	}
-	data->win = mlx_new_window(data->mlx, 1024, 1024, "PACMAN");
-	if (!data->win)
+	game->win = mlx_new_window(game->mlx, 1024, 1024, "PACMAN");
+	if (!game->win)
 	{
-		ft_putstr_fd("Window creating Error\n", 1);
+		ft_printf("Window creating Error\n");
 		return (1);
 	}
-	data->x = 512;
-	data->y = 512;
+	game->map = malloc(sizeof(t_map));
+	if (!game->map)
+	{
+		ft_printf("t_map memory allocation error\n");
+		return (1);
+	}
+	
+	game->map->x = 512;
+	game->map->y = 512;
 	return (0);
 }
 
 int	main(void)
 {
-	t_data	data;
+	t_game	game;
 
-	if (start_game(&data) == 1)
+	if (start_game(&game) == 1)
 		return (1);
 	
-	int fd = open_map("maps/map.ber");
-	create_map("maps/map.ber", &data);
-	int map_size = read_map(fd);
+	/* reading map and printing full map in terminal*/
+	//int fd = open_map("maps/map.ber");
+	//create_map("maps/map.ber", &game);
+	//int map_size = read_map(fd);
 
-	if (data.map)
-    	{
-        	for (int i = 0; i < map_size; i++)
-            	printf("string %d: %s\n", i, data.map[i]);
-    	}
+	//if (game.map->map)
+    //{
+    //    for (int i = 0; i < map_size; i++)
+    //        printf("string %d: %s\n", i, game.map->map[i]);
+    //}
 
-	mlx_string_put(data.mlx, data.win, data.x, data.y, 0xFFFFFF, "PACMAN");
-	mlx_hook(data.win, 17, 1L << 2, ft_exit, &data);
-	mlx_key_hook(data.win, ft_hotkey, &data);
-	mlx_loop(data.mlx);
+	mlx_string_put(game.mlx, game.win, game.map->x, game.map->y, 0xFFFFFF, "PACMAN");
+	mlx_hook(game.win, 17, 1L << 2, ft_exit, &game);
+	mlx_key_hook(game.win, ft_hotkey, &game);
+	mlx_loop(game.mlx);
 	return (0);
 }
