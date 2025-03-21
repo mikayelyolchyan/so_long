@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../includes/headers/so_long.h"
 
 int	ft_exit(t_data *data)
 {
