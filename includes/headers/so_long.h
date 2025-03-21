@@ -29,6 +29,7 @@ typedef struct s_game
 }	t_game;
 
 void	create_map(char *filename, t_game *game);
+void	free_map(t_map *map);
 
 int	read_map(int fd);
 int	open_map(char *filename);
