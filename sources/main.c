@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../includes/headers/so_long.h"
 
 int	start_game(t_data *data)
 {
@@ -25,6 +25,17 @@ int	main(void)
 
 	if (start_game(&data) == 1)
 		return (1);
+	
+	int fd = open_map("maps/map.ber");
+	create_map("maps/map.ber", &data);
+	int map_size = read_map(fd);
+
+	if (data.map)
+    	{
+        	for (int i = 0; i < map_size; i++)
+            	printf("string %d: %s\n", i, data.map[i]);
+    	}
+
 	mlx_string_put(data.mlx, data.win, data.x, data.y, 0xFFFFFF, "PACMAN");
 	mlx_hook(data.win, 17, 1L << 2, ft_exit, &data);
 	mlx_key_hook(data.win, ft_hotkey, &data);

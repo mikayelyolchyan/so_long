@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 18:28:56 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/02/16 20:37:18 by miyolchy         ###   ########.fr       */
+/*   Created: 2025/02/16 20:58:32 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/02/16 21:12:44 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen_gnl(const char *s1)
 {
@@ -45,7 +45,7 @@ char	*ft_substr_gnl(char const *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	size = ft_strlen(s);
+	size = ft_strlen_gnl(s);
 	if (start >= size)
 	{
 		sub = (char *)malloc(sizeof (char));
@@ -75,8 +75,8 @@ char	*ft_strjoin_gnl(char const *s1, char const *s2)
 
 	if (!s1 && !s2)
 		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
+	len1 = ft_strlen_gnl(s1);
+	len2 = ft_strlen_gnl(s2);
 	str = (char *)malloc((len1 + len2 + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
