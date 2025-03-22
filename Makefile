@@ -11,7 +11,8 @@ LIBFT_DIR = $(LIB_DIR)/libft
 FT_PRINTF_DIR = $(LIB_DIR)/ft_printf
 GET_NEXT_LINE_DIR = $(LIB_DIR)/get_next_line
 
-SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/hotkeys.c $(SRC_DIR)/exit.c $(SRC_DIR)/map.c
+SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/hotkeys.c $(SRC_DIR)/exit.c $(SRC_DIR)/map.c \
+		$(SRC_DIR)/free.c
 OBJS = $(SRCS:%.c=%.o)
 HEADER = $(INC_DIR)/so_long.h
 
