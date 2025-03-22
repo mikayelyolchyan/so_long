@@ -2,27 +2,31 @@
 
 int	start_game(t_game *game)
 {
+	t_map *map;
+
+	game->map = malloc(sizeof(t_map));
+	if (!game->map)
+	{
+		ft_printf("Error: t_map memory allocation failed\n");
+		return (1);
+	}
+	map = game->map;
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
 		ft_printf("MiniLibX initialization Error\n");
 		return (1);
 	}
-	game->win = mlx_new_window(game->mlx, 1024, 1024, "PACMAN");
+	map->tile_size = 32;
+	create_map("maps/map.ber", game);
+	game->win = mlx_new_window(game->mlx, map->width * map->tile_size, map->height * map->tile_size, "PACMAN");
 	if (!game->win)
 	{
 		ft_printf("Window creating Error\n");
 		return (1);
 	}
-	game->map = malloc(sizeof(t_map));
-	if (!game->map)
-	{
-		ft_printf("t_map memory allocation error\n");
-		return (1);
-	}
-	
-	game->map->x = 512;
-	game->map->y = 512;
+	map->x = map->width * map->tile_size / 2;
+	map->y = map->height * map->tile_size / 2;
 	return (0);
 }
 
