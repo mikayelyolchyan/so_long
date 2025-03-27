@@ -18,7 +18,7 @@ int	start_game(t_game *game)
 		return (1);
 	}
 	map->tile_size = 32;
-	create_map("maps/google.ber", game);
+	create_map("maps/classic.ber", game);
 	game->win = mlx_new_window(game->mlx, map->width * map->tile_size, map->height * map->tile_size, "PACMAN");
 	if (!game->win)
 	{

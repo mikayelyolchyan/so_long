@@ -4,19 +4,19 @@ int	ft_hotkey(int keycode, t_game *game)
 {
 	if (keycode == W)
 	{
-		game->map->y -= 10;
+		game->map->y -= 32;
 	}
 	else if (keycode == S)
 	{
-		game->map->y += 10;
+		game->map->y += 32;
 	}
 	else if (keycode == A)
 	{
-		game->map->x -= 10;
+		game->map->x -= 32;
 	}
 	else if (keycode == D)
 	{
-		game->map->x += 10;
+		game->map->x += 32;
 	}
 	else if (keycode == ESC)
 	{
