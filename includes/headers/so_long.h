@@ -20,6 +20,7 @@ typedef struct s_map
 	int	width;
 	int	height;
 	int	tile_size;
+	void	*wall_img;
 	char	**map;
 }	t_map;
 
@@ -30,12 +31,20 @@ typedef struct s_game
 	t_map	*map;
 }	t_game;
 
-void	create_map(char *filename, t_game *game);
-void	free_map(t_map *map);
-
-int	read_map(int fd);
 int	open_map(char *filename);
+int	read_map(int fd);
+
+void	fill_map(t_map *map, int fd);
+void	create_map(char *filename, t_game *game);
+
+void	draw_map(t_game *game);
+
+int	start_game(t_game *game);
+
 int	ft_exit(t_game *game);
+
 int	ft_hotkey(int keycode, t_game *game);
+
+void	free_map(t_map *map);
 
 #endif

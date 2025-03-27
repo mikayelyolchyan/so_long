@@ -23,6 +23,7 @@ int	ft_hotkey(int keycode, t_game *game)
 		exit(0);
 	}
 	mlx_clear_window(game->mlx, game->win);
+	draw_map(game);
 	mlx_string_put(game->mlx, game->win, game->map->x, game->map->y, 0xFFFFFF, "C");
 	return (0);
 }

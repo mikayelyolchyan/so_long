@@ -11,6 +11,5 @@ void	free_map(t_map *map)
 		index++;
 	}
 	free(map->map);
-	ft_printf("Error malloc map[index]\n");
-	exit(1);
+	free(map);
 }
