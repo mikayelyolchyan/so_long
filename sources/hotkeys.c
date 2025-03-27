@@ -4,26 +4,26 @@ int	ft_hotkey(int keycode, t_game *game)
 {
 	if (keycode == W)
 	{
-		game->map->y -= 32;
+		game->player->y -= 32;
 	}
 	else if (keycode == S)
 	{
-		game->map->y += 32;
+		game->player->y += 32;
 	}
 	else if (keycode == A)
 	{
-		game->map->x -= 32;
+		game->player->x -= 32;
 	}
 	else if (keycode == D)
 	{
-		game->map->x += 32;
+		game->player->x += 32;
 	}
 	else if (keycode == ESC)
 	{
 		exit(0);
 	}
 	mlx_clear_window(game->mlx, game->win);
-	draw_map(game);
-	mlx_string_put(game->mlx, game->win, game->map->x, game->map->y, 0xFFFFFF, "C");
-	return (0);
+    draw_map(game);
+    mlx_put_image_to_window(game->mlx, game->win, game->player->player_img, game->player->x, game->player->y);
+    return (0);
 }

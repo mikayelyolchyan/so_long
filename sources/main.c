@@ -2,7 +2,7 @@
 
 int	start_game(t_game *game)
 {
-	t_map *map;
+	t_map	*map;
 
 	game->map = malloc(sizeof(t_map));
 	if (!game->map)
@@ -31,8 +31,18 @@ int	start_game(t_game *game)
 		ft_printf("Error: Failed to load walls.xpm\n");
 		return (1);
 	}
-	map->x = map->width * map->tile_size / 2;
-	map->y = map->height * map->tile_size / 2;
+	game->player = malloc(sizeof(t_player));
+	if (!game->player)
+	{
+		ft_printf("Error: t_player memory allocation failed\n");
+		return (1);
+	}
+	game->player->player_img = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_closed.xpm", &map->tile_size, &map->tile_size);
+	
+	game->player->x = map->width * map->tile_size / 2;
+    game->player->y = map->height * map->tile_size / 2;
+	map->x = 0; // map->width * map->tile_size / 2;
+	map->y = 0;// map->height * map->tile_size / 2;
 	return (0);
 }
 
@@ -43,7 +53,8 @@ int	main(void)
 	if (start_game(&game) == 1)
 		return (1);
 
-	draw_map(&game);	
+	draw_map(&game);
+	mlx_put_image_to_window(game.mlx, game.win, game.player->player_img, game.player->x, game.player->y);
 	/* reading map and printing full map in terminal*/
 	//int fd = open_map("maps/map.ber");
 	//create_map("maps/map.ber", &game);
@@ -55,7 +66,6 @@ int	main(void)
     //        printf("string %d: %s\n", i, game.map->map[i]);
     //}
 
-	mlx_string_put(game.mlx, game.win, game.map->x, game.map->y, 0xFFFFFF, "PACMAN");
 	mlx_hook(game.win, 17, 1L << 2, ft_exit, &game);
 	mlx_key_hook(game.win, &ft_hotkey, &game);
 	mlx_loop(game.mlx);
