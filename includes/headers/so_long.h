@@ -13,6 +13,13 @@
 # define S 115
 # define D 100
 
+typedef struct s_player
+{
+	void	*player_img;
+	int	x;
+	int	y;
+}	t_player;
+
 typedef struct s_map
 {
 	int	x;
@@ -29,6 +36,7 @@ typedef struct s_game
 	void	*mlx;
 	void	*win;
 	t_map	*map;
+	t_player *player;
 }	t_game;
 
 int	open_map(char *filename);
