@@ -18,11 +18,17 @@ int	start_game(t_game *game)
 		return (1);
 	}
 	map->tile_size = 32;
-	create_map("maps/map.ber", game);
+	create_map("maps/google.ber", game);
 	game->win = mlx_new_window(game->mlx, map->width * map->tile_size, map->height * map->tile_size, "PACMAN");
 	if (!game->win)
 	{
 		ft_printf("Window creating Error\n");
+		return (1);
+	}
+	map->wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/wall.xpm", &map->tile_size, &map->tile_size);
+	if (!map->wall_img)
+	{
+		ft_printf("Error: Failed to load walls.xpm\n");
 		return (1);
 	}
 	map->x = map->width * map->tile_size / 2;
@@ -36,7 +42,8 @@ int	main(void)
 
 	if (start_game(&game) == 1)
 		return (1);
-	
+
+	draw_map(&game);	
 	/* reading map and printing full map in terminal*/
 	//int fd = open_map("maps/map.ber");
 	//create_map("maps/map.ber", &game);
@@ -50,7 +57,7 @@ int	main(void)
 
 	mlx_string_put(game.mlx, game.win, game.map->x, game.map->y, 0xFFFFFF, "PACMAN");
 	mlx_hook(game.win, 17, 1L << 2, ft_exit, &game);
-	mlx_key_hook(game.win, ft_hotkey, &game);
+	mlx_key_hook(game.win, &ft_hotkey, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }
