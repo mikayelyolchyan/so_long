@@ -54,7 +54,6 @@ int	pac_animation(t_game *game)
 		current_img = player->pac_closed;
 	}
 
-	mlx_clear_window(game->mlx, game->win);
     draw_map(game);
     mlx_put_image_to_window(game->mlx, game->win, current_img, game->player->x, game->player->y);
 	return (0);
