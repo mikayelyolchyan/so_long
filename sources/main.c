@@ -26,9 +26,11 @@ int	start_game(t_game *game)
 		return (1);
 	}
 	map->wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/wall.xpm", &map->tile_size, &map->tile_size);
-	if (!map->wall_img)
+	map->black_wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/black.xpm", &map->tile_size, &map->tile_size);
+	map->food_img = mlx_xpm_file_to_image(game->mlx, "sprites/Pacdots/pacdot_food.xpm", &map->tile_size, &map->tile_size);
+	if (!map->wall_img || !map->food_img)
 	{
-		ft_printf("Error: Failed to load walls.xpm\n");
+		ft_printf("Error: Failed to load Map xpms\n");
 		return (1);
 	}
 	game->player = malloc(sizeof(t_player));
@@ -37,12 +39,20 @@ int	start_game(t_game *game)
 		ft_printf("Error: t_player memory allocation failed\n");
 		return (1);
 	}
-	game->player->player_img = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_closed.xpm", &map->tile_size, &map->tile_size);
-	
-	game->player->x = map->width * map->tile_size / 2;
-    game->player->y = map->height * map->tile_size / 2;
-	map->x = 0; // map->width * map->tile_size / 2;
-	map->y = 0;// map->height * map->tile_size / 2;
+	game->player->pac_open_right = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_open_right.xpm", &map->tile_size, &map->tile_size);
+	game->player->pac_open_left = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_open_left.xpm", &map->tile_size, &map->tile_size);
+	game->player->pac_open_up = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_open_up.xpm", &map->tile_size, &map->tile_size);
+	game->player->pac_open_down = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_open_down.xpm", &map->tile_size, &map->tile_size);
+	game->player->pac_semi_left = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_semi_left.xpm", &map->tile_size, &map->tile_size);
+	game->player->pac_semi_right = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_semi_right.xpm", &map->tile_size, &map->tile_size);
+	game->player->pac_semi_up = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_semi_up.xpm", &map->tile_size, &map->tile_size);
+	game->player->pac_semi_down = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_semi_down.xpm", &map->tile_size, &map->tile_size);
+	game->player->pac_closed = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_closed.xpm", &map->tile_size, &map->tile_size);
+
+	game->player->x = 10 * map->tile_size;
+	game->player->y = 11 * map->tile_size;
+	map->x = 0;
+	map->y = 0;
 	return (0);
 }
 
@@ -54,18 +64,7 @@ int	main(void)
 		return (1);
 
 	draw_map(&game);
-	mlx_put_image_to_window(game.mlx, game.win, game.player->player_img, game.player->x, game.player->y);
-	/* reading map and printing full map in terminal*/
-	//int fd = open_map("maps/map.ber");
-	//create_map("maps/map.ber", &game);
-	//int map_size = read_map(fd);
-
-	//if (game.map->map)
-    //{
-    //    for (int i = 0; i < map_size; i++)
-    //        printf("string %d: %s\n", i, game.map->map[i]);
-    //}
-
+	mlx_put_image_to_window(game.mlx, game.win, game.player->pac_open_right, game.player->x, game.player->y);
 	mlx_hook(game.win, 17, 1L << 2, ft_exit, &game);
 	mlx_key_hook(game.win, &ft_hotkey, &game);
 	mlx_loop(game.mlx);

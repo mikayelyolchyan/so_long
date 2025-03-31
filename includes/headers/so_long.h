@@ -15,7 +15,17 @@
 
 typedef struct s_player
 {
-	void	*player_img;
+	void	*pac_open_right;
+	void	*pac_open_left;
+	void	*pac_open_down;
+	void	*pac_open_up;
+	void	*pac_semi_right;
+	void	*pac_semi_left;
+	void	*pac_semi_down;
+	void	*pac_semi_up;
+	void	*pac_closed;
+	int	frame;
+	int	frame_delay;
 	int	x;
 	int	y;
 }	t_player;
@@ -28,6 +38,8 @@ typedef struct s_map
 	int	height;
 	int	tile_size;
 	void	*wall_img;
+	void	*black_wall_img;
+	void	*food_img;
 	char	**map;
 }	t_map;
 
