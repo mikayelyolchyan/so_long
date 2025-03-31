@@ -51,6 +51,9 @@ int	start_game(t_game *game)
 
 	game->player->x = 10 * map->tile_size;
 	game->player->y = 11 * map->tile_size;
+	game->player->frame = 0;
+	game->player->frame_delay = 0;
+	game->player->direction = RIGHT;
 	map->x = 0;
 	map->y = 0;
 	return (0);
@@ -66,7 +69,8 @@ int	main(void)
 	draw_map(&game);
 	mlx_put_image_to_window(game.mlx, game.win, game.player->pac_open_right, game.player->x, game.player->y);
 	mlx_hook(game.win, 17, 1L << 2, ft_exit, &game);
-	mlx_key_hook(game.win, &ft_hotkey, &game);
+	mlx_hook(game.win, 2, 1L << 0, &ft_hotkey, &game);
+	mlx_loop_hook(game.mlx, &pac_animation, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }

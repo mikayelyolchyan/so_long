@@ -13,6 +13,11 @@
 # define S 115
 # define D 100
 
+# define LEFT 1
+# define RIGHT 2
+# define UP 3
+# define DOWN 4
+
 typedef struct s_player
 {
 	void	*pac_open_right;
@@ -26,6 +31,7 @@ typedef struct s_player
 	void	*pac_closed;
 	int	frame;
 	int	frame_delay;
+	int	direction;
 	int	x;
 	int	y;
 }	t_player;
@@ -66,5 +72,7 @@ int	ft_exit(t_game *game);
 int	ft_hotkey(int keycode, t_game *game);
 
 void	free_map(t_map *map);
+
+int	pac_animation(t_game *game);
 
 #endif

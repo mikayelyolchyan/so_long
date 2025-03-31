@@ -21,7 +21,7 @@ void	fill_map(t_map *map, int fd)
 	while (index < map->height)
 	{
 		line = get_next_line(fd);
-		map->width = ft_strlen(line);
+		map->width = ft_strlen(line) - 1;
 		if (line[map->width] == '\n')
 			line[map->width] = '\0';
 		map->map[index] = (char *)malloc(sizeof(char) * (map->width + 1));
