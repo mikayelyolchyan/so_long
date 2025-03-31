@@ -50,7 +50,7 @@ int	start_game(t_game *game)
 	game->player->pac_closed = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_closed.xpm", &map->tile_size, &map->tile_size);
 
 	game->player->x = 10 * map->tile_size;
-	game->player->y = 11 * map->tile_size;
+	game->player->y = 5 * map->tile_size;
 	game->player->frame = 0;
 	game->player->frame_delay = 0;
 	game->player->direction = RIGHT;
