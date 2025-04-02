@@ -54,6 +54,7 @@ int	start_game(t_game *game)
 	game->player->frame = 0;
 	game->player->frame_delay = 0;
 	game->player->direction = RIGHT;
+	game->player->pending_direction = -1;
 	map->x = 0;
 	map->y = 0;
 	return (0);

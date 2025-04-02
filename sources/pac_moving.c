@@ -1,6 +1,6 @@
 #include "../includes/headers/so_long.h"
 
-int	pac_moving(t_game *game)
+void	pac_moving_up_down(t_game *game)
 {
 	if (game->player->direction == UP)
 	{
@@ -18,7 +18,11 @@ int	pac_moving(t_game *game)
 		if (game->map->map[game->player->y / 32][game->player->x / 32] == 'C')
 			game->map->map[game->player->y / 32][game->player->x / 32] = '0';
 	}
-	else if (game->player->direction == LEFT)
+}
+
+void	pac_moving_left_right(t_game *game)
+{
+	if (game->player->direction == LEFT)
 	{
 		if (game->map->map[game->player->y / 32][(game->player->x - 4) / 32] != '1')
 			game->player->x -= 4;
@@ -34,6 +38,10 @@ int	pac_moving(t_game *game)
 		if (game->map->map[game->player->y / 32][game->player->x / 32] == 'C')
 			game->map->map[game->player->y / 32][game->player->x / 32] = '0';
 	}
+}
 
-    return (0);
+void	pac_moving(t_game *game)
+{
+	pac_moving_up_down(game);
+	pac_moving_left_right(game);
 }
