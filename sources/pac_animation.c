@@ -11,6 +11,7 @@ int	pac_animation(t_game *game)
 	{
 		player->frame = (player->frame + 1) % 3;
 		player->frame_delay = 0;
+		pac_moving(game);
 	}
 
 	if (player->direction == LEFT)
