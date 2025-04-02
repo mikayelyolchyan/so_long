@@ -13,7 +13,7 @@ GET_NEXT_LINE_DIR = $(LIB_DIR)/get_next_line
 
 SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/hotkeys.c $(SRC_DIR)/exit.c $(SRC_DIR)/map/map_utils.c \
 		$(SRC_DIR)/map/map_render.c $(SRC_DIR)/map/map_build.c $(SRC_DIR)/free.c \
-		$(SRC_DIR)/pac_animation.c
+		$(SRC_DIR)/pac_animation.c $(SRC_DIR)/pac_moving.c
 OBJS = $(SRCS:%.c=%.o)
 HEADER = $(INC_DIR)/so_long.h
 
