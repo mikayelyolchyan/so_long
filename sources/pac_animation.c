@@ -7,7 +7,7 @@ int	pac_animation(t_game *game)
 
 	player = game->player;
 	player->frame_delay++;
-	if (player->frame_delay >= 32)
+	if (player->frame_delay >= 16)
 	{
 		player->frame = (player->frame + 1) % 3;
 		player->frame_delay = 0;
