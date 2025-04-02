@@ -83,4 +83,6 @@ void pac_moving(t_game *game);
 
 void	update_direction(t_game *game);
 
+void	update_map(t_game *game);
+
 #endif
