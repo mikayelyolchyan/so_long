@@ -13,6 +13,7 @@
 # define S 115
 # define D 100
 
+# define STOP 0
 # define LEFT 1
 # define RIGHT 2
 # define UP 3
