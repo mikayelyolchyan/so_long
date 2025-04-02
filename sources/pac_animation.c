@@ -7,7 +7,7 @@ int	pac_animation(t_game *game)
 
 	player = game->player;
 	player->frame_delay++;
-	if (player->frame_delay >= 16)
+	if (player->frame_delay >= 1024)
 	{
 		player->frame = (player->frame + 1) % 3;
 		player->frame_delay = 0;
@@ -57,7 +57,8 @@ int	pac_animation(t_game *game)
 	}
 
 	// mlx_clear_window(game->mlx, game->win);
-    draw_map(game);
+    //draw_map(game);
+	update_map(game);
     mlx_put_image_to_window(game->mlx, game->win, current_img, game->player->x, game->player->y);
 	return (0);
 }
