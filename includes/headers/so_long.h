@@ -7,6 +7,8 @@
 # include "../libraries/get_next_line/get_next_line_bonus.h"
 # include "../libraries/mlx_linux/mlx.h"
 
+# include <math.h>
+
 # define ESC 65307
 # define W 119
 # define A 97
@@ -33,6 +35,7 @@ typedef struct s_player
 	int	frame;
 	int	frame_delay;
 	int	direction;
+	int	pending_direction;
 	int	x;
 	int	y;
 }	t_player;
@@ -76,6 +79,8 @@ void	free_map(t_map *map);
 
 int	pac_animation(t_game *game);
 
-int pac_moving(t_game *game);
+void pac_moving(t_game *game);
+
+void	update_direction(t_game *game);
 
 #endif

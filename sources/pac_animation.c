@@ -11,6 +11,7 @@ int	pac_animation(t_game *game)
 	{
 		player->frame = (player->frame + 1) % 3;
 		player->frame_delay = 0;
+		update_direction(game);
 		pac_moving(game);
 	}
 
@@ -55,7 +56,7 @@ int	pac_animation(t_game *game)
 		current_img = player->pac_closed;
 	}
 
-	mlx_clear_window(game->mlx, game->win);
+	// mlx_clear_window(game->mlx, game->win);
     draw_map(game);
     mlx_put_image_to_window(game->mlx, game->win, current_img, game->player->x, game->player->y);
 	return (0);
