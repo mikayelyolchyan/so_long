@@ -15,9 +15,9 @@ void	draw_map(t_game *game)
 		{
 			if (map->map[y][x] == '1')
 				mlx_put_image_to_window(game->mlx, game->win, map->wall_img, x * map->tile_size, y * map->tile_size);
-			if (map->map[y][x] == '0')
+			else if (map->map[y][x] == '0')
 				mlx_put_image_to_window(game->mlx, game->win, map->black_wall_img, x * map->tile_size, y * map->tile_size);
-			if (map->map[y][x] == 'C')
+			else if (map->map[y][x] == 'C')
 				mlx_put_image_to_window(game->mlx, game->win, map->food_img, x * map->tile_size, y * map->tile_size);
 			x++;
 		}

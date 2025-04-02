@@ -70,7 +70,8 @@ int	main(void)
 	mlx_put_image_to_window(game.mlx, game.win, game.player->pac_open_right, game.player->x, game.player->y);
 	mlx_hook(game.win, 17, 1L << 2, ft_exit, &game);
 	mlx_hook(game.win, 2, 1L << 0, &ft_hotkey, &game);
-	mlx_loop_hook(game.mlx, &pac_animation, &game);
+	mlx_loop_hook(game.mlx, &pac_moving, &game);
+	//mlx_loop_hook(game.mlx, &pac_animation, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }

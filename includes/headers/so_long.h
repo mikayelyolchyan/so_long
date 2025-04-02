@@ -75,4 +75,6 @@ void	free_map(t_map *map);
 
 int	pac_animation(t_game *game);
 
+int pac_moving(t_game *game);
+
 #endif
