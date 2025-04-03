@@ -49,12 +49,31 @@ int	start_game(t_game *game)
 	game->player->pac_semi_down = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_semi_down.xpm", &map->tile_size, &map->tile_size);
 	game->player->pac_closed = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_closed.xpm", &map->tile_size, &map->tile_size);
 
-	game->player->x = 10 * map->tile_size;
-	game->player->y = 5 * map->tile_size;
-	game->player->frame = 0;
-	game->player->frame_delay = 0;
+	game->player->x = 1 * map->tile_size;
+	game->player->y = 1 * map->tile_size;
 	game->player->direction = RIGHT;
 	game->player->pending_direction = -1;
+
+	game->r_ghost = malloc(sizeof(t_ghost));
+	if (!game->player)
+	{
+		ft_printf("Error: r_ghost memory allocation failed\n");
+		return (1);
+	}
+	game->r_ghost->ghost_down1 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_down1.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_down2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_down2.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_up1 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_up1.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_up2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_up2.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_left1 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_left1.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_left2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_left2.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_right1 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_right1.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_right2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_right2.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->x = 10 * map->tile_size;
+	game->r_ghost->y = 11 * map->tile_size;
+	game->r_ghost->direction = RIGHT;
+
+	game->frame = 0;
+	game->frame_delay = 0;
 	map->x = 0;
 	map->y = 0;
 	return (0);
@@ -71,7 +90,7 @@ int	main(void)
 	mlx_put_image_to_window(game.mlx, game.win, game.player->pac_open_right, game.player->x, game.player->y);
 	mlx_hook(game.win, 17, 1L << 2, ft_exit, &game);
 	mlx_hook(game.win, 2, 1L << 0, &ft_hotkey, &game);
-	mlx_loop_hook(game.mlx, &pac_animation, &game);
+	mlx_loop_hook(game.mlx, &game_animation, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }

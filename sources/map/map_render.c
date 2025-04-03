@@ -24,8 +24,7 @@ void	draw_map(t_game *game)
 		y++;
 	}
 }
-
-void	update_map(t_game *game)
-{
-	mlx_put_image_to_window(game->mlx, game->win, game->map->wall_img, game->player->x * 32, game->player->y / 32);
-}
+//void	update_map(t_game *game, char **map, int direction)
+//{
+//	return ;
+//}

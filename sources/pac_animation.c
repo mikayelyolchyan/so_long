@@ -1,64 +1,51 @@
 #include "../includes/headers/so_long.h"
 
-int	pac_animation(t_game *game)
+void	*get_pac_vertical_animation(t_game *game, t_player *player)
 {
-	t_player *player;
 	void	*current_img;
 
-	player = game->player;
-	player->frame_delay++;
-	if (player->frame_delay >= 1024)
+	if (player->direction == UP)
 	{
-		player->frame = (player->frame + 1) % 3;
-		player->frame_delay = 0;
-		update_direction(game);
-		pac_moving(game);
-	}
-
-	if (player->direction == LEFT)
-	{
-		if (player->frame == 0)
+		if (game->frame == 0)
 			current_img = player->pac_closed;
-		else if (player->frame == 1)
-			current_img = player->pac_semi_left;
-		else if (player->frame == 2)
-			current_img = player->pac_open_left;
-	}
-	else if (player->direction == RIGHT)
-	{
-		if (player->frame == 0)
-			current_img = player->pac_closed;
-		else if (player->frame == 1)
-			current_img = player->pac_semi_right;
-		else if (player->frame == 2)
-			current_img = player->pac_open_right;
-	}
-	else if (player->direction == UP)
-	{
-		if (player->frame == 0)
-			current_img = player->pac_closed;
-		else if (player->frame == 1)
+		else if (game->frame == 1 || game->frame == 3)
 			current_img = player->pac_semi_up;
-		else if (player->frame == 2)
+		else if (game->frame == 2)
 			current_img = player->pac_open_up;
 	}
 	else if (player->direction == DOWN)
 	{
-		if (player->frame == 0)
+		if (game->frame == 0)
 			current_img = player->pac_closed;
-		else if (player->frame == 1)
+		else if (game->frame == 1 || game->frame == 3)
 			current_img = player->pac_semi_down;
-		else if (player->frame == 2)
+		else if (game->frame == 2)
 			current_img = player->pac_open_down;
 	}
-	else
-	{
-		current_img = player->pac_closed;
-	}
+	return (current_img);
+}
 
-	// mlx_clear_window(game->mlx, game->win);
-    //draw_map(game);
-	update_map(game);
-    mlx_put_image_to_window(game->mlx, game->win, current_img, game->player->x, game->player->y);
-	return (0);
+void	*get_pac_horizontal_animation(t_game *game, t_player *player)
+{
+	void	*current_img;
+
+	if (player->direction == LEFT)
+	{
+		if (game->frame == 0)
+			current_img = player->pac_closed;
+		else if (game->frame == 1 || game->frame == 3)
+			current_img = player->pac_semi_left;
+		else if (game->frame == 2)
+			current_img = player->pac_open_left;
+	}
+	else if (player->direction == RIGHT)
+	{
+		if (game->frame == 0)
+			current_img = player->pac_closed;
+		else if (game->frame == 1 || game->frame == 3)
+			current_img = player->pac_semi_right;
+		else if (game->frame == 2)
+			current_img = player->pac_open_right;
+	}
+	return (current_img);
 }
