@@ -36,6 +36,8 @@ typedef struct s_ghost
 	int		pending_direction;
 	int		x;
 	int		y;
+	int		prev_x;
+	int		prev_y;
 }	t_ghost;
 
 typedef struct s_player
@@ -53,6 +55,8 @@ typedef struct s_player
 	int	pending_direction;
 	int	x;
 	int	y;
+	int	prev_x;
+	int	prev_y;
 }	t_player;
 
 typedef struct s_map

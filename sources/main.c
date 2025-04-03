@@ -53,6 +53,8 @@ int	start_game(t_game *game)
 	game->player->y = 1 * map->tile_size;
 	game->player->direction = RIGHT;
 	game->player->pending_direction = -1;
+	game->player->prev_x = -1;
+    game->player->prev_y = -1;
 
 	game->r_ghost = malloc(sizeof(t_ghost));
 	if (!game->player)
@@ -71,6 +73,8 @@ int	start_game(t_game *game)
 	game->r_ghost->x = 10 * map->tile_size;
 	game->r_ghost->y = 11 * map->tile_size;
 	game->r_ghost->direction = RIGHT;
+	game->r_ghost->prev_x = -1;
+    game->r_ghost->prev_y = -1;
 
 	game->frame = 0;
 	game->frame_delay = 0;
