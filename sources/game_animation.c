@@ -64,8 +64,10 @@ int	game_animation(t_game *game)
 
 	// mlx_clear_window(game->mlx, game->win);
 	//draw_map(game);
+	update_map(game, game->map->map, game->r_ghost->direction);
 	mlx_put_image_to_window(game->mlx, game->win, pac_current_img, game->player->x, game->player->y);
 	mlx_put_image_to_window(game->mlx, game->win, ghost_current_img, game->r_ghost->x, game->r_ghost->y);
 	//update_map(game, game->map->map, game->r_ghost->direction);
+
 	return (0);
 }

@@ -2,6 +2,9 @@
 
 void	pac_moving_up_down(t_game *game)
 {
+	game->player->prev_x = game->player->x;
+    game->player->prev_y = game->player->y;
+	
 	if (game->player->direction == UP)
 	{
 		if (game->map->map[(game->player->y - 4) / 32][game->player->x / 32] != '1')
