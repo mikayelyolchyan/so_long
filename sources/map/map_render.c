@@ -27,15 +27,6 @@ void	draw_map(t_game *game)
 
 void	update_map(t_game *game, char **map, int direction)
 {
-	if (direction == UP && map[(game->r_ghost->prev_y) / 32][game->r_ghost->prev_x / 32] == '0' && game->r_ghost->prev_x % 32 == 0)
-		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->r_ghost->prev_x, (game->r_ghost->prev_y));
-	else if (direction == DOWN && map[(game->r_ghost->prev_y) / 32][game->r_ghost->prev_x / 32] == '0' && game->r_ghost->prev_x % 32 == 0)
-		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->r_ghost->prev_x, (game->r_ghost->prev_y));
-	else if (direction == LEFT && map[game->r_ghost->prev_y / 32][(game->r_ghost->prev_x) / 32] == '0' && game->r_ghost->prev_y % 32 == 0)
-		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->r_ghost->prev_x), game->r_ghost->prev_y);
-	else if (direction == RIGHT && map[game->r_ghost->prev_y / 32][(game->r_ghost->prev_x) / 32] == '0' && game->r_ghost->prev_y % 32 == 0)
-		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->r_ghost->prev_x), game->r_ghost->prev_y);
-	
 	if (direction == UP && map[(game->r_ghost->prev_y) / 32][game->r_ghost->prev_x / 32] == 'C' && game->r_ghost->prev_x % 32 == 0)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->food_img, game->r_ghost->prev_x, (game->r_ghost->prev_y));
 	else if (direction == DOWN && map[(game->r_ghost->prev_y) / 32][game->r_ghost->prev_x / 32] == 'C' && game->r_ghost->prev_x % 32 == 0)
@@ -45,4 +36,12 @@ void	update_map(t_game *game, char **map, int direction)
 	else if (direction == RIGHT && map[game->r_ghost->prev_y / 32][(game->r_ghost->prev_x) / 32] == 'C' && game->r_ghost->prev_y % 32 == 0)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->food_img, (game->r_ghost->prev_x), game->r_ghost->prev_y);
 	
+	if (direction == UP && map[(game->r_ghost->prev_y) / 32][game->r_ghost->prev_x / 32] == '0' && game->r_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->r_ghost->prev_x, (game->r_ghost->prev_y));
+	else if (direction == DOWN && map[(game->r_ghost->prev_y) / 32][game->r_ghost->prev_x / 32] == '0' && game->r_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->r_ghost->prev_x, (game->r_ghost->prev_y));
+	else if (direction == LEFT && map[game->r_ghost->prev_y / 32][(game->r_ghost->prev_x) / 32] == '0' && game->r_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->r_ghost->prev_x), game->r_ghost->prev_y);
+	else if (direction == RIGHT && map[game->r_ghost->prev_y / 32][(game->r_ghost->prev_x) / 32] == '0' && game->r_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->r_ghost->prev_x), game->r_ghost->prev_y);
 }
