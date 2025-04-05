@@ -19,15 +19,18 @@ int	start_game(t_game *game)
 	}
 	map->tile_size = 32;
 	create_map("maps/classic.ber", game);
-	game->win = mlx_new_window(game->mlx, map->width * map->tile_size, map->height * map->tile_size, "PACMAN");
+	game->win = mlx_new_window(game->mlx, map->width * map->tile_size, map->height * map->tile_size + 32, "PACMAN");
 	if (!game->win)
 	{
 		ft_printf("Window creating Error\n");
 		return (1);
 	}
+
 	map->wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/wall.xpm", &map->tile_size, &map->tile_size);
 	map->black_wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/black.xpm", &map->tile_size, &map->tile_size);
 	map->food_img = mlx_xpm_file_to_image(game->mlx, "sprites/Pacdots/pacdot_food.xpm", &map->tile_size, &map->tile_size);
+	map->portal_img = mlx_xpm_file_to_image(game->mlx, "sprites/Portal/portal.xpm", &map->tile_size, &map->tile_size);
+	map->logo_img = mlx_xpm_file_to_image(game->mlx, "sprites/Logo/logo.xpm", &map->tile_size, &map->tile_size);
 	if (!map->wall_img || !map->food_img)
 	{
 		ft_printf("Error: Failed to load Map xpms\n");
@@ -49,12 +52,10 @@ int	start_game(t_game *game)
 	game->player->pac_semi_down = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_semi_down.xpm", &map->tile_size, &map->tile_size);
 	game->player->pac_closed = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_closed.xpm", &map->tile_size, &map->tile_size);
 
-	game->player->x = 1 * map->tile_size;
-	game->player->y = 1 * map->tile_size;
+	game->player->x = 13 * map->tile_size;
+	game->player->y = 17 * map->tile_size;
 	game->player->direction = RIGHT;
 	game->player->pending_direction = -1;
-	game->player->prev_x = -1;
-    game->player->prev_y = -1;
 
 	game->r_ghost = malloc(sizeof(t_ghost));
 	if (!game->player)
@@ -70,11 +71,14 @@ int	start_game(t_game *game)
 	game->r_ghost->ghost_left2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_left2.xpm", &map->tile_size, &map->tile_size);
 	game->r_ghost->ghost_right1 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_right1.xpm", &map->tile_size, &map->tile_size);
 	game->r_ghost->ghost_right2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_right2.xpm", &map->tile_size, &map->tile_size);
-	game->r_ghost->x = 10 * map->tile_size;
+	game->r_ghost->x = 14 * map->tile_size;
 	game->r_ghost->y = 11 * map->tile_size;
 	game->r_ghost->direction = RIGHT;
 	game->r_ghost->prev_x = -1;
     game->r_ghost->prev_y = -1;
+	game->r_ghost->in_zone = 0;
+	game->r_ghost->targ_x = game->map->width * 32;
+	game->r_ghost->targ_y = 0;
 
 	game->frame = 0;
 	game->frame_delay = 0;
@@ -92,6 +96,7 @@ int	main(void)
 
 	draw_map(&game);
 	mlx_put_image_to_window(game.mlx, game.win, game.player->pac_open_right, game.player->x, game.player->y);
+	mlx_put_image_to_window(game.mlx, game.win, game.map->logo_img, game.map->width / 2 * 32 - 65, game.map->height * 32);
 	mlx_hook(game.win, 17, 1L << 2, ft_exit, &game);
 	mlx_hook(game.win, 2, 1L << 0, &ft_hotkey, &game);
 	mlx_loop_hook(game.mlx, &game_animation, &game);

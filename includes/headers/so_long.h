@@ -38,6 +38,9 @@ typedef struct s_ghost
 	int		y;
 	int		prev_x;
 	int		prev_y;
+	int		targ_x;
+	int		targ_y;
+	int		in_zone;
 }	t_ghost;
 
 typedef struct s_player
@@ -55,8 +58,6 @@ typedef struct s_player
 	int	pending_direction;
 	int	x;
 	int	y;
-	int	prev_x;
-	int	prev_y;
 }	t_player;
 
 typedef struct s_map
@@ -69,6 +70,8 @@ typedef struct s_map
 	void	*wall_img;
 	void	*black_wall_img;
 	void	*food_img;
+	void	*portal_img;
+	void	*logo_img;
 	char	**map;
 }	t_map;
 
