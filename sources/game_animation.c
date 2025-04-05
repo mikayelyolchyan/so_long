@@ -1,15 +1,44 @@
 #include "../includes/headers/so_long.h"
 
-void	handle_pac_ghost_animation_moving_timings(t_game *game)
+void	handle_all_animation_timings(t_game *game)
 {
 	game->frame_delay++;
-	if (game->frame_delay >= 1024)
+	game->attack_mode_delay++;
+	game->power_up_img_delay++;
+	//printf("%llu\n", game->attack_mode_delay);
+	if (game->frame_delay >= 750)
 	{
 		game->frame = (game->frame + 1) % 4;
 		game->frame_delay = 0;
 		update_direction(game);
 		pac_moving(game);
 		ghost_moving(game);
+	}
+	if (game->attack_mode_delay >= 900000)
+		game->attack_mode_delay = 0;
+
+	if (game->power_up_img_delay >= 5000)
+	{
+		if (game->map->map[3][1] == 'U')
+			mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 1 * game->map->tile_size, 3 * game->map->tile_size);
+		if (game->map->map[3][24] == 'U')
+			mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 24 * game->map->tile_size, 3 * game->map->tile_size);
+		if (game->map->map[17][1] == 'U')
+			mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 1 * game->map->tile_size, 17 * game->map->tile_size);
+		if (game->map->map[17][24] == 'U')
+			mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 24 * game->map->tile_size, 17 * game->map->tile_size);
+	}
+	if (game->power_up_img_delay >= 10000)
+	{
+		game->power_up_img_delay = 0;
+		if (game->map->map[3][1] == 'U')
+			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 1 * game->map->tile_size, 3 * game->map->tile_size);
+		if (game->map->map[3][24] == 'U')
+			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 24 * game->map->tile_size, 3 * game->map->tile_size);
+		if (game->map->map[17][1] == 'U')
+			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 1 * game->map->tile_size, 17 * game->map->tile_size);
+		if (game->map->map[17][24] == 'U')
+			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 24 * game->map->tile_size, 17 * game->map->tile_size);
 	}
 }
 
@@ -57,7 +86,7 @@ int	game_animation(t_game *game)
 	player = game->player;
 	r_ghost = game->r_ghost;
 
-	handle_pac_ghost_animation_moving_timings(game);
+	handle_all_animation_timings(game);
 
 	pac_current_img = get_pac_current_img(game, player);
 	ghost_current_img = get_ghost_current_img(game, r_ghost);
