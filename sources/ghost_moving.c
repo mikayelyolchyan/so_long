@@ -40,16 +40,17 @@ void ghost_direction(t_game *game)
     char **map = game->map->map;
     int current = game->r_ghost->direction;
 	
-	if (game->player->x / 32 >= game->map->width / 2 && game->player->y / 32 <= game->map->height / 2)
+	// game->player->x / 32 >= game->map->width / 2 && game->player->y / 32 <= game->map->height / 2
+	if (game->attack_mode_delay >= 300000)
 	{
-		game->r_ghost->in_zone = 1;
+		game->attack_mode = 1;
 	}
 	else
 	{
-		game->r_ghost->in_zone = 0;
+		game->attack_mode = 0;
 	}
 
-	if (game->r_ghost->in_zone == 1)
+	if (game->attack_mode == 1)
 	{
 		game->r_ghost->targ_x = game->player->x;
 		game->r_ghost->targ_y = game->player->y;

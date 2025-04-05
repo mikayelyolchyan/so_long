@@ -31,6 +31,7 @@ int	start_game(t_game *game)
 	map->food_img = mlx_xpm_file_to_image(game->mlx, "sprites/Pacdots/pacdot_food.xpm", &map->tile_size, &map->tile_size);
 	map->portal_img = mlx_xpm_file_to_image(game->mlx, "sprites/Portal/portal.xpm", &map->tile_size, &map->tile_size);
 	map->logo_img = mlx_xpm_file_to_image(game->mlx, "sprites/Logo/logo.xpm", &map->tile_size, &map->tile_size);
+	map->power_up_img = mlx_xpm_file_to_image(game->mlx, "sprites/Pacdots/pacdot_powerup.xpm", &map->tile_size, &map->tile_size);
 	if (!map->wall_img || !map->food_img)
 	{
 		ft_printf("Error: Failed to load Map xpms\n");
@@ -76,12 +77,13 @@ int	start_game(t_game *game)
 	game->r_ghost->direction = RIGHT;
 	game->r_ghost->prev_x = -1;
     game->r_ghost->prev_y = -1;
-	game->r_ghost->in_zone = 0;
 	game->r_ghost->targ_x = game->map->width * 32;
 	game->r_ghost->targ_y = 0;
 
 	game->frame = 0;
 	game->frame_delay = 0;
+	game->attack_mode = 0;
+	game->power_up_img_delay = 0;
 	map->x = 0;
 	map->y = 0;
 	return (0);
