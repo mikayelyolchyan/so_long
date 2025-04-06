@@ -66,13 +66,21 @@ void	*get_ghost_current_img(t_game *game, t_ghost *r_ghost)
 	{
 		current_img = get_ghost_vertical_animation(game, r_ghost);
 	}
-	else if ((r_ghost->direction == LEFT || r_ghost->direction == RIGHT) && game->pac_attack_mode == 1)
+	else if ((r_ghost->direction == LEFT || r_ghost->direction == RIGHT) && game->pac_attack_mode == 1 && game->pac_attack_mode_delay <= 150)
 	{
 		current_img = get_ghost_panic_horizontal_animation(game, r_ghost);
 	}
-	else if ((r_ghost->direction == UP || r_ghost->direction == DOWN) && game->pac_attack_mode == 1)
+	else if ((r_ghost->direction == UP || r_ghost->direction == DOWN) && game->pac_attack_mode == 1 && game->pac_attack_mode_delay <= 150)
 	{
 		current_img = get_ghost_panic_vertical_animation(game, r_ghost);
+	}
+	else if ((r_ghost->direction == LEFT || r_ghost->direction == RIGHT) && game->pac_attack_mode == 1 && game->pac_attack_mode_delay >= 150)
+	{
+		current_img = get_ghost_panic_flashing_horizontal_animation(game, r_ghost);
+	}
+	else if ((r_ghost->direction == UP || r_ghost->direction == DOWN) && game->pac_attack_mode == 1 && game->pac_attack_mode_delay >= 150)
+	{
+		current_img = get_ghost_panic_flashing_vertical_animation(game, r_ghost);
 	}
 	return (current_img);
 }

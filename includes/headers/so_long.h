@@ -135,4 +135,8 @@ void	*get_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost);
 
 void	*get_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost);
 
+void	*get_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost);
+
+void	*get_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost);
+
 #endif
