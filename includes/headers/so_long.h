@@ -32,7 +32,10 @@ typedef struct s_ghost
 	void	*ghost_left2;
 	void	*ghost_right1;
 	void	*ghost_right2;
-	
+	void	*ghost_panic1a;
+	void	*ghost_panic1b;
+	void	*ghost_panic2a;
+	void	*ghost_panic2b;
 	int		direction;
 	int		pending_direction;
 	int		x;
@@ -82,8 +85,9 @@ typedef struct s_game
 	void		*win;
 	int			frame;
 	int			frame_delay;
-	int			attack_mode;
-	int			attack_mode_delay;
+	int			ghost_attack_mode;
+	int			ghost_attack_mode_delay;
+	int			pac_attack_mode;
 	int			power_up_img_delay;
 	t_map		*map;
 	t_player	*player;
@@ -123,5 +127,9 @@ void	*get_ghost_vertical_animation(t_game *game, t_ghost *r_ghost);
 void	*get_ghost_horizontal_animation(t_game *game, t_ghost *r_ghost);
 
 void	ghost_moving(t_game *game);
+
+void	*get_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost);
+
+void	*get_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost);
 
 #endif

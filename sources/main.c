@@ -80,10 +80,16 @@ int	start_game(t_game *game)
 	game->r_ghost->targ_x = game->map->width * 32;
 	game->r_ghost->targ_y = 0;
 
+	game->r_ghost->ghost_panic1a = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/Panic/ghost_panic1a.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_panic1b = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/Panic/ghost_panic1b.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_panic2a = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/Panic/ghost_panic2a.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_panic2b = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/Panic/ghost_panic2b.xpm", &map->tile_size, &map->tile_size);
+
 	game->frame = 0;
 	game->frame_delay = 0;
-	game->attack_mode = 0;
+	game->ghost_attack_mode = 0;
 	game->power_up_img_delay = 0;
+	game->pac_attack_mode = 0;
 	map->x = 0;
 	map->y = 0;
 	return (0);
