@@ -90,6 +90,8 @@ int	start_game(t_game *game)
 	game->ghost_attack_mode = 0;
 	game->power_up_img_delay = 0;
 	game->pac_attack_mode = 0;
+	game->last_pac_attack_mode = 0;
+	game->pac_attack_mode_delay = 0;
 	map->x = 0;
 	map->y = 0;
 	return (0);

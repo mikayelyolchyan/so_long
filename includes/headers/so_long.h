@@ -88,7 +88,10 @@ typedef struct s_game
 	int			ghost_attack_mode;
 	int			ghost_attack_mode_delay;
 	int			pac_attack_mode;
+	int			last_pac_attack_mode;
+	int 		pac_attack_mode_delay;
 	int			power_up_img_delay;
+
 	t_map		*map;
 	t_player	*player;
 	t_ghost		*r_ghost;

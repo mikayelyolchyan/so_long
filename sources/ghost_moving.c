@@ -39,55 +39,88 @@ void ghost_direction(t_game *game)
     int dist_right = INT_MAX;
     char **map = game->map->map;
     int current = game->r_ghost->direction;
-	
-	// game->player->x / 32 >= game->map->width / 2 && game->player->y / 32 <= game->map->height / 2
-	if (game->ghost_attack_mode_delay >= 300000 && game->pac_attack_mode == 0)
-	{
-		game->ghost_attack_mode = 1;
-	}
-	else if (game->ghost_attack_mode_delay <= 300000 && game->pac_attack_mode == 0)
-	{
-		game->ghost_attack_mode = 0;
-	}
 
-	if (game->ghost_attack_mode == 1 && game->pac_attack_mode == 0)
-	{
-		game->r_ghost->targ_x = game->player->x;
-		game->r_ghost->targ_y = game->player->y;
-	}
-	else if (game->ghost_attack_mode == 0 && game->pac_attack_mode == 0)
-	{
-		game->r_ghost->targ_x = game->map->width * 32;
-		game->r_ghost->targ_y = 0;
-	}
+    // Логика режимов атаки
+    if (game->ghost_attack_mode_delay >= 300000 && game->pac_attack_mode == 0)
+        game->ghost_attack_mode = 1;
+    else if (game->ghost_attack_mode_delay <= 300000 && game->pac_attack_mode == 0)
+        game->ghost_attack_mode = 0;
 
-	if (game->pac_attack_mode == 1)
-	{
-		game->r_ghost->targ_x = game->player->x;
-		game->r_ghost->targ_y = game->player->y;
-	}
+    // Установка цели
+    if (game->ghost_attack_mode == 1 && game->pac_attack_mode == 0)
+    {
+        game->r_ghost->targ_x = game->player->x;
+        game->r_ghost->targ_y = game->player->y;
+    }
+    else if (game->ghost_attack_mode == 0 && game->pac_attack_mode == 0)
+    {
+        game->r_ghost->targ_x = game->map->width * 32;
+        game->r_ghost->targ_y = 0;
+    }
+    else if (game->pac_attack_mode == 1)
+    {
+        game->r_ghost->targ_x = game->player->x;
+        game->r_ghost->targ_y = game->player->y;
+    }
 
-    if (current != DOWN && map[(game->r_ghost->y - 32) / 32][game->r_ghost->x / 32] != '1')
-	{
-        dist_up = distance_calculator(game->r_ghost->x, game->r_ghost->targ_x, game->r_ghost->y - 32, game->r_ghost->targ_y);
-	}
-    if (current != RIGHT && map[game->r_ghost->y / 32][(game->r_ghost->x - 32) / 32] != '1')
-	{
-        dist_left = distance_calculator(game->r_ghost->x - 32, game->r_ghost->targ_x, game->r_ghost->y, game->r_ghost->targ_y);
-	}
-    if (current != UP && map[(game->r_ghost->y + 32) / 32][game->r_ghost->x / 32] != '1')
-        dist_down = distance_calculator(game->r_ghost->x, game->r_ghost->targ_x, game->r_ghost->y + 32, game->r_ghost->targ_y);
-    if (current != LEFT && map[game->r_ghost->y / 32][(game->r_ghost->x + 32) / 32] != '1')
-	{
-        dist_right = distance_calculator(game->r_ghost->x + 32, game->r_ghost->targ_x, game->r_ghost->y, game->r_ghost->targ_y);
-	}
-	
-	if (game->pac_attack_mode == 1)
-	{
-        int max_dist = -1;  // Initialize to -1 since we want maximum distance
-        game->r_ghost->pending_direction = UP;  // Default direction
+    // Первый шаг при активации pac_attack_mode: максимальное расстояние от Пакмана
+    if (game->pac_attack_mode == 1 && game->last_pac_attack_mode == 0)
+    {
+        // Вычисляем расстояния от текущей позиции призрака до Пакмана
+        if (map[(game->r_ghost->y - 32) / 32][game->r_ghost->x / 32] != '1')
+            dist_up = distance_calculator(game->r_ghost->x, game->player->x, game->r_ghost->y - 32, game->player->y);
+        if (map[game->r_ghost->y / 32][(game->r_ghost->x - 32) / 32] != '1')
+            dist_left = distance_calculator(game->r_ghost->x - 32, game->player->x, game->r_ghost->y, game->player->y);
+        if (map[(game->r_ghost->y + 32) / 32][game->r_ghost->x / 32] != '1')
+            dist_down = distance_calculator(game->r_ghost->x, game->player->x, game->r_ghost->y + 32, game->player->y);
+        if (map[game->r_ghost->y / 32][(game->r_ghost->x + 32) / 32] != '1')
+            dist_right = distance_calculator(game->r_ghost->x + 32, game->player->x, game->r_ghost->y, game->player->y);
 
-        // Only consider directions that are actually possible (not INT_MAX)
+        int max_dist = -1;
+        game->r_ghost->pending_direction = UP;
+
+        if (dist_up != INT_MAX && dist_up > max_dist)
+        {
+            max_dist = dist_up;
+            game->r_ghost->pending_direction = UP;
+        }
+        if (dist_left != INT_MAX && dist_left > max_dist)
+        {
+            max_dist = dist_left;
+            game->r_ghost->pending_direction = LEFT;
+        }
+        if (dist_down != INT_MAX && dist_down > max_dist)
+        {
+            max_dist = dist_down;
+            game->r_ghost->pending_direction = DOWN;
+        }
+        if (dist_right != INT_MAX && dist_right > max_dist)
+        {
+            max_dist = dist_right;
+            game->r_ghost->pending_direction = RIGHT;
+        }
+
+        // Принудительно применяем разворот
+        if (ghost_can_move_vertical(game, map, game->r_ghost->pending_direction) || 
+            ghost_can_move_horizontal(game, map, game->r_ghost->pending_direction))
+            game->r_ghost->direction = game->r_ghost->pending_direction;
+    }
+    // Режим бегства после первого шага
+    else if (game->pac_attack_mode == 1)
+    {
+        // Пересчитываем расстояния с учетом текущего направления
+        if (current != DOWN && map[(game->r_ghost->y - 32) / 32][game->r_ghost->x / 32] != '1')
+            dist_up = distance_calculator(game->r_ghost->x, game->r_ghost->targ_x, game->r_ghost->y - 32, game->r_ghost->targ_y);
+        if (current != RIGHT && map[game->r_ghost->y / 32][(game->r_ghost->x - 32) / 32] != '1')
+            dist_left = distance_calculator(game->r_ghost->x - 32, game->r_ghost->targ_x, game->r_ghost->y, game->r_ghost->targ_y);
+        if (current != UP && map[(game->r_ghost->y + 32) / 32][game->r_ghost->x / 32] != '1')
+            dist_down = distance_calculator(game->r_ghost->x, game->r_ghost->targ_x, game->r_ghost->y + 32, game->r_ghost->targ_y);
+        if (current != LEFT && map[game->r_ghost->y / 32][(game->r_ghost->x + 32) / 32] != '1')
+            dist_right = distance_calculator(game->r_ghost->x + 32, game->r_ghost->targ_x, game->r_ghost->y, game->r_ghost->targ_y);
+
+        int max_dist = -1;
+        game->r_ghost->pending_direction = UP;
+
         if (dist_up != INT_MAX && dist_up > max_dist)
         {
             max_dist = dist_up;
@@ -109,8 +142,19 @@ void ghost_direction(t_game *game)
             game->r_ghost->pending_direction = RIGHT;
         }
     }
-	else  // Chasing mode: choose shortest distance
+    // Режим преследования
+    else
     {
+        // Пересчитываем расстояния для преследования
+        if (current != DOWN && map[(game->r_ghost->y - 32) / 32][game->r_ghost->x / 32] != '1')
+            dist_up = distance_calculator(game->r_ghost->x, game->r_ghost->targ_x, game->r_ghost->y - 32, game->r_ghost->targ_y);
+        if (current != RIGHT && map[game->r_ghost->y / 32][(game->r_ghost->x - 32) / 32] != '1')
+            dist_left = distance_calculator(game->r_ghost->x - 32, game->r_ghost->targ_x, game->r_ghost->y, game->r_ghost->targ_y);
+        if (current != UP && map[(game->r_ghost->y + 32) / 32][game->r_ghost->x / 32] != '1')
+            dist_down = distance_calculator(game->r_ghost->x, game->r_ghost->targ_x, game->r_ghost->y + 32, game->r_ghost->targ_y);
+        if (current != LEFT && map[game->r_ghost->y / 32][(game->r_ghost->x + 32) / 32] != '1')
+            dist_right = distance_calculator(game->r_ghost->x + 32, game->r_ghost->targ_x, game->r_ghost->y, game->r_ghost->targ_y);
+
         int min_dist = INT_MAX;
         game->r_ghost->pending_direction = UP;
 
@@ -135,40 +179,8 @@ void ghost_direction(t_game *game)
             game->r_ghost->pending_direction = RIGHT;
         }
     }
-    //int min_dist = dist_up;
-    //game->r_ghost->pending_direction = UP;
-    //if (dist_left < min_dist && game->pac_attack_mode == 0)
-    //{
-    //    min_dist = dist_left;
-    //    game->r_ghost->pending_direction = LEFT;
-    //}
-    //if (dist_down < min_dist && game->pac_attack_mode == 0)
-    //{
-    //    min_dist = dist_down;
-    //    game->r_ghost->pending_direction = DOWN;
-    //}
-    //if (dist_right < min_dist && game->pac_attack_mode == 0)
-    //{
-    //    min_dist = dist_right;
-    //    game->r_ghost->pending_direction = RIGHT;
-    //}
 
-
-	//if (dist_left > min_dist && game->pac_attack_mode == 1)
-    //{
-    //    min_dist = dist_left;
-    //    game->r_ghost->pending_direction = LEFT;
-    //}
-	//if (dist_down > min_dist && game->pac_attack_mode == 1)
-    //{
-    //    min_dist = dist_down;
-    //    game->r_ghost->pending_direction = DOWN;
-    //}
-	//if (dist_right > min_dist && game->pac_attack_mode == 1)
-    //{
-    //    min_dist = dist_right;
-    //    game->r_ghost->pending_direction = RIGHT;
-    //}
+    game->last_pac_attack_mode = game->pac_attack_mode;
 }
 
 void ghost_moving(t_game *game)
