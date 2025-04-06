@@ -40,6 +40,17 @@ void	handle_all_animation_timings(t_game *game)
 			if (game->map->map[17][24] == 'U')
 				mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 24 * game->map->tile_size, 17 * game->map->tile_size);
 		}
+
+		if (game->pac_attack_mode == 1)
+		{
+			game->pac_attack_mode_delay++;
+			printf("%d\n", game->pac_attack_mode_delay);
+			if (game->pac_attack_mode_delay >= 200)
+			{
+				game->pac_attack_mode = 0;
+				game->pac_attack_mode_delay = 0;
+			}
+		}
 	}
 }
 
