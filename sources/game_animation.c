@@ -3,42 +3,43 @@
 void	handle_all_animation_timings(t_game *game)
 {
 	game->frame_delay++;
-	game->attack_mode_delay++;
+	game->ghost_attack_mode_delay++;
 	game->power_up_img_delay++;
 	//printf("%llu\n", game->attack_mode_delay);
-	if (game->frame_delay >= 750)
+	if (game->frame_delay >= 1024)
 	{
 		game->frame = (game->frame + 1) % 4;
 		game->frame_delay = 0;
 		update_direction(game);
 		pac_moving(game);
 		ghost_moving(game);
-	}
-	if (game->attack_mode_delay >= 900000)
-		game->attack_mode_delay = 0;
 
-	if (game->power_up_img_delay >= 5000)
-	{
-		if (game->map->map[3][1] == 'U')
-			mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 1 * game->map->tile_size, 3 * game->map->tile_size);
-		if (game->map->map[3][24] == 'U')
-			mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 24 * game->map->tile_size, 3 * game->map->tile_size);
-		if (game->map->map[17][1] == 'U')
-			mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 1 * game->map->tile_size, 17 * game->map->tile_size);
-		if (game->map->map[17][24] == 'U')
-			mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 24 * game->map->tile_size, 17 * game->map->tile_size);
-	}
-	if (game->power_up_img_delay >= 10000)
-	{
-		game->power_up_img_delay = 0;
-		if (game->map->map[3][1] == 'U')
-			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 1 * game->map->tile_size, 3 * game->map->tile_size);
-		if (game->map->map[3][24] == 'U')
-			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 24 * game->map->tile_size, 3 * game->map->tile_size);
-		if (game->map->map[17][1] == 'U')
-			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 1 * game->map->tile_size, 17 * game->map->tile_size);
-		if (game->map->map[17][24] == 'U')
-			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 24 * game->map->tile_size, 17 * game->map->tile_size);
+		if (game->ghost_attack_mode_delay >= 900000)
+			game->ghost_attack_mode_delay = 0;
+
+		if (game->power_up_img_delay >= 5000)
+		{
+			if (game->map->map[3][1] == 'U')
+				mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 1 * game->map->tile_size, 3 * game->map->tile_size);
+			if (game->map->map[3][24] == 'U')
+				mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 24 * game->map->tile_size, 3 * game->map->tile_size);
+			if (game->map->map[17][1] == 'U')
+				mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 1 * game->map->tile_size, 17 * game->map->tile_size);
+			if (game->map->map[17][24] == 'U')
+				mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 24 * game->map->tile_size, 17 * game->map->tile_size);
+		}
+		if (game->power_up_img_delay >= 10000)
+		{
+			game->power_up_img_delay = 0;
+			if (game->map->map[3][1] == 'U')
+				mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 1 * game->map->tile_size, 3 * game->map->tile_size);
+			if (game->map->map[3][24] == 'U')
+				mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 24 * game->map->tile_size, 3 * game->map->tile_size);
+			if (game->map->map[17][1] == 'U')
+				mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 1 * game->map->tile_size, 17 * game->map->tile_size);
+			if (game->map->map[17][24] == 'U')
+				mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 24 * game->map->tile_size, 17 * game->map->tile_size);
+		}
 	}
 }
 
@@ -46,13 +47,21 @@ void	*get_ghost_current_img(t_game *game, t_ghost *r_ghost)
 {
 	void	*current_img;
 
-	if (r_ghost->direction == LEFT || r_ghost->direction == RIGHT)
+	if ((r_ghost->direction == LEFT || r_ghost->direction == RIGHT) && game->pac_attack_mode == 0)
 	{
 		current_img = get_ghost_horizontal_animation(game, r_ghost);
 	}
-	else if (r_ghost->direction == UP || r_ghost->direction == DOWN)
+	else if ((r_ghost->direction == UP || r_ghost->direction == DOWN) && game->pac_attack_mode == 0)
 	{
 		current_img = get_ghost_vertical_animation(game, r_ghost);
+	}
+	else if ((r_ghost->direction == LEFT || r_ghost->direction == RIGHT) && game->pac_attack_mode == 1)
+	{
+		current_img = get_ghost_panic_horizontal_animation(game, r_ghost);
+	}
+	else if ((r_ghost->direction == UP || r_ghost->direction == DOWN) && game->pac_attack_mode == 1)
+	{
+		current_img = get_ghost_panic_vertical_animation(game, r_ghost);
 	}
 	return (current_img);
 }

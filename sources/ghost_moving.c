@@ -41,52 +41,134 @@ void ghost_direction(t_game *game)
     int current = game->r_ghost->direction;
 	
 	// game->player->x / 32 >= game->map->width / 2 && game->player->y / 32 <= game->map->height / 2
-	if (game->attack_mode_delay >= 300000)
+	if (game->ghost_attack_mode_delay >= 300000 && game->pac_attack_mode == 0)
 	{
-		game->attack_mode = 1;
+		game->ghost_attack_mode = 1;
 	}
-	else
+	else if (game->ghost_attack_mode_delay <= 300000 && game->pac_attack_mode == 0)
 	{
-		game->attack_mode = 0;
+		game->ghost_attack_mode = 0;
 	}
 
-	if (game->attack_mode == 1)
+	if (game->ghost_attack_mode == 1 && game->pac_attack_mode == 0)
 	{
 		game->r_ghost->targ_x = game->player->x;
 		game->r_ghost->targ_y = game->player->y;
 	}
-	else
+	else if (game->ghost_attack_mode == 0 && game->pac_attack_mode == 0)
 	{
 		game->r_ghost->targ_x = game->map->width * 32;
 		game->r_ghost->targ_y = 0;
 	}
 
+	if (game->pac_attack_mode == 1)
+	{
+		game->r_ghost->targ_x = game->player->x;
+		game->r_ghost->targ_y = game->player->y;
+	}
+
     if (current != DOWN && map[(game->r_ghost->y - 32) / 32][game->r_ghost->x / 32] != '1')
+	{
         dist_up = distance_calculator(game->r_ghost->x, game->r_ghost->targ_x, game->r_ghost->y - 32, game->r_ghost->targ_y);
+	}
     if (current != RIGHT && map[game->r_ghost->y / 32][(game->r_ghost->x - 32) / 32] != '1')
+	{
         dist_left = distance_calculator(game->r_ghost->x - 32, game->r_ghost->targ_x, game->r_ghost->y, game->r_ghost->targ_y);
+	}
     if (current != UP && map[(game->r_ghost->y + 32) / 32][game->r_ghost->x / 32] != '1')
         dist_down = distance_calculator(game->r_ghost->x, game->r_ghost->targ_x, game->r_ghost->y + 32, game->r_ghost->targ_y);
     if (current != LEFT && map[game->r_ghost->y / 32][(game->r_ghost->x + 32) / 32] != '1')
+	{
         dist_right = distance_calculator(game->r_ghost->x + 32, game->r_ghost->targ_x, game->r_ghost->y, game->r_ghost->targ_y);
+	}
+	
+	if (game->pac_attack_mode == 1)
+	{
+        int max_dist = -1;  // Initialize to -1 since we want maximum distance
+        game->r_ghost->pending_direction = UP;  // Default direction
 
-    int min_dist = dist_up;
-    game->r_ghost->pending_direction = UP;
-    if (dist_left < min_dist)
-    {
-        min_dist = dist_left;
-        game->r_ghost->pending_direction = LEFT;
+        // Only consider directions that are actually possible (not INT_MAX)
+        if (dist_up != INT_MAX && dist_up > max_dist)
+        {
+            max_dist = dist_up;
+            game->r_ghost->pending_direction = UP;
+        }
+        if (dist_left != INT_MAX && dist_left > max_dist)
+        {
+            max_dist = dist_left;
+            game->r_ghost->pending_direction = LEFT;
+        }
+        if (dist_down != INT_MAX && dist_down > max_dist)
+        {
+            max_dist = dist_down;
+            game->r_ghost->pending_direction = DOWN;
+        }
+        if (dist_right != INT_MAX && dist_right > max_dist)
+        {
+            max_dist = dist_right;
+            game->r_ghost->pending_direction = RIGHT;
+        }
     }
-    if (dist_down < min_dist)
+	else  // Chasing mode: choose shortest distance
     {
-        min_dist = dist_down;
-        game->r_ghost->pending_direction = DOWN;
+        int min_dist = INT_MAX;
+        game->r_ghost->pending_direction = UP;
+
+        if (dist_up < min_dist)
+        {
+            min_dist = dist_up;
+            game->r_ghost->pending_direction = UP;
+        }
+        if (dist_left < min_dist)
+        {
+            min_dist = dist_left;
+            game->r_ghost->pending_direction = LEFT;
+        }
+        if (dist_down < min_dist)
+        {
+            min_dist = dist_down;
+            game->r_ghost->pending_direction = DOWN;
+        }
+        if (dist_right < min_dist)
+        {
+            min_dist = dist_right;
+            game->r_ghost->pending_direction = RIGHT;
+        }
     }
-    if (dist_right < min_dist)
-    {
-        min_dist = dist_right;
-        game->r_ghost->pending_direction = RIGHT;
-    }
+    //int min_dist = dist_up;
+    //game->r_ghost->pending_direction = UP;
+    //if (dist_left < min_dist && game->pac_attack_mode == 0)
+    //{
+    //    min_dist = dist_left;
+    //    game->r_ghost->pending_direction = LEFT;
+    //}
+    //if (dist_down < min_dist && game->pac_attack_mode == 0)
+    //{
+    //    min_dist = dist_down;
+    //    game->r_ghost->pending_direction = DOWN;
+    //}
+    //if (dist_right < min_dist && game->pac_attack_mode == 0)
+    //{
+    //    min_dist = dist_right;
+    //    game->r_ghost->pending_direction = RIGHT;
+    //}
+
+
+	//if (dist_left > min_dist && game->pac_attack_mode == 1)
+    //{
+    //    min_dist = dist_left;
+    //    game->r_ghost->pending_direction = LEFT;
+    //}
+	//if (dist_down > min_dist && game->pac_attack_mode == 1)
+    //{
+    //    min_dist = dist_down;
+    //    game->r_ghost->pending_direction = DOWN;
+    //}
+	//if (dist_right > min_dist && game->pac_attack_mode == 1)
+    //{
+    //    min_dist = dist_right;
+    //    game->r_ghost->pending_direction = RIGHT;
+    //}
 }
 
 void ghost_moving(t_game *game)
