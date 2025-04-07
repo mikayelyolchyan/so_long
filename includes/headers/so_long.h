@@ -61,6 +61,8 @@ typedef struct s_player
 	int	pending_direction;
 	int	x;
 	int	y;
+	int	prev_x;
+	int	prev_y;
 }	t_player;
 
 typedef struct s_map
@@ -105,17 +107,19 @@ void	create_map(char *filename, t_game *game);
 
 void	draw_map(t_game *game);
 
-int	start_game(t_game *game);
+int		start_game(t_game *game);
 
-int	ft_exit(t_game *game);
+int		ft_exit(t_game *game);
 
-int	ft_hotkey(int keycode, t_game *game);
+int		ft_hotkey(int keycode, t_game *game);
 
 void	free_map(t_map *map);
 
-int	game_animation(t_game *game);
+int		game_animation(t_game *game);
 
-void pac_moving(t_game *game);
+void 	pac_moving(t_game *game);
+
+void	pac_fast_moving(t_game *game);
 
 void	update_direction(t_game *game);
 

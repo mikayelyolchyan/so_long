@@ -11,8 +11,20 @@ void	handle_all_animation_timings(t_game *game)
 		game->frame = (game->frame + 1) % 4;
 		game->frame_delay = 0;
 		update_direction(game);
-		pac_moving(game);
 		ghost_moving(game);
+
+		if (game->pac_attack_mode == 1)
+		{
+			pac_fast_moving(game);
+			game->pac_attack_mode_delay++;
+			if (game->pac_attack_mode_delay >= 200)
+			{
+				game->pac_attack_mode = 0;
+				game->pac_attack_mode_delay = 0;
+			}
+		}
+		else
+			pac_moving(game);
 
 		if (game->ghost_attack_mode_delay >= 900000)
 			game->ghost_attack_mode_delay = 0;
@@ -39,17 +51,6 @@ void	handle_all_animation_timings(t_game *game)
 				mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 1 * game->map->tile_size, 17 * game->map->tile_size);
 			if (game->map->map[17][24] == 'U')
 				mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 24 * game->map->tile_size, 17 * game->map->tile_size);
-		}
-
-		if (game->pac_attack_mode == 1)
-		{
-			game->pac_attack_mode_delay++;
-			printf("%d\n", game->pac_attack_mode_delay);
-			if (game->pac_attack_mode_delay >= 200)
-			{
-				game->pac_attack_mode = 0;
-				game->pac_attack_mode_delay = 0;
-			}
 		}
 	}
 }
@@ -122,6 +123,5 @@ int	game_animation(t_game *game)
 	update_map(game, game->map->map, game->r_ghost->direction);
 	mlx_put_image_to_window(game->mlx, game->win, pac_current_img, game->player->x, game->player->y);
 	mlx_put_image_to_window(game->mlx, game->win, ghost_current_img, game->r_ghost->x, game->r_ghost->y);
-
 	return (0);
 }
