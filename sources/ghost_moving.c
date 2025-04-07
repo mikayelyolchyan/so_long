@@ -12,7 +12,7 @@ int ghost_can_move_vertical(t_game *game, char **map, int direction)
         game->r_ghost->x % 32 == 0)
         return (1);
     if (direction == DOWN && 
-        map[(game->r_ghost->y + 4) / 32 + 1][game->r_ghost->x / 32] != '1' && 
+        map[(game->r_ghost->y + 2) / 32 + 1][game->r_ghost->x / 32] != '1' && 
         game->r_ghost->x % 32 == 0)
         return (1);
     return (0);
@@ -25,7 +25,7 @@ int ghost_can_move_horizontal(t_game *game, char **map, int direction)
         game->r_ghost->y % 32 == 0)
         return (1);
     if (direction == RIGHT && 
-        map[game->r_ghost->y / 32][(game->r_ghost->x + 4) / 32 + 1] != '1' && 
+        map[game->r_ghost->y / 32][(game->r_ghost->x + 2) / 32 + 1] != '1' && 
         game->r_ghost->y % 32 == 0)
         return (1);
     return (0);
@@ -192,9 +192,9 @@ void ghost_moving(t_game *game)
 
     if ((game->r_ghost->x % 32 == 0 && game->r_ghost->y % 32 == 0) || 
         (game->r_ghost->direction == UP && map[(game->r_ghost->y - 4) / 32][game->r_ghost->x / 32] == '1') ||
-        (game->r_ghost->direction == DOWN && map[(game->r_ghost->y + 4) / 32 + 1][game->r_ghost->x / 32] == '1') ||
+        (game->r_ghost->direction == DOWN && map[(game->r_ghost->y + 2) / 32 + 1][game->r_ghost->x / 32] == '1') ||
         (game->r_ghost->direction == LEFT && map[game->r_ghost->y / 32][(game->r_ghost->x - 4) / 32] == '1') ||
-        (game->r_ghost->direction == RIGHT && map[game->r_ghost->y / 32][(game->r_ghost->x + 4) / 32 + 1] == '1'))
+        (game->r_ghost->direction == RIGHT && map[game->r_ghost->y / 32][(game->r_ghost->x + 2) / 32 + 1] == '1'))
     {
         if (ghost_can_move_vertical(game, map, game->r_ghost->pending_direction) || 
             ghost_can_move_horizontal(game, map, game->r_ghost->pending_direction))
@@ -232,6 +232,7 @@ void ghost_moving(t_game *game)
 		game->r_ghost->prev_x = game->r_ghost->x;
     	game->r_ghost->prev_y = game->r_ghost->y;
     }
+
 	if (game->r_ghost->direction == UP)
 		game->r_ghost->y -= 4;
 	else if (game->r_ghost->direction == DOWN)

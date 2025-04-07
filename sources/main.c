@@ -55,6 +55,8 @@ int	start_game(t_game *game)
 
 	game->player->x = 13 * map->tile_size;
 	game->player->y = 17 * map->tile_size;
+	game->player->prev_x = 0;
+	game->player->prev_y = 0;
 	game->player->direction = RIGHT;
 	game->player->pending_direction = -1;
 
