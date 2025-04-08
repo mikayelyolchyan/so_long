@@ -102,7 +102,7 @@ void *get_ghost_current_img(t_game *game, t_ghost *r_ghost)
         {
             current_img = get_ghost_horizontal_animation(game, r_ghost);
         }
-        else if (r_ghost->direction == UP || r_ghost->direction == DOWN)
+		else if (r_ghost->direction == UP || r_ghost->direction == DOWN)
         {
             current_img = get_ghost_vertical_animation(game, r_ghost);
         }
