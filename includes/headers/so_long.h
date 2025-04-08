@@ -36,8 +36,13 @@ typedef struct s_ghost
 	void	*ghost_panic1b;
 	void	*ghost_panic2a;
 	void	*ghost_panic2b;
+	void	*ghost_is_eaten;
+	int		is_eaten;
+	int		is_respawned;
 	int		direction;
 	int		pending_direction;
+	int		start_x;
+	int		start_y;
 	int		x;
 	int		y;
 	int		prev_x;
@@ -63,6 +68,8 @@ typedef struct s_player
 	int	y;
 	int	prev_x;
 	int	prev_y;
+	int	start_x;
+	int	start_y;
 }	t_player;
 
 typedef struct s_map
@@ -104,6 +111,8 @@ int	read_map(int fd);
 
 void	fill_map(t_map *map, int fd);
 void	create_map(char *filename, t_game *game);
+
+void	find_positions(t_game *game);
 
 void	draw_map(t_game *game);
 

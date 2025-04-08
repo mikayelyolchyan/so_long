@@ -55,35 +55,60 @@ void	handle_all_animation_timings(t_game *game)
 	}
 }
 
-void	*get_ghost_current_img(t_game *game, t_ghost *r_ghost)
+void *get_ghost_current_img(t_game *game, t_ghost *r_ghost)
 {
-	void	*current_img;
+    void *current_img;
 
-	if ((r_ghost->direction == LEFT || r_ghost->direction == RIGHT) && game->pac_attack_mode == 0)
-	{
-		current_img = get_ghost_horizontal_animation(game, r_ghost);
-	}
-	else if ((r_ghost->direction == UP || r_ghost->direction == DOWN) && game->pac_attack_mode == 0)
-	{
-		current_img = get_ghost_vertical_animation(game, r_ghost);
-	}
-	else if ((r_ghost->direction == LEFT || r_ghost->direction == RIGHT) && game->pac_attack_mode == 1 && game->pac_attack_mode_delay <= 150)
-	{
-		current_img = get_ghost_panic_horizontal_animation(game, r_ghost);
-	}
-	else if ((r_ghost->direction == UP || r_ghost->direction == DOWN) && game->pac_attack_mode == 1 && game->pac_attack_mode_delay <= 150)
-	{
-		current_img = get_ghost_panic_vertical_animation(game, r_ghost);
-	}
-	else if ((r_ghost->direction == LEFT || r_ghost->direction == RIGHT) && game->pac_attack_mode == 1 && game->pac_attack_mode_delay >= 150)
-	{
-		current_img = get_ghost_panic_flashing_horizontal_animation(game, r_ghost);
-	}
-	else if ((r_ghost->direction == UP || r_ghost->direction == DOWN) && game->pac_attack_mode == 1 && game->pac_attack_mode_delay >= 150)
-	{
-		current_img = get_ghost_panic_flashing_vertical_animation(game, r_ghost);
-	}
-	return (current_img);
+    // Если призрак "съеден" и движется к спавну
+    if (r_ghost->is_eaten == 1)
+    {
+        current_img = game->r_ghost->ghost_is_eaten; // Изображение глаз
+    }
+    // После респавна (is_eaten == 0) призрак возвращается к нормальному виду
+    else if (game->pac_attack_mode == 0 && r_ghost->is_eaten == 0)
+    {
+        // Независимо от pac_attack_mode, после респавна он нормальный
+        if (r_ghost->direction == LEFT || r_ghost->direction == RIGHT)
+        {
+            current_img = get_ghost_horizontal_animation(game, r_ghost);
+        }
+        else if (r_ghost->direction == UP || r_ghost->direction == DOWN)
+        {
+            current_img = get_ghost_vertical_animation(game, r_ghost);
+        }
+    }
+    // Режим паники применяется только к несъеденным призракам при pac_attack_mode == 1
+    else if (game->pac_attack_mode == 1 && r_ghost->is_eaten == 0 && r_ghost->is_respawned == 0)
+    {
+        if (r_ghost->direction == LEFT || r_ghost->direction == RIGHT)
+        {
+            if (game->pac_attack_mode_delay <= 150)
+                current_img = get_ghost_panic_horizontal_animation(game, r_ghost);
+            else
+                current_img = get_ghost_panic_flashing_horizontal_animation(game, r_ghost);
+        }
+        else if (r_ghost->direction == UP || r_ghost->direction == DOWN)
+        {
+            if (game->pac_attack_mode_delay <= 150)
+                current_img = get_ghost_panic_vertical_animation(game, r_ghost);
+            else
+                current_img = get_ghost_panic_flashing_vertical_animation(game, r_ghost);
+        }
+    }
+    // По умолчанию (на всякий случай)
+    else
+    {
+		if (r_ghost->direction == LEFT || r_ghost->direction == RIGHT)
+        {
+            current_img = get_ghost_horizontal_animation(game, r_ghost);
+        }
+        else if (r_ghost->direction == UP || r_ghost->direction == DOWN)
+        {
+            current_img = get_ghost_vertical_animation(game, r_ghost);
+        }
+    }
+
+    return (current_img);
 }
 
 void	*get_pac_current_img(t_game *game, t_player *player)
