@@ -87,6 +87,11 @@ int	start_game(t_game *game)
 	game->r_ghost->ghost_panic2a = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/Panic/ghost_panic2a.xpm", &map->tile_size, &map->tile_size);
 	game->r_ghost->ghost_panic2b = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/Panic/ghost_panic2b.xpm", &map->tile_size, &map->tile_size);
 
+	game->map->power_up_dots_count = 0;
+	count_sprites(game);
+
+	game->map->power_up_dots_array = malloc((sizeof(t_power_up_dot) * game->map->power_up_dots_count));
+
 	find_positions(game);
 	game->player->x = game->player->start_x;
 	game->player->y = game->player->start_y;
