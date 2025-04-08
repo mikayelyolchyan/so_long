@@ -7,13 +7,9 @@ int distance_calculator(int x1, int x2, int y1, int y2)
 
 int ghost_can_move_vertical(t_game *game, char **map, int direction)
 {
-    if (direction == UP && 
-        map[(game->r_ghost->y - 4) / 32][game->r_ghost->x / 32] != '1' && 
-        game->r_ghost->x % 32 == 0)
+    if (direction == UP && map[(game->r_ghost->y - 4) / 32][game->r_ghost->x / 32] != '1' && game->r_ghost->x % 32 == 0)
         return (1);
-    if (direction == DOWN && 
-        map[(game->r_ghost->y + 4) / 32 + 1][game->r_ghost->x / 32] != '1' && 
-        game->r_ghost->x % 32 == 0)
+    if (direction == DOWN && map[(game->r_ghost->y + 4) / 32 + 1][game->r_ghost->x / 32] != '1' && game->r_ghost->x % 32 == 0)
         return (1);
     return (0);
 }
@@ -38,13 +34,9 @@ int ghost_can_move_fast_vertical(t_game *game, char **map, int direction)
 
 int ghost_can_move_fast_horizontal(t_game *game, char **map, int direction)
 {
-    if (direction == LEFT && 
-        map[game->r_ghost->y / 32][(game->r_ghost->x - 8) / 32] != '1' && 
-        game->r_ghost->y % 32 == 0)
+    if (direction == LEFT && map[game->r_ghost->y / 32][(game->r_ghost->x - 8) / 32] != '1' && game->r_ghost->y % 32 == 0)
         return (1);
-    if (direction == RIGHT && 
-        map[game->r_ghost->y / 32][(game->r_ghost->x + 8) / 32 + 1] != '1' && 
-        game->r_ghost->y % 32 == 0)
+    if (direction == RIGHT && map[game->r_ghost->y / 32][(game->r_ghost->x + 8) / 32 + 1] != '1' && game->r_ghost->y % 32 == 0)
         return (1);
     return (0);
 }
@@ -62,18 +54,17 @@ void ghost_direction(t_game *game)
    	if (game->pac_attack_mode == 1 &&
 		(game->player->x - game->r_ghost->x <= 16 && game->player->x - game->r_ghost->x >= -16) &&
     	(game->player->y - game->r_ghost->y <= 16 && game->player->y - game->r_ghost->y >= -16) &&
-    	game->r_ghost->is_eaten == 0)
+    	game->r_ghost->is_eaten == 0 && game->r_ghost->is_respawned == 0)
 	{
 		game->r_ghost->is_eaten = 1;
-		game->r_ghost->is_respawned = 0;
 		game->r_ghost->targ_x = game->r_ghost->start_x;
 		game->r_ghost->targ_y = game->r_ghost->start_y;
 	}
 
     // Логика режимов атаки
-    if (game->ghost_attack_mode_delay >= 300000 && game->pac_attack_mode == 0)
+    if (game->ghost_attack_mode_delay >= 262144 && game->pac_attack_mode == 0)
         game->ghost_attack_mode = 1;
-    else if (game->ghost_attack_mode_delay <= 300000 && game->pac_attack_mode == 0)
+    else if (game->ghost_attack_mode_delay <= 262144 && game->pac_attack_mode == 0)
         game->ghost_attack_mode = 0;
 
     // Установка цели для нормального режима
