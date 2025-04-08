@@ -22,6 +22,11 @@
 # define UP 3
 # define DOWN 4
 
+typedef struct s_power_up_dot {
+    int x;
+    int y;
+} t_power_up_dot;
+
 typedef struct s_ghost
 {
 	void	*ghost_up1;
@@ -86,6 +91,9 @@ typedef struct s_map
 	void	*logo_img;
 	void	*power_up_img;
 	char	**map;
+
+	int				power_up_dots_count;
+	t_power_up_dot 	*power_up_dots_array;
 }	t_map;
 
 typedef struct s_game
@@ -151,5 +159,7 @@ void	*get_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost);
 void	*get_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost);
 
 void	*get_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost);
+
+void	count_sprites(t_game *game);
 
 #endif

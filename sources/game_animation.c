@@ -1,5 +1,33 @@
 #include "../includes/headers/so_long.h"
 
+void render_power_up_dots(t_game *game)
+{
+	int index = (game->power_up_img_delay / 1000) % game->map->power_up_dots_count;
+	int x = game->map->power_up_dots_array[index].x;
+	int y = game->map->power_up_dots_array[index].y;
+	int map_x = x / game->map->tile_size;
+	int map_y = y / game->map->tile_size;
+
+	if (game->power_up_img_delay >= 5000 && game->power_up_img_delay < 10000)
+	{
+	    if (game->map->map[map_y][map_x] == 'U')
+	    {
+	        mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, x, y);
+	    }
+	}
+	else if (game->power_up_img_delay >= 10000)
+	{
+	    if (game->map->map[map_y][map_x] == 'U')
+	    {
+	        mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, x, y);
+	    }
+	    if (game->power_up_img_delay >= 15000)
+	    {
+	        game->power_up_img_delay = 0;
+	    }
+	}
+}
+
 void	handle_all_animation_timings(t_game *game)
 {
 	game->frame_delay++;
@@ -29,29 +57,7 @@ void	handle_all_animation_timings(t_game *game)
 		if (game->ghost_attack_mode_delay >= 900000)
 			game->ghost_attack_mode_delay = 0;
 
-		if (game->power_up_img_delay >= 5000)
-		{
-			if (game->map->map[3][1] == 'U')
-				mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 1 * game->map->tile_size, 3 * game->map->tile_size);
-			if (game->map->map[3][24] == 'U')
-				mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 24 * game->map->tile_size, 3 * game->map->tile_size);
-			if (game->map->map[17][1] == 'U')
-				mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 1 * game->map->tile_size, 17 * game->map->tile_size);
-			if (game->map->map[17][24] == 'U')
-				mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, 24 * game->map->tile_size, 17 * game->map->tile_size);
-		}
-		if (game->power_up_img_delay >= 10000)
-		{
-			game->power_up_img_delay = 0;
-			if (game->map->map[3][1] == 'U')
-				mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 1 * game->map->tile_size, 3 * game->map->tile_size);
-			if (game->map->map[3][24] == 'U')
-				mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 24 * game->map->tile_size, 3 * game->map->tile_size);
-			if (game->map->map[17][1] == 'U')
-				mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 1 * game->map->tile_size, 17 * game->map->tile_size);
-			if (game->map->map[17][24] == 'U')
-				mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 24 * game->map->tile_size, 17 * game->map->tile_size);
-		}
+		render_power_up_dots(game);
 	}
 }
 
@@ -65,18 +71,18 @@ void *get_ghost_current_img(t_game *game, t_ghost *r_ghost)
         current_img = game->r_ghost->ghost_is_eaten; // Изображение глаз
     }
     // После респавна (is_eaten == 0) призрак возвращается к нормальному виду
-    else if (game->pac_attack_mode == 0 && r_ghost->is_eaten == 0)
-    {
-        // Независимо от pac_attack_mode, после респавна он нормальный
-        if (r_ghost->direction == LEFT || r_ghost->direction == RIGHT)
-        {
-            current_img = get_ghost_horizontal_animation(game, r_ghost);
-        }
-        else if (r_ghost->direction == UP || r_ghost->direction == DOWN)
-        {
-            current_img = get_ghost_vertical_animation(game, r_ghost);
-        }
-    }
+    //else if (game->pac_attack_mode == 0 && r_ghost->is_eaten == 0)
+    //{
+    //    // Независимо от pac_attack_mode, после респавна он нормальный
+    //    if (r_ghost->direction == LEFT || r_ghost->direction == RIGHT)
+    //    {
+    //        current_img = get_ghost_horizontal_animation(game, r_ghost);
+    //    }
+    //    else if (r_ghost->direction == UP || r_ghost->direction == DOWN)
+    //    {
+    //        current_img = get_ghost_vertical_animation(game, r_ghost);
+    //    }
+    //}
     // Режим паники применяется только к несъеденным призракам при pac_attack_mode == 1
     else if (game->pac_attack_mode == 1 && r_ghost->is_eaten == 0 && r_ghost->is_respawned == 0)
     {

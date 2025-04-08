@@ -59,16 +59,16 @@ void ghost_direction(t_game *game)
     int current = game->r_ghost->direction;
 
     // Проверка на "съедение" призрака
-    if (game->pac_attack_mode == 1 && 
-        game->r_ghost->x == game->player->x && 
-        game->r_ghost->y == game->player->y &&
-        !game->r_ghost->is_eaten)
-    {
-        game->r_ghost->is_eaten = 1;
-        game->r_ghost->is_respawned = 0;
-        game->r_ghost->targ_x = game->r_ghost->start_x;
-        game->r_ghost->targ_y = game->r_ghost->start_y;
-    }
+   	if (game->pac_attack_mode == 1 &&
+		(game->player->x - game->r_ghost->x <= 16 && game->player->x - game->r_ghost->x >= -16) &&
+    	(game->player->y - game->r_ghost->y <= 16 && game->player->y - game->r_ghost->y >= -16) &&
+    	game->r_ghost->is_eaten == 0)
+	{
+		game->r_ghost->is_eaten = 1;
+		game->r_ghost->is_respawned = 0;
+		game->r_ghost->targ_x = game->r_ghost->start_x;
+		game->r_ghost->targ_y = game->r_ghost->start_y;
+	}
 
     // Логика режимов атаки
     if (game->ghost_attack_mode_delay >= 300000 && game->pac_attack_mode == 0)
@@ -107,24 +107,27 @@ void ghost_direction(t_game *game)
         int min_dist = INT_MAX;
         game->r_ghost->pending_direction = UP;
 
-        if (dist_up < min_dist) {
+        if (dist_up < min_dist)
+		{
             min_dist = dist_up;
             game->r_ghost->pending_direction = UP;
         }
-        if (dist_left < min_dist) {
+        if (dist_left < min_dist)
+		{
             min_dist = dist_left;
             game->r_ghost->pending_direction = LEFT;
         }
-        if (dist_down < min_dist) {
+        if (dist_down < min_dist)
+		{
             min_dist = dist_down;
             game->r_ghost->pending_direction = DOWN;
         }
-        if (dist_right < min_dist) {
+        if (dist_right < min_dist)
+		{
             min_dist = dist_right;
             game->r_ghost->pending_direction = RIGHT;
         }
 
-        // Проверка достижения точки спавна
         if (game->r_ghost->x == game->r_ghost->start_x && 
             game->r_ghost->y == game->r_ghost->start_y)
         {
