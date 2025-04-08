@@ -2,26 +2,28 @@
 
 void render_power_up_dots(t_game *game)
 {
-	int index = (game->power_up_img_delay / 1000) % game->map->power_up_dots_count;
+	int index = (game->power_up_img_delay / 1024) % game->map->power_up_dots_count;
 	int x = game->map->power_up_dots_array[index].x;
 	int y = game->map->power_up_dots_array[index].y;
 	int map_x = x / game->map->tile_size;
 	int map_y = y / game->map->tile_size;
 
-	if (game->power_up_img_delay >= 5000 && game->power_up_img_delay < 10000)
+	printf("game->power_up_img_delay = %d\n", game->power_up_img_delay / 512);
+
+	if (game->power_up_img_delay >= 4096 && game->power_up_img_delay < 8192)
 	{
 	    if (game->map->map[map_y][map_x] == 'U')
 	    {
 	        mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, x, y);
 	    }
 	}
-	else if (game->power_up_img_delay >= 10000)
+	else if (game->power_up_img_delay >= 8192)
 	{
 	    if (game->map->map[map_y][map_x] == 'U')
 	    {
 	        mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, x, y);
 	    }
-	    if (game->power_up_img_delay >= 15000)
+	    if (game->power_up_img_delay >= 16384)
 	    {
 	        game->power_up_img_delay = 0;
 	    }
@@ -45,7 +47,7 @@ void	handle_all_animation_timings(t_game *game)
 		{
 			pac_fast_moving(game);
 			game->pac_attack_mode_delay++;
-			if (game->pac_attack_mode_delay >= 200)
+			if (game->pac_attack_mode_delay >= 256)
 			{
 				game->pac_attack_mode = 0;
 				game->pac_attack_mode_delay = 0;
@@ -54,7 +56,7 @@ void	handle_all_animation_timings(t_game *game)
 		else
 			pac_moving(game);
 
-		if (game->ghost_attack_mode_delay >= 900000)
+		if (game->ghost_attack_mode_delay >= 1048576)
 			game->ghost_attack_mode_delay = 0;
 
 		render_power_up_dots(game);
@@ -88,14 +90,14 @@ void *get_ghost_current_img(t_game *game, t_ghost *r_ghost)
     {
         if (r_ghost->direction == LEFT || r_ghost->direction == RIGHT)
         {
-            if (game->pac_attack_mode_delay <= 150)
+            if (game->pac_attack_mode_delay <= 128)
                 current_img = get_ghost_panic_horizontal_animation(game, r_ghost);
             else
                 current_img = get_ghost_panic_flashing_horizontal_animation(game, r_ghost);
         }
         else if (r_ghost->direction == UP || r_ghost->direction == DOWN)
         {
-            if (game->pac_attack_mode_delay <= 150)
+            if (game->pac_attack_mode_delay <= 128)
                 current_img = get_ghost_panic_vertical_animation(game, r_ghost);
             else
                 current_img = get_ghost_panic_flashing_vertical_animation(game, r_ghost);
