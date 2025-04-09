@@ -178,6 +178,15 @@ void	*get_magenta_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost 
 void	*get_magenta_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost);
 void	*get_magenta_ghost_current_img(t_game *game, t_ghost *r_ghost);
 
+void	*get_blue_ghost_vertical_animation(t_game *game, t_ghost *r_ghost);
+void	*get_blue_ghost_horizontal_animation(t_game *game, t_ghost *r_ghost);
+void	blue_ghost_moving(t_game *game);
+void	*get_blue_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost);
+void	*get_blue_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost);
+void	*get_blue_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost);
+void	*get_blue_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost);
+void	*get_blue_ghost_current_img(t_game *game, t_ghost *r_ghost);
+
 void	count_sprites(t_game *game);
 
 #endif
