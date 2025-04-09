@@ -42,37 +42,39 @@ void orange_ghost_direction(t_game *game)
     int dist_left = INT_MAX;
     int dist_down = INT_MAX;
     int dist_right = INT_MAX;
+	int distance_to_pacman = 0;
+	int eight_tiles_squared = 256 * 256;
     char **map = game->map->map;
     int current = game->o_ghost->direction;
 
     // Проверка на "съедение" призрака
-   	if (game->pac_attack_mode == 1 &&
-		(game->player->x - game->o_ghost->x <= 16 && game->player->x - game->o_ghost->x >= -16) &&
-    	(game->player->y - game->o_ghost->y <= 16 && game->player->y - game->o_ghost->y >= -16) &&
-    	game->o_ghost->is_eaten == 0 && game->o_ghost->is_respawned == 0)
-	{
-		game->o_ghost->is_eaten = 1;
-		game->o_ghost->targ_x = game->o_ghost->start_x;
-		game->o_ghost->targ_y = game->o_ghost->start_y;
+    if (game->pac_attack_mode == 1 &&
+        (game->player->x - game->o_ghost->x <= 16 && game->player->x - game->o_ghost->x >= -16) &&
+        (game->player->y - game->o_ghost->y <= 16 && game->player->y - game->o_ghost->y >= -16) &&
+        game->o_ghost->is_eaten == 0 && game->o_ghost->is_respawned == 0)
+    {
+        game->o_ghost->is_eaten = 1;
+        game->o_ghost->targ_x = game->o_ghost->start_x;
+        game->o_ghost->targ_y = game->o_ghost->start_y;
 
-		game->o_ghost->remainder_x = game->o_ghost->x % 32;
+        game->o_ghost->remainder_x = game->o_ghost->x % 32;
         game->o_ghost->remainder_y = game->o_ghost->y % 32;
 
         if (game->o_ghost->remainder_x != 0)
         {
             if (game->o_ghost->remainder_x < 16)
-                game->o_ghost->x -= game->o_ghost->remainder_x; // Округляем вниз
+                game->o_ghost->x -= game->o_ghost->remainder_x;
             else
-                game->o_ghost->x += (32 - game->o_ghost->remainder_x); // Округляем вверх
+                game->o_ghost->x += (32 - game->o_ghost->remainder_x);
         }
         if (game->o_ghost->remainder_y != 0)
         {
             if (game->o_ghost->remainder_y < 16)
-                game->o_ghost->y -= game->o_ghost->remainder_y; // Округляем вниз
+                game->o_ghost->y -= game->o_ghost->remainder_y;
             else
-                game->o_ghost->y += (32 - game->o_ghost->remainder_y); // Округляем вверх
+                game->o_ghost->y += (32 - game->o_ghost->remainder_y);
         }
-	}
+    }
 
     // Логика режимов атаки
     if (game->ghost_attack_mode_delay >= 262144 && game->pac_attack_mode == 0)
@@ -81,17 +83,22 @@ void orange_ghost_direction(t_game *game)
         game->ghost_attack_mode = 0;
 
     // Установка цели для нормального режима
-    if (!game->o_ghost->is_eaten)
+    if (!game->o_ghost->is_eaten && game->pac_attack_mode == 0)
     {
-        if (game->ghost_attack_mode == 1 && game->pac_attack_mode == 0)
+        distance_to_pacman = distance_calculator(game->o_ghost->x, game->player->x, 
+                                                  game->o_ghost->y, game->player->y);
+
+        if (distance_to_pacman > eight_tiles_squared && game->ghost_attack_mode == 1)
         {
+            // Преследовать Pac-Man, если расстояние больше 8 тайлов
             game->o_ghost->targ_x = game->player->x;
             game->o_ghost->targ_y = game->player->y;
         }
-        else if (game->ghost_attack_mode == 0 && game->pac_attack_mode == 0)
+        else if (distance_to_pacman <= eight_tiles_squared || game->ghost_attack_mode == 0)
         {
-            game->o_ghost->targ_x = game->map->width * 32;
-            game->o_ghost->targ_y = 0;
+            // Убегать в нижний левый угол (0, map->height * 32)
+            game->o_ghost->targ_x = 0;
+            game->o_ghost->targ_y = game->map->height * 32;
         }
     }
 
@@ -112,22 +119,22 @@ void orange_ghost_direction(t_game *game)
         game->o_ghost->pending_direction = UP;
 
         if (dist_up < min_dist)
-		{
+        {
             min_dist = dist_up;
             game->o_ghost->pending_direction = UP;
         }
         if (dist_left < min_dist)
-		{
+        {
             min_dist = dist_left;
             game->o_ghost->pending_direction = LEFT;
         }
         if (dist_down < min_dist)
-		{
+        {
             min_dist = dist_down;
             game->o_ghost->pending_direction = DOWN;
         }
         if (dist_right < min_dist)
-		{
+        {
             min_dist = dist_right;
             game->o_ghost->pending_direction = RIGHT;
         }
@@ -143,7 +150,6 @@ void orange_ghost_direction(t_game *game)
     }
     else if (game->pac_attack_mode == 1)
     {
-        // Сбрасываем is_respawned при активации pac_attack_mode
         if (game->last_pac_attack_mode == 0 && game->pac_attack_mode == 1)
             game->o_ghost->is_respawned = 0;
 
@@ -215,7 +221,6 @@ void orange_ghost_direction(t_game *game)
             game->o_ghost->pending_direction = RIGHT;
         }
 
-        // Сбрасываем is_respawned после первого шага от точки спавна
         if (game->o_ghost->is_respawned == 1 && 
             (game->o_ghost->x != game->o_ghost->start_x || game->o_ghost->y != game->o_ghost->start_y))
             game->o_ghost->is_respawned = 0;
@@ -229,7 +234,6 @@ void orange_ghost_moving(t_game *game)
     char **map = game->map->map;
     orange_ghost_direction(game);
 
-    // Проверка столкновения с учётом скорости
     if ((game->o_ghost->x % 32 == 0 && game->o_ghost->y % 32 == 0) || 
         (game->o_ghost->direction == UP && map[(game->o_ghost->y - (game->o_ghost->is_eaten ? 8 : 4)) / 32][game->o_ghost->x / 32] == '1') ||
         (game->o_ghost->direction == DOWN && map[(game->o_ghost->y + (game->o_ghost->is_eaten ? 8 : 4)) / 32 + 1][game->o_ghost->x / 32] == '1') ||
@@ -249,7 +253,6 @@ void orange_ghost_moving(t_game *game)
             game->o_ghost->direction = game->o_ghost->pending_direction;
         }
 
-        // Логика разворота при тупике
         if (game->o_ghost->direction == RIGHT && 
             map[game->o_ghost->y / 32][(game->o_ghost->x + 32) / 32] == '1' && 
             map[(game->o_ghost->y + 32) / 32][(game->o_ghost->x) / 32] == '1' && 
