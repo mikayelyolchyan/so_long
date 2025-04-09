@@ -24,6 +24,11 @@ void	find_positions(t_game *game)
 				game->r_ghost->start_x = x * map->tile_size;
 				game->r_ghost->start_y = y * map->tile_size;
 			}
+			else if (map->map[y][x] == 'O')
+			{
+				game->o_ghost->start_x = x * map->tile_size;
+				game->o_ghost->start_y = y * map->tile_size;
+			}
 			else if (map->map[y][x] == 'U')
             {
                 if (power_up_index < map->power_up_dots_count)

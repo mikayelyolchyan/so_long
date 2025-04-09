@@ -21,6 +21,7 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/game_animation.c \
 		$(SRC_DIR)/count_sprites.c \
 		$(SRC_DIR)/find_positions.c \
+		$(SRC_DIR)/distance_calculator.c \
 		$(SRC_DIR)/pacman/pac_animation.c \
 		$(SRC_DIR)/pacman/pac_current_img.c \
 		$(SRC_DIR)/pacman/pac_moving.c \
@@ -28,7 +29,11 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/red_ghost/ghost_animation.c \
 		$(SRC_DIR)/red_ghost/ghost_current_img.c \
 		$(SRC_DIR)/red_ghost/ghost_moving.c \
-		$(SRC_DIR)/red_ghost/ghost_panic_animation.c
+		$(SRC_DIR)/red_ghost/ghost_panic_animation.c \
+		$(SRC_DIR)/orange_ghost/orange_ghost_animation.c \
+		$(SRC_DIR)/orange_ghost/orange_ghost_current_img.c \
+		$(SRC_DIR)/orange_ghost/orange_ghost_moving.c \
+		$(SRC_DIR)/orange_ghost/orange_ghost_panic_animation.c
 
 OBJS = $(SRCS:%.c=%.o)
 
