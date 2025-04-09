@@ -20,18 +20,18 @@ int orange_ghost_can_move_horizontal(t_game *game, char **map, int direction)
 
 int orange_ghost_can_move_fast_vertical(t_game *game, char **map, int direction)
 {
-    if (direction == UP && map[(game->o_ghost->y - 8) / 32][game->o_ghost->x / 32] != '1' && game->o_ghost->x % 32 == 0)
+    if (direction == UP && map[(game->o_ghost->y - 16) / 32][game->o_ghost->x / 32] != '1' && game->o_ghost->x % 32 == 0)
         return (1);
-    if (direction == DOWN && map[(game->o_ghost->y + 8) / 32 + 1][game->o_ghost->x / 32] != '1' && game->o_ghost->x % 32 == 0)
+    if (direction == DOWN && map[(game->o_ghost->y + 16) / 32 + 1][game->o_ghost->x / 32] != '1' && game->o_ghost->x % 32 == 0)
         return (1);
     return (0);
 }
 
 int orange_ghost_can_move_fast_horizontal(t_game *game, char **map, int direction)
 {
-    if (direction == LEFT && map[game->o_ghost->y / 32][(game->o_ghost->x - 8) / 32] != '1' && game->o_ghost->y % 32 == 0)
+    if (direction == LEFT && map[game->o_ghost->y / 32][(game->o_ghost->x - 16) / 32] != '1' && game->o_ghost->y % 32 == 0)
         return (1);
-    if (direction == RIGHT && map[game->o_ghost->y / 32][(game->o_ghost->x + 8) / 32 + 1] != '1' && game->o_ghost->y % 32 == 0)
+    if (direction == RIGHT && map[game->o_ghost->y / 32][(game->o_ghost->x + 16) / 32 + 1] != '1' && game->o_ghost->y % 32 == 0)
         return (1);
     return (0);
 }
@@ -75,12 +75,6 @@ void orange_ghost_direction(t_game *game)
                 game->o_ghost->y += (32 - game->o_ghost->remainder_y);
         }
     }
-
-    // Логика режимов атаки
-    if (game->ghost_attack_mode_delay >= 262144 && game->pac_attack_mode == 0)
-        game->ghost_attack_mode = 1;
-    else if (game->ghost_attack_mode_delay <= 262144 && game->pac_attack_mode == 0)
-        game->ghost_attack_mode = 0;
 
     // Установка цели для нормального режима
 	if (!game->o_ghost->is_eaten && game->pac_attack_mode == 0)
@@ -307,13 +301,13 @@ void orange_ghost_moving(t_game *game)
     else if (game->o_ghost->is_eaten == 1)
     {
         if (game->o_ghost->direction == UP)
-            game->o_ghost->y -= 8;
+            game->o_ghost->y -= 16;
         else if (game->o_ghost->direction == DOWN)
-            game->o_ghost->y += 8;
+            game->o_ghost->y += 16;
         else if (game->o_ghost->direction == LEFT)
         {
-            game->o_ghost->x -= 8;
-            if (map[game->o_ghost->y / 32][(game->o_ghost->x - 8) / 32] == 'E')
+            game->o_ghost->x -= 16;
+            if (map[game->o_ghost->y / 32][(game->o_ghost->x - 16) / 32] == 'E')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->o_ghost->x, game->o_ghost->y);
                 game->o_ghost->x = 23 * 32;
@@ -322,7 +316,7 @@ void orange_ghost_moving(t_game *game)
         }
         else if (game->o_ghost->direction == RIGHT)
         {   
-            game->o_ghost->x += 8;
+            game->o_ghost->x += 16;
             if (map[game->o_ghost->y / 32][(game->o_ghost->x + 32) / 32] == 'E')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->o_ghost->x, game->o_ghost->y);

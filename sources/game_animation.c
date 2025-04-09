@@ -32,7 +32,7 @@ void	handle_all_animation_timings(t_game *game)
 	game->frame_delay++;
 	game->ghost_attack_mode_delay++;
 	game->power_up_img_delay++;
-	if (game->frame_delay >= 516)
+	if (game->frame_delay >= 1024)
 	{
 		game->frame = (game->frame + 1) % 4;
 		game->frame_delay = 0;
