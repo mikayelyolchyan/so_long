@@ -1,6 +1,6 @@
-#include "../includes/headers/so_long.h"
+#include "../../includes/headers/so_long.h"
 
-void	*get_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost)
+void	*get_red_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost)
 {
 	void	*current_img;
 
@@ -29,7 +29,7 @@ void	*get_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost)
 	return (current_img);
 }
 
-void	*get_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost)
+void	*get_red_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost)
 {
 	void	*current_img;
 
@@ -58,7 +58,7 @@ void	*get_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost)
 	return (current_img);
 }
 
-void	*get_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost)
+void	*get_red_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost)
 {
 	void	*current_img;
 
@@ -87,7 +87,7 @@ void	*get_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost
 	return (current_img);
 }
 
-void	*get_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost)
+void	*get_red_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost)
 {
 	void	*current_img;
 

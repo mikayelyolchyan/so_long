@@ -1,11 +1,11 @@
-#include "../includes/headers/so_long.h"
+#include "../../includes/headers/so_long.h"
 
 int distance_calculator(int x1, int x2, int y1, int y2)
 {
     return ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 }
 
-int ghost_can_move_vertical(t_game *game, char **map, int direction)
+int red_ghost_can_move_vertical(t_game *game, char **map, int direction)
 {
     if (direction == UP && map[(game->r_ghost->y - 4) / 32][game->r_ghost->x / 32] != '1' && game->r_ghost->x % 32 == 0)
         return (1);
@@ -14,7 +14,7 @@ int ghost_can_move_vertical(t_game *game, char **map, int direction)
     return (0);
 }
 
-int ghost_can_move_horizontal(t_game *game, char **map, int direction)
+int red_ghost_can_move_horizontal(t_game *game, char **map, int direction)
 {
     if (direction == LEFT && map[game->r_ghost->y / 32][(game->r_ghost->x - 4) / 32] != '1' && game->r_ghost->y % 32 == 0)
         return (1);
@@ -23,7 +23,7 @@ int ghost_can_move_horizontal(t_game *game, char **map, int direction)
     return (0);
 }
 
-int ghost_can_move_fast_vertical(t_game *game, char **map, int direction)
+int red_ghost_can_move_fast_vertical(t_game *game, char **map, int direction)
 {
     if (direction == UP && map[(game->r_ghost->y - 8) / 32][game->r_ghost->x / 32] != '1' && game->r_ghost->x % 32 == 0)
         return (1);
@@ -32,7 +32,7 @@ int ghost_can_move_fast_vertical(t_game *game, char **map, int direction)
     return (0);
 }
 
-int ghost_can_move_fast_horizontal(t_game *game, char **map, int direction)
+int red_ghost_can_move_fast_horizontal(t_game *game, char **map, int direction)
 {
     if (direction == LEFT && map[game->r_ghost->y / 32][(game->r_ghost->x - 8) / 32] != '1' && game->r_ghost->y % 32 == 0)
         return (1);
@@ -41,7 +41,7 @@ int ghost_can_move_fast_horizontal(t_game *game, char **map, int direction)
     return (0);
 }
 
-void ghost_direction(t_game *game)
+void red_ghost_direction(t_game *game)
 {
     int dist_up = INT_MAX;
     int dist_left = INT_MAX;
@@ -59,6 +59,24 @@ void ghost_direction(t_game *game)
 		game->r_ghost->is_eaten = 1;
 		game->r_ghost->targ_x = game->r_ghost->start_x;
 		game->r_ghost->targ_y = game->r_ghost->start_y;
+
+		game->r_ghost->remainder_x = game->r_ghost->x % 32;
+        game->r_ghost->remainder_y = game->r_ghost->y % 32;
+
+        if (game->r_ghost->remainder_x != 0)
+        {
+            if (game->r_ghost->remainder_x < 16)
+                game->r_ghost->x -= game->r_ghost->remainder_x; // Округляем вниз
+            else
+                game->r_ghost->x += (32 - game->r_ghost->remainder_x); // Округляем вверх
+        }
+        if (game->r_ghost->remainder_y != 0)
+        {
+            if (game->r_ghost->remainder_y < 16)
+                game->r_ghost->y -= game->r_ghost->remainder_y; // Округляем вниз
+            else
+                game->r_ghost->y += (32 - game->r_ghost->remainder_y); // Округляем вверх
+        }
 	}
 
     // Логика режимов атаки
@@ -211,10 +229,10 @@ void ghost_direction(t_game *game)
     game->last_pac_attack_mode = game->pac_attack_mode;
 }
 
-void ghost_moving(t_game *game)
+void red_ghost_moving(t_game *game)
 {
     char **map = game->map->map;
-    ghost_direction(game);
+    red_ghost_direction(game);
 
     // Проверка столкновения с учётом скорости
     if ((game->r_ghost->x % 32 == 0 && game->r_ghost->y % 32 == 0) || 
@@ -224,14 +242,14 @@ void ghost_moving(t_game *game)
         (game->r_ghost->direction == RIGHT && map[game->r_ghost->y / 32][(game->r_ghost->x + (game->r_ghost->is_eaten ? 8 : 4)) / 32 + 1] == '1'))
     {
         if (game->r_ghost->is_eaten == 0 &&
-            (ghost_can_move_vertical(game, map, game->r_ghost->pending_direction) || 
-             ghost_can_move_horizontal(game, map, game->r_ghost->pending_direction)))
+            (red_ghost_can_move_vertical(game, map, game->r_ghost->pending_direction) || 
+             red_ghost_can_move_horizontal(game, map, game->r_ghost->pending_direction)))
         {
             game->r_ghost->direction = game->r_ghost->pending_direction;
         }
         else if (game->r_ghost->is_eaten == 1 && 
-                 (ghost_can_move_fast_vertical(game, map, game->r_ghost->pending_direction) || 
-                  ghost_can_move_fast_horizontal(game, map, game->r_ghost->pending_direction)))
+                 (red_ghost_can_move_fast_vertical(game, map, game->r_ghost->pending_direction) || 
+                  red_ghost_can_move_fast_horizontal(game, map, game->r_ghost->pending_direction)))
         {
             game->r_ghost->direction = game->r_ghost->pending_direction;
         }

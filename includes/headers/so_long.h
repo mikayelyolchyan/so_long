@@ -54,6 +54,8 @@ typedef struct s_ghost
 	int		prev_y;
 	int		targ_x;
 	int		targ_y;
+	int		remainder_x;
+	int		remainder_y;
 }	t_ghost;
 
 typedef struct s_player
@@ -92,6 +94,7 @@ typedef struct s_map
 	void	*power_up_img;
 	char	**map;
 
+	int		dots_count;
 	int				power_up_dots_count;
 	t_power_up_dot 	*power_up_dots_array;
 }	t_map;
@@ -134,31 +137,23 @@ void	free_map(t_map *map);
 
 int		game_animation(t_game *game);
 
-void 	pac_moving(t_game *game);
-
-void	pac_fast_moving(t_game *game);
-
-void	update_direction(t_game *game);
-
 void	update_map(t_game *game, char **map, int direction);
 
 void	*get_pac_vertical_animation(t_game *game, t_player *player);
-
 void	*get_pac_horizontal_animation(t_game *game, t_player *player);
+void	*get_pac_current_img(t_game *game, t_player *player);
+void 	pac_moving(t_game *game);
+void	pac_fast_moving(t_game *game);
+void	update_pac_direction(t_game *game);
 
-void	*get_ghost_vertical_animation(t_game *game, t_ghost *r_ghost);
-
-void	*get_ghost_horizontal_animation(t_game *game, t_ghost *r_ghost);
-
-void	ghost_moving(t_game *game);
-
-void	*get_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost);
-
-void	*get_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost);
-
-void	*get_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost);
-
-void	*get_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost);
+void	*get_red_ghost_vertical_animation(t_game *game, t_ghost *r_ghost);
+void	*get_red_ghost_horizontal_animation(t_game *game, t_ghost *r_ghost);
+void	red_ghost_moving(t_game *game);
+void	*get_red_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost);
+void	*get_red_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost);
+void	*get_red_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost);
+void	*get_red_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost);
+void	*get_red_ghost_current_img(t_game *game, t_ghost *r_ghost);
 
 void	count_sprites(t_game *game);
 

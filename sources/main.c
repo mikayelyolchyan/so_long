@@ -87,6 +87,7 @@ int	start_game(t_game *game)
 	game->r_ghost->ghost_panic2a = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/Panic/ghost_panic2a.xpm", &map->tile_size, &map->tile_size);
 	game->r_ghost->ghost_panic2b = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/Panic/ghost_panic2b.xpm", &map->tile_size, &map->tile_size);
 
+	game->map->dots_count = 0;
 	game->map->power_up_dots_count = 0;
 	count_sprites(game);
 
@@ -98,6 +99,9 @@ int	start_game(t_game *game)
 	game->r_ghost->x = game->r_ghost->start_x;
 	game->r_ghost->y = game->r_ghost->start_y;
 
+	game->r_ghost->remainder_x = 0;
+    game->r_ghost->remainder_y = 0;
+
 	game->frame = 0;
 	game->frame_delay = 0;
 	game->ghost_attack_mode = 0;
@@ -105,6 +109,7 @@ int	start_game(t_game *game)
 	game->pac_attack_mode = 0;
 	game->last_pac_attack_mode = 0;
 	game->pac_attack_mode_delay = 0;
+
 	map->x = 0;
 	map->y = 0;
 	return (0);
