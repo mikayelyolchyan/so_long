@@ -20,18 +20,18 @@ int red_ghost_can_move_horizontal(t_game *game, char **map, int direction)
 
 int red_ghost_can_move_fast_vertical(t_game *game, char **map, int direction)
 {
-    if (direction == UP && map[(game->r_ghost->y - 8) / 32][game->r_ghost->x / 32] != '1' && game->r_ghost->x % 32 == 0)
+    if (direction == UP && map[(game->r_ghost->y - 16) / 32][game->r_ghost->x / 32] != '1' && game->r_ghost->x % 32 == 0)
         return (1);
-    if (direction == DOWN && map[(game->r_ghost->y + 8) / 32 + 1][game->r_ghost->x / 32] != '1' && game->r_ghost->x % 32 == 0)
+    if (direction == DOWN && map[(game->r_ghost->y + 16) / 32 + 1][game->r_ghost->x / 32] != '1' && game->r_ghost->x % 32 == 0)
         return (1);
     return (0);
 }
 
 int red_ghost_can_move_fast_horizontal(t_game *game, char **map, int direction)
 {
-    if (direction == LEFT && map[game->r_ghost->y / 32][(game->r_ghost->x - 8) / 32] != '1' && game->r_ghost->y % 32 == 0)
+    if (direction == LEFT && map[game->r_ghost->y / 32][(game->r_ghost->x - 16) / 32] != '1' && game->r_ghost->y % 32 == 0)
         return (1);
-    if (direction == RIGHT && map[game->r_ghost->y / 32][(game->r_ghost->x + 8) / 32 + 1] != '1' && game->r_ghost->y % 32 == 0)
+    if (direction == RIGHT && map[game->r_ghost->y / 32][(game->r_ghost->x + 16) / 32 + 1] != '1' && game->r_ghost->y % 32 == 0)
         return (1);
     return (0);
 }
@@ -305,13 +305,13 @@ void red_ghost_moving(t_game *game)
     else if (game->r_ghost->is_eaten == 1)
     {
         if (game->r_ghost->direction == UP)
-            game->r_ghost->y -= 8;
+            game->r_ghost->y -= 16;
         else if (game->r_ghost->direction == DOWN)
-            game->r_ghost->y += 8;
+            game->r_ghost->y += 16;
         else if (game->r_ghost->direction == LEFT)
         {
-            game->r_ghost->x -= 8;
-            if (map[game->r_ghost->y / 32][(game->r_ghost->x - 8) / 32] == 'E')
+            game->r_ghost->x -= 16;
+            if (map[game->r_ghost->y / 32][(game->r_ghost->x - 16) / 32] == 'E')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->r_ghost->x, game->r_ghost->y);
                 game->r_ghost->x = 23 * 32;
@@ -320,7 +320,7 @@ void red_ghost_moving(t_game *game)
         }
         else if (game->r_ghost->direction == RIGHT)
         {   
-            game->r_ghost->x += 8;
+            game->r_ghost->x += 16;
             if (map[game->r_ghost->y / 32][(game->r_ghost->x + 32) / 32] == 'E')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->r_ghost->x, game->r_ghost->y);
