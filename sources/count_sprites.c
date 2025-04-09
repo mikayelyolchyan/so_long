@@ -16,7 +16,6 @@ void	count_sprites(t_game *game)
 			if (map->map[y][x] == 'U')
 			{
 				map->power_up_dots_count++;
-				//printf("Found 'U' at map_x=%d, map_y=%d\n", x, y); // Отладка
 			}
 			if (map->map[y][x] == 'C')
 			{
@@ -26,5 +25,4 @@ void	count_sprites(t_game *game)
 		}
 		y++;
 	}
-	//printf("Total power-up dots: %d\n", map->power_up_dots_count);
 }
