@@ -104,7 +104,7 @@ void blue_ghost_direction(t_game *game)
             }
             else if (game->player->direction == UP)
             {
-                pivot_x = game->player->x;
+                pivot_x = game->player->x - 64; // 2 клетки влево
                 pivot_y = game->player->y - 64; // 2 клетки вверх
             }
 
@@ -185,8 +185,8 @@ void blue_ghost_direction(t_game *game)
             }
             else if (game->player->direction == UP)
             {
-                pivot_x = game->player->x;
-                pivot_y = game->player->y - 64;
+                pivot_x = game->player->x - 64; // 2 клетки влево
+                pivot_y = game->player->y - 64; // 2 клетки вверх
             }
             int vector_x = pivot_x - game->r_ghost->x;
             int vector_y = pivot_y - game->r_ghost->y;
