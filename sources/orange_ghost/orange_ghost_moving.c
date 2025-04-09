@@ -42,16 +42,16 @@ void orange_ghost_direction(t_game *game)
     int dist_left = INT_MAX;
     int dist_down = INT_MAX;
     int dist_right = INT_MAX;
-	int distance_to_pacman = 0;
-	int eight_tiles_squared = 256 * 256;
     char **map = game->map->map;
     int current = game->o_ghost->direction;
+    int distance_to_pacman;
+    int eight_tiles_squared = 256 * 256;
 
     // Проверка на "съедение" призрака
     if (game->pac_attack_mode == 1 &&
         (game->player->x - game->o_ghost->x <= 16 && game->player->x - game->o_ghost->x >= -16) &&
         (game->player->y - game->o_ghost->y <= 16 && game->player->y - game->o_ghost->y >= -16) &&
-        game->o_ghost->is_eaten == 0 && game->o_ghost->is_respawned == 0)
+        game->o_ghost->is_eaten == 0)
     {
         game->o_ghost->is_eaten = 1;
         game->o_ghost->targ_x = game->o_ghost->start_x;
@@ -76,29 +76,25 @@ void orange_ghost_direction(t_game *game)
         }
     }
 
-    // Установка цели для нормального режима
-	if (!game->o_ghost->is_eaten && game->pac_attack_mode == 0)
+    // Установка цели для нормального режима (Clyde)
+    if (!game->o_ghost->is_eaten && game->pac_attack_mode == 0)
     {
         distance_to_pacman = distance_calculator(game->o_ghost->x, game->player->x, game->o_ghost->y, game->player->y);
-
         if (distance_to_pacman > eight_tiles_squared)
         {
-            // Преследовать Pac-Man, если расстояние больше 8 тайлов
             game->o_ghost->targ_x = game->player->x;
             game->o_ghost->targ_y = game->player->y;
         }
         else
         {
-            // Убегать в нижний левый угол, если расстояние <= 8 тайлов
             game->o_ghost->targ_x = 0;
             game->o_ghost->targ_y = game->map->height * 32;
         }
     }
 
-    // Логика движения в зависимости от состояния
+    // Логика движения
     if (game->o_ghost->is_eaten)
     {
-        game->o_ghost->is_respawned = 0;
         if (current != DOWN && map[(game->o_ghost->y - 32) / 32][game->o_ghost->x / 32] != '1')
             dist_up = distance_calculator(game->o_ghost->x, game->o_ghost->start_x, game->o_ghost->y - 32, game->o_ghost->start_y);
         if (current != RIGHT && map[game->o_ghost->y / 32][(game->o_ghost->x - 32) / 32] != '1')
@@ -137,23 +133,33 @@ void orange_ghost_direction(t_game *game)
         {
             game->o_ghost->is_eaten = 0;
             game->o_ghost->is_respawned = 1;
-            game->o_ghost->targ_x = game->player->x;
-            game->o_ghost->targ_y = game->player->y;
+            distance_to_pacman = distance_calculator(game->o_ghost->x, game->player->x, game->o_ghost->y, game->player->y);
+            if (distance_to_pacman > eight_tiles_squared)
+            {
+                game->o_ghost->targ_x = game->player->x;
+                game->o_ghost->targ_y = game->player->y;
+            }
+            else
+            {
+                game->o_ghost->targ_x = 0;
+                game->o_ghost->targ_y = game->map->height * 32;
+            }
         }
     }
     else if (game->pac_attack_mode == 1)
     {
+        // Сбрасываем is_respawned при активации pac_attack_mode
         if (game->last_pac_attack_mode == 0 && game->pac_attack_mode == 1)
             game->o_ghost->is_respawned = 0;
 
         if (current != DOWN && map[(game->o_ghost->y - 32) / 32][game->o_ghost->x / 32] != '1')
-            dist_up = distance_calculator(game->o_ghost->x, game->o_ghost->targ_x, game->o_ghost->y - 32, game->o_ghost->targ_y);
+            dist_up = distance_calculator(game->o_ghost->x, game->player->x, game->o_ghost->y - 32, game->player->y);
         if (current != RIGHT && map[game->o_ghost->y / 32][(game->o_ghost->x - 32) / 32] != '1')
-            dist_left = distance_calculator(game->o_ghost->x - 32, game->o_ghost->targ_x, game->o_ghost->y, game->o_ghost->targ_y);
+            dist_left = distance_calculator(game->o_ghost->x - 32, game->player->x, game->o_ghost->y, game->player->y);
         if (current != UP && map[(game->o_ghost->y + 32) / 32][game->o_ghost->x / 32] != '1')
-            dist_down = distance_calculator(game->o_ghost->x, game->o_ghost->targ_x, game->o_ghost->y + 32, game->o_ghost->targ_y);
+            dist_down = distance_calculator(game->o_ghost->x, game->player->x, game->o_ghost->y + 32, game->player->y);
         if (current != LEFT && map[game->o_ghost->y / 32][(game->o_ghost->x + 32) / 32] != '1')
-            dist_right = distance_calculator(game->o_ghost->x + 32, game->o_ghost->targ_x, game->o_ghost->y, game->o_ghost->targ_y);
+            dist_right = distance_calculator(game->o_ghost->x + 32, game->player->x, game->o_ghost->y, game->player->y);
 
         int max_dist = -1;
         game->o_ghost->pending_direction = UP;
@@ -214,6 +220,7 @@ void orange_ghost_direction(t_game *game)
             game->o_ghost->pending_direction = RIGHT;
         }
 
+        // Сбрасываем is_respawned после первого шага от точки спавна
         if (game->o_ghost->is_respawned == 1 && 
             (game->o_ghost->x != game->o_ghost->start_x || game->o_ghost->y != game->o_ghost->start_y))
             game->o_ghost->is_respawned = 0;
