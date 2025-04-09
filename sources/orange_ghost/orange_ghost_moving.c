@@ -51,7 +51,7 @@ void orange_ghost_direction(t_game *game)
     if (game->pac_attack_mode == 1 &&
         (game->player->x - game->o_ghost->x <= 16 && game->player->x - game->o_ghost->x >= -16) &&
         (game->player->y - game->o_ghost->y <= 16 && game->player->y - game->o_ghost->y >= -16) &&
-        game->o_ghost->is_eaten == 0)
+        game->o_ghost->is_eaten == 0 && game->o_ghost->is_respawned == 0)
     {
         game->o_ghost->is_eaten = 1;
         game->o_ghost->targ_x = game->o_ghost->start_x;
