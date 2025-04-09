@@ -1,10 +1,5 @@
 #include "../../includes/headers/so_long.h"
 
-int distance_calculator(int x1, int x2, int y1, int y2)
-{
-    return ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-}
-
 int red_ghost_can_move_vertical(t_game *game, char **map, int direction)
 {
     if (direction == UP && map[(game->r_ghost->y - 4) / 32][game->r_ghost->x / 32] != '1' && game->r_ghost->x % 32 == 0)

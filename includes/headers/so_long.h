@@ -115,6 +115,7 @@ typedef struct s_game
 	t_map		*map;
 	t_player	*player;
 	t_ghost		*r_ghost;
+	t_ghost		*o_ghost;
 }	t_game;
 
 int	open_map(char *filename);
@@ -124,6 +125,8 @@ void	fill_map(t_map *map, int fd);
 void	create_map(char *filename, t_game *game);
 
 void	find_positions(t_game *game);
+
+int distance_calculator(int x1, int x2, int y1, int y2);
 
 void	draw_map(t_game *game);
 
@@ -154,6 +157,15 @@ void	*get_red_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost);
 void	*get_red_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost);
 void	*get_red_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost);
 void	*get_red_ghost_current_img(t_game *game, t_ghost *r_ghost);
+
+void	*get_orange_ghost_vertical_animation(t_game *game, t_ghost *o_ghost);
+void	*get_orange_ghost_horizontal_animation(t_game *game, t_ghost *o_ghost);
+void	orange_ghost_moving(t_game *game);
+void	*get_orange_ghost_panic_vertical_animation(t_game *game, t_ghost *o_ghost);
+void	*get_orange_ghost_panic_horizontal_animation(t_game *game, t_ghost *o_ghost);
+void	*get_orange_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *o_ghost);
+void	*get_orange_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *o_ghost);
+void	*get_orange_ghost_current_img(t_game *game, t_ghost *o_ghost);
 
 void	count_sprites(t_game *game);
 
