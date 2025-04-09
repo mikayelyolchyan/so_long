@@ -1,4 +1,4 @@
-#include "../includes/headers/so_long.h"
+#include "../../includes/headers/so_long.h"
 
 void	*get_pac_vertical_animation(t_game *game, t_player *player)
 {

@@ -1,4 +1,4 @@
-#include "../includes/headers/so_long.h"
+#include "../../includes/headers/so_long.h"
 
 void	pac_moving_up_down(t_game *game)
 {

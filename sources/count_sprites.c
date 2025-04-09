@@ -18,6 +18,10 @@ void	count_sprites(t_game *game)
 				map->power_up_dots_count++;
 				//printf("Found 'U' at map_x=%d, map_y=%d\n", x, y); // Отладка
 			}
+			if (map->map[y][x] == 'C')
+			{
+				map->dots_count++;
+			}
 			x++;
 		}
 		y++;
