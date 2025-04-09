@@ -83,20 +83,19 @@ void orange_ghost_direction(t_game *game)
         game->ghost_attack_mode = 0;
 
     // Установка цели для нормального режима
-    if (!game->o_ghost->is_eaten && game->pac_attack_mode == 0)
+	if (!game->o_ghost->is_eaten && game->pac_attack_mode == 0)
     {
-        distance_to_pacman = distance_calculator(game->o_ghost->x, game->player->x, 
-                                                  game->o_ghost->y, game->player->y);
+        distance_to_pacman = distance_calculator(game->o_ghost->x, game->player->x, game->o_ghost->y, game->player->y);
 
-        if (distance_to_pacman > eight_tiles_squared && game->ghost_attack_mode == 1)
+        if (distance_to_pacman > eight_tiles_squared)
         {
             // Преследовать Pac-Man, если расстояние больше 8 тайлов
             game->o_ghost->targ_x = game->player->x;
             game->o_ghost->targ_y = game->player->y;
         }
-        else if (distance_to_pacman <= eight_tiles_squared || game->ghost_attack_mode == 0)
+        else
         {
-            // Убегать в нижний левый угол (0, map->height * 32)
+            // Убегать в нижний левый угол, если расстояние <= 8 тайлов
             game->o_ghost->targ_x = 0;
             game->o_ghost->targ_y = game->map->height * 32;
         }
