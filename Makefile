@@ -1,7 +1,7 @@
 NAME = so_long
 
 CC = cc
-C_FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+C_FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 SRC_DIR = sources
 INC_DIR = includes/headers

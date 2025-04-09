@@ -7,6 +7,7 @@ void render_power_up_dots(t_game *game)
 	int y = game->map->power_up_dots_array[index].y;
 	int map_x = x / game->map->tile_size;
 	int map_y = y / game->map->tile_size;
+	
 	if (game->power_up_img_delay >= 4096 && game->power_up_img_delay < 8192)
 	{
 	    if (game->map->map[map_y][map_x] == 'U')
@@ -41,12 +42,11 @@ void	handle_all_animation_timings(t_game *game)
 		orange_ghost_moving(game);
 		magenta_ghost_moving(game);
 		blue_ghost_moving(game);
-		
 		if (game->pac_attack_mode == 1)
 		{
 			pac_fast_moving(game);
 			game->pac_attack_mode_delay++;
-			if (game->pac_attack_mode_delay >= 256)
+			if (game->pac_attack_mode_delay >= 192)
 			{
 				game->pac_attack_mode = 0;
 				game->pac_attack_mode_delay = 0;
@@ -69,13 +69,11 @@ int	game_animation(t_game *game)
 	void		*blue_ghost_current_img;
 
 	handle_all_animation_timings(game);
-
 	pac_current_img = get_pac_current_img(game, game->player);
 	red_ghost_current_img = get_red_ghost_current_img(game, game->r_ghost);
 	orange_ghost_current_img = get_orange_ghost_current_img(game, game->o_ghost);
 	magenta_ghost_current_img = get_magenta_ghost_current_img(game, game->m_ghost);
 	blue_ghost_current_img = get_blue_ghost_current_img(game, game->b_ghost);
-
 	update_map(game, game->map->map, game->r_ghost->direction);
 	mlx_put_image_to_window(game->mlx, game->win, pac_current_img, game->player->x, game->player->y);
 	mlx_put_image_to_window(game->mlx, game->win, red_ghost_current_img, game->r_ghost->x, game->r_ghost->y);
