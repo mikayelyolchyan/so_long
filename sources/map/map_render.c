@@ -81,6 +81,14 @@ void	update_map(t_game *game, char **map, int direction)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, (game->r_ghost->prev_x), game->r_ghost->prev_y);
 	else if (direction == RIGHT && map[game->r_ghost->prev_y / 32][(game->r_ghost->prev_x) / 32] == 'U')// && game->r_ghost->prev_y % 32 == 0)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, (game->r_ghost->prev_x), game->r_ghost->prev_y);
+	else if (direction == UP && map[(game->r_ghost->prev_y) / 32][game->r_ghost->prev_x / 32] == 'B')// && game->r_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->r_ghost->prev_x, (game->r_ghost->prev_y));
+	else if (direction == DOWN && map[(game->r_ghost->prev_y) / 32][game->r_ghost->prev_x / 32] == 'B')// && game->r_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->r_ghost->prev_x, (game->r_ghost->prev_y));
+	else if (direction == LEFT && map[game->r_ghost->prev_y / 32][(game->r_ghost->prev_x) / 32] == 'B')// && game->r_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->r_ghost->prev_x), game->r_ghost->prev_y);
+	else if (direction == RIGHT && map[game->r_ghost->prev_y / 32][(game->r_ghost->prev_x) / 32] == 'B')// && game->r_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->r_ghost->prev_x), game->r_ghost->prev_y);
 
 	if (direction == UP && map[(game->o_ghost->prev_y) / 32][game->o_ghost->prev_x / 32] == 'C')// && game->o_ghost->prev_x % 32 == 0)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->food_img, game->o_ghost->prev_x, (game->o_ghost->prev_y));
@@ -130,6 +138,14 @@ void	update_map(t_game *game, char **map, int direction)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, (game->o_ghost->prev_x), game->o_ghost->prev_y);
 	else if (direction == RIGHT && map[game->o_ghost->prev_y / 32][(game->o_ghost->prev_x) / 32] == 'U')// && game->o_ghost->prev_y % 32 == 0)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, (game->o_ghost->prev_x), game->o_ghost->prev_y);
+	else if (direction == UP && map[(game->o_ghost->prev_y) / 32][game->o_ghost->prev_x / 32] == 'B')// && game->o_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->o_ghost->prev_x, (game->o_ghost->prev_y));
+	else if (direction == DOWN && map[(game->o_ghost->prev_y) / 32][game->o_ghost->prev_x / 32] == 'B')// && game->o_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->o_ghost->prev_x, (game->o_ghost->prev_y));
+	else if (direction == LEFT && map[game->o_ghost->prev_y / 32][(game->o_ghost->prev_x) / 32] == 'B')// && game->o_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->o_ghost->prev_x), game->o_ghost->prev_y);
+	else if (direction == RIGHT && map[game->o_ghost->prev_y / 32][(game->o_ghost->prev_x) / 32] == 'B')// && game->o_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->o_ghost->prev_x), game->o_ghost->prev_y);
 
 	if (direction == UP && map[(game->m_ghost->prev_y) / 32][game->m_ghost->prev_x / 32] == 'C')// && game->m_ghost->prev_x % 32 == 0)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->food_img, game->m_ghost->prev_x, (game->m_ghost->prev_y));
@@ -179,4 +195,69 @@ void	update_map(t_game *game, char **map, int direction)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, (game->m_ghost->prev_x), game->m_ghost->prev_y);
 	else if (direction == RIGHT && map[game->m_ghost->prev_y / 32][(game->m_ghost->prev_x) / 32] == 'U')// && game->m_ghost->prev_y % 32 == 0)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, (game->m_ghost->prev_x), game->m_ghost->prev_y);
+	else if (direction == UP && map[(game->m_ghost->prev_y) / 32][game->m_ghost->prev_x / 32] == 'B')// && game->m_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->m_ghost->prev_x, (game->m_ghost->prev_y));
+	else if (direction == DOWN && map[(game->m_ghost->prev_y) / 32][game->m_ghost->prev_x / 32] == 'B')// && game->m_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->m_ghost->prev_x, (game->m_ghost->prev_y));
+	else if (direction == LEFT && map[game->m_ghost->prev_y / 32][(game->m_ghost->prev_x) / 32] == 'B')// && game->m_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->m_ghost->prev_x), game->m_ghost->prev_y);
+	else if (direction == RIGHT && map[game->m_ghost->prev_y / 32][(game->m_ghost->prev_x) / 32] == 'B')// && game->m_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->m_ghost->prev_x), game->m_ghost->prev_y);
+
+	if (direction == UP && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'C')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->food_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == DOWN && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'C')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->food_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == LEFT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'C')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->food_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == RIGHT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'C')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->food_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == UP && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == '0')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == DOWN && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == '0')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == LEFT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == '0')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == RIGHT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == '0')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == UP && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'R')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == DOWN && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'R')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == LEFT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'R')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == RIGHT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'R')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == UP && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'O')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == DOWN && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'O')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == LEFT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'O')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == RIGHT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'O')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == UP && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'M')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == DOWN && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'M')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == LEFT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'M')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == RIGHT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'M')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == UP && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'U')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == DOWN && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'U')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == LEFT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'U')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == RIGHT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'U')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == UP && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'B')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == DOWN && map[(game->b_ghost->prev_y) / 32][game->b_ghost->prev_x / 32] == 'B')// && game->b_ghost->prev_x % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->b_ghost->prev_x, (game->b_ghost->prev_y));
+	else if (direction == LEFT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'B')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
+	else if (direction == RIGHT && map[game->b_ghost->prev_y / 32][(game->b_ghost->prev_x) / 32] == 'B')// && game->b_ghost->prev_y % 32 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, (game->b_ghost->prev_x), game->b_ghost->prev_y);
 }

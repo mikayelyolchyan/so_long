@@ -37,7 +37,11 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/magenta_ghost/magenta_ghost_animation.c \
 		$(SRC_DIR)/magenta_ghost/magenta_ghost_current_img.c \
 		$(SRC_DIR)/magenta_ghost/magenta_ghost_moving.c \
-		$(SRC_DIR)/magenta_ghost/magenta_ghost_panic_animation.c
+		$(SRC_DIR)/magenta_ghost/magenta_ghost_panic_animation.c \
+		$(SRC_DIR)/blue_ghost/blue_ghost_animation.c \
+		$(SRC_DIR)/blue_ghost/blue_ghost_current_img.c \
+		$(SRC_DIR)/blue_ghost/blue_ghost_moving.c \
+		$(SRC_DIR)/blue_ghost/blue_ghost_panic_animation.c
 
 OBJS = $(SRCS:%.c=%.o)
 
