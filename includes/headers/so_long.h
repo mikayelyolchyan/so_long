@@ -116,6 +116,8 @@ typedef struct s_game
 	t_player	*player;
 	t_ghost		*r_ghost;
 	t_ghost		*o_ghost;
+	t_ghost		*m_ghost;
+	t_ghost		*b_ghost;
 }	t_game;
 
 int	open_map(char *filename);
@@ -166,6 +168,15 @@ void	*get_orange_ghost_panic_horizontal_animation(t_game *game, t_ghost *o_ghost
 void	*get_orange_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *o_ghost);
 void	*get_orange_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *o_ghost);
 void	*get_orange_ghost_current_img(t_game *game, t_ghost *o_ghost);
+
+void	*get_magenta_ghost_vertical_animation(t_game *game, t_ghost *r_ghost);
+void	*get_magenta_ghost_horizontal_animation(t_game *game, t_ghost *r_ghost);
+void	magenta_ghost_moving(t_game *game);
+void	*get_magenta_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost);
+void	*get_magenta_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost);
+void	*get_magenta_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost);
+void	*get_magenta_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost);
+void	*get_magenta_ghost_current_img(t_game *game, t_ghost *r_ghost);
 
 void	count_sprites(t_game *game);
 

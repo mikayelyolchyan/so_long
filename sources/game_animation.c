@@ -39,6 +39,7 @@ void	handle_all_animation_timings(t_game *game)
 		update_pac_direction(game);
 		red_ghost_moving(game);
 		orange_ghost_moving(game);
+		magenta_ghost_moving(game);
 		
 		if (game->pac_attack_mode == 1)
 		{
@@ -63,16 +64,19 @@ int	game_animation(t_game *game)
 	void		*pac_current_img;
 	void		*red_ghost_current_img;
 	void		*orange_ghost_current_img;
+	void		*magenta_ghost_current_img;
 
 	handle_all_animation_timings(game);
 
 	pac_current_img = get_pac_current_img(game, game->player);
 	red_ghost_current_img = get_red_ghost_current_img(game, game->r_ghost);
 	orange_ghost_current_img = get_orange_ghost_current_img(game, game->o_ghost);
+	magenta_ghost_current_img = get_magenta_ghost_current_img(game, game->m_ghost);
 
 	update_map(game, game->map->map, game->r_ghost->direction);
 	mlx_put_image_to_window(game->mlx, game->win, pac_current_img, game->player->x, game->player->y);
 	mlx_put_image_to_window(game->mlx, game->win, red_ghost_current_img, game->r_ghost->x, game->r_ghost->y);
 	mlx_put_image_to_window(game->mlx, game->win, orange_ghost_current_img, game->o_ghost->x, game->o_ghost->y);
+	mlx_put_image_to_window(game->mlx, game->win, magenta_ghost_current_img, game->m_ghost->x, game->m_ghost->y);
 	return (0);
 }
