@@ -19,6 +19,7 @@ void	pac_moving_up_down(t_game *game)
 			game->pac_attack_mode = 1;
 			game->r_ghost->is_respawned = 0;
 			game->o_ghost->is_respawned = 0;
+			game->m_ghost->is_respawned = 0;
 			game->pac_attack_mode_delay = 0;
 	}
 	if (game->player->y % 32 == 0 && game->player->x % 32 == 0)
@@ -58,6 +59,7 @@ void	pac_moving_left_right(t_game *game)
 			game->pac_attack_mode = 1;
 			game->r_ghost->is_respawned = 0;
 			game->o_ghost->is_respawned = 0;
+			game->m_ghost->is_respawned = 0;
 			game->pac_attack_mode_delay = 0;
 	}
 	if (game->player->y % 32 == 0 && game->player->x % 32 == 0)
@@ -85,6 +87,7 @@ void	pac_fast_moving_up_down(t_game *game)
 			game->pac_attack_mode = 1;
 			game->r_ghost->is_respawned = 0;
 			game->o_ghost->is_respawned = 0;
+			game->m_ghost->is_respawned = 0;
 			game->pac_attack_mode_delay = 0;
 	}
 	if (game->player->y % 32 == 0 && game->player->x % 32 == 0)
@@ -124,6 +127,7 @@ void	pac_fast_moving_left_right(t_game *game)
 			game->pac_attack_mode = 1;
 			game->r_ghost->is_respawned = 0;
 			game->o_ghost->is_respawned = 0;
+			game->m_ghost->is_respawned = 0;
 			game->pac_attack_mode_delay = 0;
 	}
 	if (game->player->y % 32 == 0 && game->player->x % 32 == 0)

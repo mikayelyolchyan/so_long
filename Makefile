@@ -26,14 +26,18 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/pacman/pac_current_img.c \
 		$(SRC_DIR)/pacman/pac_moving.c \
 		$(SRC_DIR)/pacman/update_direction.c \
-		$(SRC_DIR)/red_ghost/ghost_animation.c \
-		$(SRC_DIR)/red_ghost/ghost_current_img.c \
-		$(SRC_DIR)/red_ghost/ghost_moving.c \
-		$(SRC_DIR)/red_ghost/ghost_panic_animation.c \
+		$(SRC_DIR)/red_ghost/red_ghost_animation.c \
+		$(SRC_DIR)/red_ghost/red_ghost_current_img.c \
+		$(SRC_DIR)/red_ghost/red_ghost_moving.c \
+		$(SRC_DIR)/red_ghost/red_ghost_panic_animation.c \
 		$(SRC_DIR)/orange_ghost/orange_ghost_animation.c \
 		$(SRC_DIR)/orange_ghost/orange_ghost_current_img.c \
 		$(SRC_DIR)/orange_ghost/orange_ghost_moving.c \
-		$(SRC_DIR)/orange_ghost/orange_ghost_panic_animation.c
+		$(SRC_DIR)/orange_ghost/orange_ghost_panic_animation.c \
+		$(SRC_DIR)/magenta_ghost/magenta_ghost_animation.c \
+		$(SRC_DIR)/magenta_ghost/magenta_ghost_current_img.c \
+		$(SRC_DIR)/magenta_ghost/magenta_ghost_moving.c \
+		$(SRC_DIR)/magenta_ghost/magenta_ghost_panic_animation.c
 
 OBJS = $(SRCS:%.c=%.o)
 
