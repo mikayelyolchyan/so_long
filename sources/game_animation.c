@@ -57,6 +57,11 @@ void	handle_all_animation_timings(t_game *game)
 		if (game->ghost_attack_mode_delay >= 1048576)
 			game->ghost_attack_mode_delay = 0;
 		render_power_up_dots(game);
+		
+		free(game->score_str);
+		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 5 * 32, (game->map->height) * 32);
+		game->score_str = ft_itoa(game->score);
+		mlx_string_put(game->mlx, game->win, 5 * 32, (game->map->height + 1) * 32 - 10, 0xFFFFFF, game->score_str);
 	}
 }
 
@@ -74,7 +79,9 @@ int	game_animation(t_game *game)
 	orange_ghost_current_img = get_orange_ghost_current_img(game, game->o_ghost);
 	magenta_ghost_current_img = get_magenta_ghost_current_img(game, game->m_ghost);
 	blue_ghost_current_img = get_blue_ghost_current_img(game, game->b_ghost);
+	
 	update_map(game, game->map->map, game->r_ghost->direction);
+
 	mlx_put_image_to_window(game->mlx, game->win, pac_current_img, game->player->x, game->player->y);
 	mlx_put_image_to_window(game->mlx, game->win, red_ghost_current_img, game->r_ghost->x, game->r_ghost->y);
 	mlx_put_image_to_window(game->mlx, game->win, orange_ghost_current_img, game->o_ghost->x, game->o_ghost->y);

@@ -41,7 +41,10 @@ typedef struct s_ghost
 	void	*ghost_panic1b;
 	void	*ghost_panic2a;
 	void	*ghost_panic2b;
-	void	*ghost_is_eaten;
+	void	*ghost_is_eaten_right;
+	void	*ghost_is_eaten_left;
+	void	*ghost_is_eaten_up;
+	void	*ghost_is_eaten_down;
 	int		is_eaten;
 	int		is_respawned;
 	int		direction;
@@ -69,6 +72,7 @@ typedef struct s_player
 	void	*pac_semi_down;
 	void	*pac_semi_up;
 	void	*pac_closed;
+	void	*pac_black;
 	int	direction;
 	int	pending_direction;
 	int	x;
@@ -111,6 +115,9 @@ typedef struct s_game
 	int			last_pac_attack_mode;
 	int 		pac_attack_mode_delay;
 	int			power_up_img_delay;
+	int			score;
+
+	char		*score_str;
 
 	t_map		*map;
 	t_player	*player;

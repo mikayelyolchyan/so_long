@@ -22,7 +22,10 @@ void	pac_moving_up_down(t_game *game)
 			game->m_ghost->is_respawned = 0;
 			game->b_ghost->is_respawned = 0;
 			game->pac_attack_mode_delay = 0;
+			game->score += 50;
 	}
+	if (game->player->y % 32 == 0 && game->player->x % 32 == 0 && game->map->map[game->player->y / 32][game->player->x / 32] == 'C')
+		game->score += 10;
 	if (game->player->y % 32 == 0 && game->player->x % 32 == 0)
 		game->map->map[game->player->y / 32][game->player->x / 32] = '0';
 }
@@ -63,7 +66,10 @@ void	pac_moving_left_right(t_game *game)
 			game->m_ghost->is_respawned = 0;
 			game->b_ghost->is_respawned = 0;
 			game->pac_attack_mode_delay = 0;
+			game->score += 50;
 	}
+	if (game->player->y % 32 == 0 && game->player->x % 32 == 0 && game->map->map[game->player->y / 32][game->player->x / 32] == 'C')
+		game->score += 10;
 	if (game->player->y % 32 == 0 && game->player->x % 32 == 0)
 		game->map->map[game->player->y / 32][game->player->x / 32] = '0';
 }
@@ -92,7 +98,10 @@ void	pac_fast_moving_up_down(t_game *game)
 			game->m_ghost->is_respawned = 0;
 			game->b_ghost->is_respawned = 0;
 			game->pac_attack_mode_delay = 0;
+			game->score += 50;
 	}
+	if (game->player->y % 32 == 0 && game->player->x % 32 == 0 && game->map->map[game->player->y / 32][game->player->x / 32] == 'C')
+		game->score += 10;
 	if (game->player->y % 32 == 0 && game->player->x % 32 == 0)
 		game->map->map[game->player->y / 32][game->player->x / 32] = '0';
 }
@@ -133,7 +142,10 @@ void	pac_fast_moving_left_right(t_game *game)
 			game->m_ghost->is_respawned = 0;
 			game->b_ghost->is_respawned = 0;
 			game->pac_attack_mode_delay = 0;
+			game->score += 50;
 	}
+	if (game->player->y % 32 == 0 && game->player->x % 32 == 0 && game->map->map[game->player->y / 32][game->player->x / 32] == 'C')
+		game->score += 10;
 	if (game->player->y % 32 == 0 && game->player->x % 32 == 0)
 		game->map->map[game->player->y / 32][game->player->x / 32] = '0';
 }
