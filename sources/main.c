@@ -11,6 +11,7 @@ void	pacman_initializations(t_game *game, t_map *map)
 	game->player->pac_semi_up = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_semi_up.xpm", &map->tile_size, &map->tile_size);
 	game->player->pac_semi_down = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_semi_down.xpm", &map->tile_size, &map->tile_size);
 	game->player->pac_closed = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_closed.xpm", &map->tile_size, &map->tile_size);
+	game->player->pac_black = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/black.xpm", &map->tile_size, &map->tile_size);
 	game->player->prev_x = game->player->x;
 	game->player->prev_y = game->player->y;
 	game->player->direction = RIGHT;
@@ -33,7 +34,10 @@ void	red_ghost_initialization(t_game *game, t_map *map)
 	game->r_ghost->ghost_left2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_left2.xpm", &map->tile_size, &map->tile_size);
 	game->r_ghost->ghost_right1 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_right1.xpm", &map->tile_size, &map->tile_size);
 	game->r_ghost->ghost_right2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/R/ghost_right2.xpm", &map->tile_size, &map->tile_size);
-	game->r_ghost->ghost_is_eaten = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_is_eaten_right = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_right.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_is_eaten_left = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_left.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_is_eaten_up = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_up.xpm", &map->tile_size, &map->tile_size);
+	game->r_ghost->ghost_is_eaten_down= mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_down.xpm", &map->tile_size, &map->tile_size);
 	game->r_ghost->direction = RIGHT;
 	game->r_ghost->prev_x = -1;
     game->r_ghost->prev_y = -1;
@@ -61,7 +65,10 @@ void	orange_ghost_initialization(t_game *game, t_map *map)
 	game->o_ghost->ghost_left2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/O/ghost_left2.xpm", &map->tile_size, &map->tile_size);
 	game->o_ghost->ghost_right1 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/O/ghost_right1.xpm", &map->tile_size, &map->tile_size);
 	game->o_ghost->ghost_right2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/O/ghost_right2.xpm", &map->tile_size, &map->tile_size);
-	game->o_ghost->ghost_is_eaten = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black.xpm", &map->tile_size, &map->tile_size);
+	game->o_ghost->ghost_is_eaten_right = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_right.xpm", &map->tile_size, &map->tile_size);
+	game->o_ghost->ghost_is_eaten_left = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_left.xpm", &map->tile_size, &map->tile_size);
+	game->o_ghost->ghost_is_eaten_up = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_up.xpm", &map->tile_size, &map->tile_size);
+	game->o_ghost->ghost_is_eaten_down = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_down.xpm", &map->tile_size, &map->tile_size);
 	game->o_ghost->direction = LEFT;
 	game->o_ghost->prev_x = -1;
     game->o_ghost->prev_y = -1;
@@ -89,7 +96,10 @@ void	magenta_ghost_initialization(t_game *game, t_map *map)
 	game->m_ghost->ghost_left2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/K/ghost_left2.xpm", &map->tile_size, &map->tile_size);
 	game->m_ghost->ghost_right1 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/K/ghost_right1.xpm", &map->tile_size, &map->tile_size);
 	game->m_ghost->ghost_right2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/K/ghost_right2.xpm", &map->tile_size, &map->tile_size);
-	game->m_ghost->ghost_is_eaten = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black.xpm", &map->tile_size, &map->tile_size);
+	game->m_ghost->ghost_is_eaten_right = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_right.xpm", &map->tile_size, &map->tile_size);
+	game->m_ghost->ghost_is_eaten_left = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_left.xpm", &map->tile_size, &map->tile_size);
+	game->m_ghost->ghost_is_eaten_up = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_up.xpm", &map->tile_size, &map->tile_size);
+	game->m_ghost->ghost_is_eaten_down = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_down.xpm", &map->tile_size, &map->tile_size);
 	game->m_ghost->direction = LEFT;
 	game->m_ghost->prev_x = -1;
     game->m_ghost->prev_y = -1;
@@ -117,7 +127,10 @@ void	blue_ghost_initialization(t_game *game, t_map *map)
 	game->b_ghost->ghost_left2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/B/ghost_left2.xpm", &map->tile_size, &map->tile_size);
 	game->b_ghost->ghost_right1 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/B/ghost_right1.xpm", &map->tile_size, &map->tile_size);
 	game->b_ghost->ghost_right2 = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/B/ghost_right2.xpm", &map->tile_size, &map->tile_size);
-	game->b_ghost->ghost_is_eaten = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black.xpm", &map->tile_size, &map->tile_size);
+	game->b_ghost->ghost_is_eaten_right = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_right.xpm", &map->tile_size, &map->tile_size);
+	game->b_ghost->ghost_is_eaten_left = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_left.xpm", &map->tile_size, &map->tile_size);
+	game->b_ghost->ghost_is_eaten_up = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_up.xpm", &map->tile_size, &map->tile_size);
+	game->b_ghost->ghost_is_eaten_down = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_down.xpm", &map->tile_size, &map->tile_size);
 	game->b_ghost->direction = RIGHT;
 	game->b_ghost->prev_x = -1;
     game->b_ghost->prev_y = -1;
@@ -208,6 +221,7 @@ int	start_game(t_game *game)
 	game->pac_attack_mode = 0;
 	game->last_pac_attack_mode = 0;
 	game->pac_attack_mode_delay = 0;
+	game->score = 0;
 
 	map->x = 0;
 	map->y = 0;

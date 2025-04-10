@@ -6,7 +6,14 @@ void *get_orange_ghost_current_img(t_game *game, t_ghost *o_ghost)
 
     if (o_ghost->is_eaten == 1)
     {
-        current_img = game->o_ghost->ghost_is_eaten;
+		if (o_ghost->direction == UP)
+        	current_img = game->o_ghost->ghost_is_eaten_up;
+		else if (o_ghost->direction == DOWN)
+        	current_img = game->o_ghost->ghost_is_eaten_down;
+		else if (o_ghost->direction == LEFT)
+        	current_img = game->o_ghost->ghost_is_eaten_left;
+		else if (o_ghost->direction == RIGHT)
+        	current_img = game->o_ghost->ghost_is_eaten_right;
     }
     else if (game->pac_attack_mode == 1 && o_ghost->is_eaten == 0 && o_ghost->is_respawned == 0)
     {

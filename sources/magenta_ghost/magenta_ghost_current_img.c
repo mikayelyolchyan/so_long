@@ -7,7 +7,14 @@ void *get_magenta_ghost_current_img(t_game *game, t_ghost *m_ghost)
     // Если призрак "съеден" и движется к спавну
     if (m_ghost->is_eaten == 1)
     {
-        current_img = game->m_ghost->ghost_is_eaten; // Изображение глаз
+		if (m_ghost->direction == UP)
+        	current_img = game->m_ghost->ghost_is_eaten_up;
+		else if (m_ghost->direction == DOWN)
+        	current_img = game->m_ghost->ghost_is_eaten_down;
+		else if (m_ghost->direction == LEFT)
+        	current_img = game->m_ghost->ghost_is_eaten_left;
+		else if (m_ghost->direction == RIGHT)
+        	current_img = game->m_ghost->ghost_is_eaten_right;
     }
     // Режим паники применяется только к несъеденным призракам при pac_attack_mode == 1
     else if (game->pac_attack_mode == 1 && m_ghost->is_eaten == 0 && m_ghost->is_respawned == 0)
