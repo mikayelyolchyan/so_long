@@ -22,9 +22,24 @@
 # define UP 3
 # define DOWN 4
 
-typedef struct s_power_up_dot {
-    int x;
-    int y;
+typedef struct s_font
+{
+	void	*one;
+	void	*two;
+	void	*three;
+	void	*four;
+	void	*five;
+	void	*six;
+	void	*seven;
+	void	*eight;
+	void	*nine;
+	void	*zero;
+}	t_font;
+
+typedef struct s_power_up_dot
+{
+    int	x;
+    int	y;
 } t_power_up_dot;
 
 typedef struct s_ghost
@@ -125,6 +140,7 @@ typedef struct s_game
 	t_ghost		*o_ghost;
 	t_ghost		*m_ghost;
 	t_ghost		*b_ghost;
+	t_font		*font;
 }	t_game;
 
 int	open_map(char *filename);
@@ -195,5 +211,7 @@ void	*get_blue_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *
 void	*get_blue_ghost_current_img(t_game *game, t_ghost *r_ghost);
 
 void	count_sprites(t_game *game);
+
+void	font_initialization(t_game *game);
 
 #endif
