@@ -144,6 +144,22 @@ void	blue_ghost_initialization(t_game *game, t_map *map)
 	game->b_ghost->ghost_panic2b = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/Panic/ghost_panic2b.xpm", &map->tile_size, &map->tile_size);
 }
 
+void	font_initialization(t_game *game)
+{
+	int i = 15;
+	int j = 8;
+	game->font->zero = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/0.xpm", &i, &j);
+	game->font->one = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/1.xpm", &i, &j);
+	game->font->two = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/2.xpm", &i, &j);
+	game->font->three = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/3.xpm", &i, &j);
+	game->font->four = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/4.xpm", &i, &j);
+	game->font->five = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/5.xpm", &i, &j);
+	game->font->six = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/6.xpm", &i, &j);
+	game->font->seven = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/7.xpm", &i, &j);
+	game->font->eight = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/8.xpm", &i, &j);
+	game->font->nine = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/9.xpm", &i, &j);
+}
+
 int	start_game(t_game *game)
 {
 	t_map	*map;
@@ -213,6 +229,9 @@ int	start_game(t_game *game)
 	orange_ghost_initialization(game, map);
 	magenta_ghost_initialization(game, map);
 	blue_ghost_initialization(game, map);
+
+	game->font = malloc(sizeof(t_font));
+	font_initialization(game);
 
 	game->frame = 0;
 	game->frame_delay = 0;

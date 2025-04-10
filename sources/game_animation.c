@@ -28,6 +28,41 @@ void render_power_up_dots(t_game *game)
 	}
 }
 
+void display_score(t_game *game, t_font *font, void *mlx, void *win)
+{
+    int x = 1 * 32;
+    int digit;
+    int i = 0;
+    game->score_str = ft_itoa(game->score);
+    while (game->score_str[i] != '\0')
+    {
+        digit = game->score_str[i] - '0';
+        if (digit == 0)
+            mlx_put_image_to_window(mlx, win, font->zero, x, (game->map->height) * 32 + 8);
+        else if (digit == 1)
+            mlx_put_image_to_window(mlx, win, font->one, x, (game->map->height) * 32 + 8);
+        else if (digit == 2)
+            mlx_put_image_to_window(mlx, win, font->two, x, (game->map->height) * 32 + 8);
+        else if (digit == 3)
+            mlx_put_image_to_window(mlx, win, font->three, x, (game->map->height) * 32 + 8);
+        else if (digit == 4)
+            mlx_put_image_to_window(mlx, win, font->four, x, (game->map->height) * 32 + 8);
+        else if (digit == 5)
+            mlx_put_image_to_window(mlx, win, font->five, x, (game->map->height) * 32 + 8);
+        else if (digit == 6)
+            mlx_put_image_to_window(mlx, win, font->six, x, (game->map->height) * 32 + 8);
+        else if (digit == 7)
+            mlx_put_image_to_window(mlx, win, font->seven, x, (game->map->height) * 32 + 8);
+        else if (digit == 8)
+            mlx_put_image_to_window(mlx, win, font->eight, x, (game->map->height) * 32 + 8);
+        else if (digit == 9)
+            mlx_put_image_to_window(mlx, win, font->nine, x, (game->map->height) * 32 + 8);
+        x += 16; 
+        i++;
+    }
+    free(game->score_str);
+}
+
 void	handle_all_animation_timings(t_game *game)
 {
 	game->frame_delay++;
@@ -58,10 +93,7 @@ void	handle_all_animation_timings(t_game *game)
 			game->ghost_attack_mode_delay = 0;
 		render_power_up_dots(game);
 		
-		free(game->score_str);
-		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, 5 * 32, (game->map->height) * 32);
-		game->score_str = ft_itoa(game->score);
-		mlx_string_put(game->mlx, game->win, 5 * 32, (game->map->height + 1) * 32 - 10, 0xFFFFFF, game->score_str);
+		display_score(game, game->font, game->mlx, game->win);
 	}
 }
 
