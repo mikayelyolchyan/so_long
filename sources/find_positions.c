@@ -54,12 +54,14 @@ void	find_positions(t_game *game)
 				if (x == 1)
 				{
 					game->portal[0].x = x;
-					game->portal[0].x = y;
+					game->portal[0].y = y;
+					//printf("game->portal[0].x = %d, game->portal[0].y = %d\n", game->portal[0].x = x, game->portal[0].y = y);
 				}
-				else if (x == game->map->width - 1)
+				else if (x == game->map->width - 2)
 				{
 					game->portal[1].x = x;
-					game->portal[1].x = y;
+					game->portal[1].y = y;
+					//printf("game->portal[1].x = %d, game->portal[1].y = %d\n", game->portal[0].x = x, game->portal[0].y = y);
 				}
 			}
 			x++;
