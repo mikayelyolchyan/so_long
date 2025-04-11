@@ -18,6 +18,7 @@ void	pacman_initializations(t_game *game, t_map *map)
 	game->player->pending_direction = -1;
 	game->player->x = game->player->start_x;
 	game->player->y = game->player->start_y;
+	game->player->move_count = 0;
 }
 
 void	red_ghost_initialization(t_game *game, t_map *map)

@@ -19,7 +19,7 @@ void	draw_map(t_game *game)
 				mlx_put_image_to_window(game->mlx, game->win, map->black_wall_img, x * map->tile_size, y * map->tile_size);
 			else if (map->map[y][x] == 'C')
 				mlx_put_image_to_window(game->mlx, game->win, map->food_img, x * map->tile_size, y * map->tile_size);
-			else if (map->map[y][x] == 'E')
+			else if (map->map[y][x] == 'T')
 				mlx_put_image_to_window(game->mlx, game->win, map->portal_img, x * map->tile_size, y * map->tile_size);
 			else if (map->map[y][x] == 'U')
 				mlx_put_image_to_window(game->mlx, game->win, map->power_up_img, x * map->tile_size, y * map->tile_size);

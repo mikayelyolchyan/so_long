@@ -22,6 +22,12 @@
 # define UP 3
 # define DOWN 4
 
+typedef struct s_portal
+{
+	int x;
+	int	y;
+} t_portal;
+
 typedef struct s_font
 {
 	void	*one;
@@ -96,6 +102,8 @@ typedef struct s_player
 	int	prev_y;
 	int	start_x;
 	int	start_y;
+	int	move_count;
+	char *move_str;
 }	t_player;
 
 typedef struct s_map
@@ -141,6 +149,7 @@ typedef struct s_game
 	t_ghost		*m_ghost;
 	t_ghost		*b_ghost;
 	t_font		*font;
+	t_portal	portal[2];
 }	t_game;
 
 int	open_map(char *filename);
