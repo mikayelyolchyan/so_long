@@ -222,6 +222,7 @@ int	start_game(t_game *game)
 	count_sprites(game);
 
 	game->map->power_up_dots_array = malloc((sizeof(t_power_up_dot) * game->map->power_up_dots_count));
+	//game->portal = malloc(sizeof(t_portal));
 
 	find_positions(game);
 
