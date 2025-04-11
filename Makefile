@@ -24,7 +24,11 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/distance_calculator.c \
 		$(SRC_DIR)/pacman/pac_animation.c \
 		$(SRC_DIR)/pacman/pac_current_img.c \
+		$(SRC_DIR)/pacman/pac_fast_moving_left_right.c \
+		$(SRC_DIR)/pacman/pac_fast_moving.c \
+		$(SRC_DIR)/pacman/pac_moving_left_right.c \
 		$(SRC_DIR)/pacman/pac_moving.c \
+		$(SRC_DIR)/pacman/pac_utils.c \
 		$(SRC_DIR)/pacman/update_direction.c \
 		$(SRC_DIR)/red_ghost/red_ghost_animation.c \
 		$(SRC_DIR)/red_ghost/red_ghost_current_img.c \

@@ -223,4 +223,22 @@ void	count_sprites(t_game *game);
 
 void	font_initialization(t_game *game);
 
+/* pac_moving.c */
+void	pac_moving(t_game *game);
+void	pac_moving_up_down(t_game *game);
+
+/* pac_moving_left_right.c */
+void	pac_moving_left_right(t_game *game);
+
+/* pac_fast_moving.c */
+void	pac_fast_moving(t_game *game);
+void	pac_fast_moving_up_down(t_game *game);
+
+/* pac_fast_moving_left_right.c */
+void	pac_fast_moving_left_right(t_game *game);
+
+/* pac_utils.c */
+void	handle_collectibles(t_game *game);
+void	handle_portal(t_game *game, int portal_index);
+
 #endif
