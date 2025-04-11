@@ -63,6 +63,41 @@ void display_score(t_game *game, t_font *font, void *mlx, void *win)
     free(game->score_str);
 }
 
+void display_move(t_game *game, t_font *font, void *mlx, void *win)
+{
+    int x = (game->map->width - 2) * 32;
+    int digit;
+    int i = 0;
+    game->player->move_str = ft_itoa(game->player->move_count);
+    while (game->player->move_str[i] != '\0')
+    {
+        digit = game->player->move_str[i] - '0';
+        if (digit == 0)
+            mlx_put_image_to_window(mlx, win, font->zero, x, (game->map->height) * 32 + 8);
+        else if (digit == 1)
+            mlx_put_image_to_window(mlx, win, font->one, x, (game->map->height) * 32 + 8);
+        else if (digit == 2)
+            mlx_put_image_to_window(mlx, win, font->two, x, (game->map->height) * 32 + 8);
+        else if (digit == 3)
+            mlx_put_image_to_window(mlx, win, font->three, x, (game->map->height) * 32 + 8);
+        else if (digit == 4)
+            mlx_put_image_to_window(mlx, win, font->four, x, (game->map->height) * 32 + 8);
+        else if (digit == 5)
+            mlx_put_image_to_window(mlx, win, font->five, x, (game->map->height) * 32 + 8);
+        else if (digit == 6)
+            mlx_put_image_to_window(mlx, win, font->six, x, (game->map->height) * 32 + 8);
+        else if (digit == 7)
+            mlx_put_image_to_window(mlx, win, font->seven, x, (game->map->height) * 32 + 8);
+        else if (digit == 8)
+            mlx_put_image_to_window(mlx, win, font->eight, x, (game->map->height) * 32 + 8);
+        else if (digit == 9)
+            mlx_put_image_to_window(mlx, win, font->nine, x, (game->map->height) * 32 + 8);
+        x += 16; 
+        i++;
+    }
+    free(game->player->move_str);
+}
+
 void	handle_all_animation_timings(t_game *game)
 {
 	game->frame_delay++;
@@ -94,6 +129,7 @@ void	handle_all_animation_timings(t_game *game)
 		render_power_up_dots(game);
 		
 		display_score(game, game->font, game->mlx, game->win);
+		display_move(game, game->font, game->mlx, game->win);
 	}
 }
 

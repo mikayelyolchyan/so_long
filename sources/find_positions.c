@@ -49,6 +49,19 @@ void	find_positions(t_game *game)
                     power_up_index++;
                 }
             }
+			else if (map->map[y][x] == 'T')
+			{
+				if (x == 1)
+				{
+					game->portal[0].x = x;
+					game->portal[0].x = y;
+				}
+				else if (x == game->map->width - 1)
+				{
+					game->portal[1].x = x;
+					game->portal[1].x = y;
+				}
+			}
 			x++;
 		}
 		y++;

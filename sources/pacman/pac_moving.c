@@ -36,7 +36,7 @@ void	pac_moving_left_right(t_game *game)
 	{
 		if (game->map->map[game->player->y / 32][(game->player->x - 4) / 32] != '1')
 			game->player->x -= 4;
-		if (game->map->map[game->player->y / 32][(game->player->x - 4) / 32] == 'E')
+		if (game->map->map[game->player->y / 32][(game->player->x - 4) / 32] == 'T')
 		{
 			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->player->x, game->player->y);
 			game->player->x = 23 * 32;
@@ -51,7 +51,7 @@ void	pac_moving_left_right(t_game *game)
 		}
 		else
 		 	game->player->x = (game->player->x + 4) / 32 * 32;
-		if (game->map->map[game->player->y / 32][(game->player->x + 32) / 32] == 'E')
+		if (game->map->map[game->player->y / 32][(game->player->x + 32) / 32] == 'T')
 		{
 			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->player->x, game->player->y);
 			game->player->x = 2 * 32;
@@ -112,11 +112,11 @@ void	pac_fast_moving_left_right(t_game *game)
 	{
 		if (game->map->map[game->player->y / 32][(game->player->x - 8) / 32] != '1')
 			game->player->x -= 8;
-		if (game->map->map[game->player->y / 32][(game->player->x - 8) / 32] == 'E')
+		if (game->map->map[game->player->y / 32][(game->player->x - 8) / 32] == 'T')
 		{
 			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->player->x, game->player->y);
-			game->player->x = 23 * 32;
-			game->player->y = 11 * 32;
+			game->player->x = (game->portal[1].x - 1) * 32;
+			game->player->y = game->portal[1].y * 32;
 		}
 	}
 	else if (game->player->direction == RIGHT)
@@ -127,11 +127,11 @@ void	pac_fast_moving_left_right(t_game *game)
 		}
 		else
 		 	game->player->x = (game->player->x + 8) / 32 * 32;
-		if (game->map->map[game->player->y / 32][(game->player->x + 32) / 32] == 'E')
+		if (game->map->map[game->player->y / 32][(game->player->x + 32) / 32] == 'T')
 		{
 			mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->player->x, game->player->y);
-			game->player->x = 2 * 32;
-			game->player->y = 11 * 32;
+			game->player->x = (game->portal[0].x + 1) * 32;
+			game->player->y = game->portal[0].y * 32;
 		}
 	}
 	if (game->player->y % 32 == 0 && game->player->x % 32 == 0 && game->map->map[game->player->y / 32][game->player->x / 32] == 'U')

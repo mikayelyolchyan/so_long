@@ -287,7 +287,7 @@ void orange_ghost_moving(t_game *game)
         else if (game->o_ghost->direction == LEFT)
         {
             game->o_ghost->x -= 4;
-            if (map[game->o_ghost->y / 32][(game->o_ghost->x - 4) / 32] == 'E')
+            if (map[game->o_ghost->y / 32][(game->o_ghost->x - 4) / 32] == 'T')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->o_ghost->x, game->o_ghost->y);
                 game->o_ghost->x = 23 * 32;
@@ -297,7 +297,7 @@ void orange_ghost_moving(t_game *game)
         else if (game->o_ghost->direction == RIGHT)
         {
             game->o_ghost->x += 4;
-            if (map[game->o_ghost->y / 32][(game->o_ghost->x + 32) / 32] == 'E')
+            if (map[game->o_ghost->y / 32][(game->o_ghost->x + 32) / 32] == 'T')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->o_ghost->x, game->o_ghost->y);
                 game->o_ghost->x = 2 * 32;
@@ -314,21 +314,21 @@ void orange_ghost_moving(t_game *game)
         else if (game->o_ghost->direction == LEFT)
         {
             game->o_ghost->x -= 16;
-            if (map[game->o_ghost->y / 32][(game->o_ghost->x - 16) / 32] == 'E')
+            if (map[game->o_ghost->y / 32][(game->o_ghost->x - 16) / 32] == 'T')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->o_ghost->x, game->o_ghost->y);
-                game->o_ghost->x = 23 * 32;
-                game->o_ghost->y = 11 * 32;
+              	game->o_ghost->x = (game->portal[1].x - 1) * 32;
+				game->o_ghost->y = game->portal[1].y * 32;
             }
         }
         else if (game->o_ghost->direction == RIGHT)
         {   
             game->o_ghost->x += 16;
-            if (map[game->o_ghost->y / 32][(game->o_ghost->x + 32) / 32] == 'E')
+            if (map[game->o_ghost->y / 32][(game->o_ghost->x + 32) / 32] == 'T')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->o_ghost->x, game->o_ghost->y);
-                game->o_ghost->x = 2 * 32;
-                game->o_ghost->y = 11 * 32;
+                game->o_ghost->x = (game->portal[0].x + 1) * 32;
+				game->o_ghost->y = game->portal[0].y * 32;
             }
         }
     }
