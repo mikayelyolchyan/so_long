@@ -8,7 +8,6 @@ void	*get_ghost_panic_animation(t_game *game, t_ghost *c_ghost)
 		current_img = c_ghost->ghost_panic1a;
 	else if (game->frame == 1 || game->frame == 3)
 		current_img = c_ghost->ghost_panic1b;
-	
 	return (current_img);
 }
 
@@ -26,4 +25,3 @@ void	*get_ghost_panic_flashing_animation(t_game *game, t_ghost *c_ghost)
 		current_img = c_ghost->ghost_panic2b;
 	return (current_img);
 }
-
