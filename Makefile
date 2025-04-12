@@ -16,12 +16,14 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/exit.c \
 		$(SRC_DIR)/map/map_utils.c \
 		$(SRC_DIR)/map/map_render.c \
+		$(SRC_DIR)/map/map_render_utils.c \
 		$(SRC_DIR)/map/map_build.c \
 		$(SRC_DIR)/free.c \
 		$(SRC_DIR)/game_animation.c \
 		$(SRC_DIR)/count_sprites.c \
 		$(SRC_DIR)/find_positions.c \
-		$(SRC_DIR)/distance_calculator.c \
+		$(SRC_DIR)/ghosts/distance_calculator.c \
+		$(SRC_DIR)/display.c \
 		$(SRC_DIR)/pacman/pac_animation.c \
 		$(SRC_DIR)/pacman/pac_current_img.c \
 		$(SRC_DIR)/pacman/pac_fast_moving_left_right.c \
@@ -38,7 +40,7 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/red_ghost/red_ghost_moving.c \
 		$(SRC_DIR)/blue_ghost/blue_ghost_moving.c \
 		$(SRC_DIR)/orange_ghost/orange_ghost_moving.c \
-		$(SRC_DIR)/magenta_ghost/magenta_ghost_moving.c \
+		$(SRC_DIR)/magenta_ghost/magenta_ghost_moving.c 
 
 OBJS = $(SRCS:%.c=%.o)
 

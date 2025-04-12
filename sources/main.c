@@ -40,8 +40,8 @@ void	red_ghost_initialization(t_game *game, t_map *map)
 	game->r_ghost->ghost_is_eaten_up = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_up.xpm", &map->tile_size, &map->tile_size);
 	game->r_ghost->ghost_is_eaten_down= mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_down.xpm", &map->tile_size, &map->tile_size);
 	game->r_ghost->direction = RIGHT;
-	game->r_ghost->prev_x = -1;
-    game->r_ghost->prev_y = -1;
+	game->r_ghost->prev_x = game->r_ghost->x;
+    game->r_ghost->prev_y = game->r_ghost->y;
 	game->r_ghost->targ_x = game->map->width * 32;
 	game->r_ghost->targ_y = 0;
 	game->r_ghost->is_eaten = 0;
@@ -71,8 +71,8 @@ void	orange_ghost_initialization(t_game *game, t_map *map)
 	game->o_ghost->ghost_is_eaten_up = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_up.xpm", &map->tile_size, &map->tile_size);
 	game->o_ghost->ghost_is_eaten_down = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_down.xpm", &map->tile_size, &map->tile_size);
 	game->o_ghost->direction = LEFT;
-	game->o_ghost->prev_x = -1;
-    game->o_ghost->prev_y = -1;
+	game->o_ghost->prev_x = game->o_ghost->x;
+    game->o_ghost->prev_y = game->o_ghost->y;
 	game->o_ghost->targ_x = game->map->width * 32;
 	game->o_ghost->targ_y = 0;
 	game->o_ghost->is_eaten = 0;
@@ -102,8 +102,8 @@ void	magenta_ghost_initialization(t_game *game, t_map *map)
 	game->m_ghost->ghost_is_eaten_up = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_up.xpm", &map->tile_size, &map->tile_size);
 	game->m_ghost->ghost_is_eaten_down = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_down.xpm", &map->tile_size, &map->tile_size);
 	game->m_ghost->direction = LEFT;
-	game->m_ghost->prev_x = -1;
-    game->m_ghost->prev_y = -1;
+	game->m_ghost->prev_x = game->m_ghost->x;
+    game->m_ghost->prev_y = game->m_ghost->y;
 	game->m_ghost->targ_x = game->map->width * 32;
 	game->m_ghost->targ_y = 0;
 	game->m_ghost->is_eaten = 0;
@@ -133,8 +133,8 @@ void	blue_ghost_initialization(t_game *game, t_map *map)
 	game->b_ghost->ghost_is_eaten_up = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_up.xpm", &map->tile_size, &map->tile_size);
 	game->b_ghost->ghost_is_eaten_down = mlx_xpm_file_to_image(game->mlx, "sprites/Ghosts/black_down.xpm", &map->tile_size, &map->tile_size);
 	game->b_ghost->direction = RIGHT;
-	game->b_ghost->prev_x = -1;
-    game->b_ghost->prev_y = -1;
+	game->b_ghost->prev_x = game->b_ghost->x;
+    game->b_ghost->prev_y = game->b_ghost->y;
 	game->b_ghost->targ_x = game->map->width * 32;
 	game->b_ghost->targ_y = 0;
 	game->b_ghost->is_eaten = 0;
