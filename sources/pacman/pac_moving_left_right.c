@@ -5,7 +5,7 @@ static void	move_left(t_game *game)
 	if (game->map->map[game->player->y / 32][(game->player->x - 4) / 32] != '1')
 		game->player->x -= 4;
 	if (game->map->map[game->player->y / 32][(game->player->x - 8) / 32] == 'T')
-		handle_portal(game, 1);
+		handle_pac_portal(game, 1);
 }
 
 static void	move_right(t_game *game)
@@ -16,7 +16,7 @@ static void	move_right(t_game *game)
 	else
 		game->player->x = (game->player->x + 4) / 32 * 32;
 	if (game->map->map[game->player->y / 32][(game->player->x + 32) / 32] == 'T')
-		handle_portal(game, 0);
+		handle_pac_portal(game, 0);
 }
 
 void	pac_moving_left_right(t_game *game)

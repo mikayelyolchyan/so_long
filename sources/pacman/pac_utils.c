@@ -11,7 +11,7 @@ static void	handle_power_up(t_game *game)
 	game->score += 50;
 }
 
-void	handle_portal(t_game *game, int portal_index)
+void	handle_pac_portal(t_game *game, int portal_index)
 {
 	mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img,
 		game->player->x, game->player->y);

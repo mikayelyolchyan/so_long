@@ -34,6 +34,7 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/ghosts/ghost_animation.c \
 		$(SRC_DIR)/ghosts/ghost_current_img.c \
 		$(SRC_DIR)/ghosts/ghost_panic_animation.c \
+		$(SRC_DIR)/ghosts/ghost_utils.c \
 		$(SRC_DIR)/red_ghost/red_ghost_moving.c \
 		$(SRC_DIR)/blue_ghost/blue_ghost_moving.c \
 		$(SRC_DIR)/orange_ghost/orange_ghost_moving.c \
