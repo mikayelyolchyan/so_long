@@ -151,9 +151,9 @@ void	fill_map(t_map *map, int fd);
 void	create_map(char *filename, t_game *game);
 void	draw_map(t_game *game);
 void	free_map(t_map *map);
-void	update_map(t_game *game, char **map, int direction);
+void	update_map(t_game *game, char **map);
 void	update_ghost(t_game *game, char **map, int direction, t_ghost *ghost);
-void	update_player_position(t_game *game);
+void	update_player(t_game *game, char **map, t_player *player);
 
 int		start_game(t_game *game);
 void	find_positions(t_game *game);

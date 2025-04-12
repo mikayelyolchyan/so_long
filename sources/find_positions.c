@@ -45,7 +45,6 @@ void	find_positions(t_game *game)
                 {
 					map->power_up_dots_array[power_up_index].x = x * map->tile_size;
                     map->power_up_dots_array[power_up_index].y = y * map->tile_size;
-                    //printf("Power-up %d: x=%d, y=%d (map: %d,%d)\n", power_up_index, map->power_up_dots_array[power_up_index].x, map->power_up_dots_array[power_up_index].y, x, y);
                     power_up_index++;
                 }
             }
@@ -55,13 +54,11 @@ void	find_positions(t_game *game)
 				{
 					game->portal[0].x = x;
 					game->portal[0].y = y;
-					//printf("game->portal[0].x = %d, game->portal[0].y = %d\n", game->portal[0].x = x, game->portal[0].y = y);
 				}
 				else if (x == game->map->width - 2)
 				{
 					game->portal[1].x = x;
 					game->portal[1].y = y;
-					//printf("game->portal[1].x = %d, game->portal[1].y = %d\n", game->portal[0].x = x, game->portal[0].y = y);
 				}
 			}
 			x++;

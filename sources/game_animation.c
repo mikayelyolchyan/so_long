@@ -85,7 +85,7 @@ int	game_animation(t_game *game)
 	orange_ghost_current_img = get_ghost_current_img(game, game->o_ghost);
 	magenta_ghost_current_img = get_ghost_current_img(game, game->m_ghost);
 	blue_ghost_current_img = get_ghost_current_img(game, game->b_ghost);
-	update_map(game, game->map->map, game->r_ghost->direction);
+	update_map(game, game->map->map);
 	mlx_put_image_to_window(game->mlx, game->win, \
 		pac_current_img, game->player->x, game->player->y);
 	mlx_put_image_to_window(game->mlx, game->win, \
