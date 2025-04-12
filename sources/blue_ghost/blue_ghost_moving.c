@@ -1,41 +1,5 @@
 #include "../../includes/headers/so_long.h"
 
-int blue_ghost_can_move_vertical(t_game *game, char **map, int direction)
-{
-    if (direction == UP && map[(game->b_ghost->y - 4) / 32][game->b_ghost->x / 32] != '1' && game->b_ghost->x % 32 == 0)
-        return (1);
-    if (direction == DOWN && map[(game->b_ghost->y + 4) / 32 + 1][game->b_ghost->x / 32] != '1' && game->b_ghost->x % 32 == 0)
-        return (1);
-    return (0);
-}
-
-int blue_ghost_can_move_horizontal(t_game *game, char **map, int direction)
-{
-    if (direction == LEFT && map[game->b_ghost->y / 32][(game->b_ghost->x - 4) / 32] != '1' && game->b_ghost->y % 32 == 0)
-        return (1);
-    if (direction == RIGHT && map[game->b_ghost->y / 32][(game->b_ghost->x + 4) / 32 + 1] != '1' && game->b_ghost->y % 32 == 0)
-        return (1);
-    return (0);
-}
-
-int blue_ghost_can_move_fast_vertical(t_game *game, char **map, int direction)
-{
-    if (direction == UP && map[(game->b_ghost->y - 16) / 32][game->b_ghost->x / 32] != '1' && game->b_ghost->x % 32 == 0)
-        return (1);
-    if (direction == DOWN && map[(game->b_ghost->y + 16) / 32 + 1][game->b_ghost->x / 32] != '1' && game->b_ghost->x % 32 == 0)
-        return (1);
-    return (0);
-}
-
-int blue_ghost_can_move_fast_horizontal(t_game *game, char **map, int direction)
-{
-    if (direction == LEFT && map[game->b_ghost->y / 32][(game->b_ghost->x - 16) / 32] != '1' && game->b_ghost->y % 32 == 0)
-        return (1);
-    if (direction == RIGHT && map[game->b_ghost->y / 32][(game->b_ghost->x + 16) / 32 + 1] != '1' && game->b_ghost->y % 32 == 0)
-        return (1);
-    return (0);
-}
-
 void blue_ghost_direction(t_game *game)
 {
     int dist_up = INT_MAX;
@@ -45,7 +9,6 @@ void blue_ghost_direction(t_game *game)
     char **map = game->map->map;
     int current = game->b_ghost->direction;
 
-    // Проверка на "съедение" призрака
     if (game->pac_attack_mode == 1 &&
         (game->player->x - game->b_ghost->x <= 16 && game->player->x - game->b_ghost->x >= -16) &&
         (game->player->y - game->b_ghost->y <= 16 && game->player->y - game->b_ghost->y >= -16) &&
@@ -288,14 +251,14 @@ void blue_ghost_moving(t_game *game)
         (game->b_ghost->direction == RIGHT && map[game->b_ghost->y / 32][(game->b_ghost->x + (game->b_ghost->is_eaten ? 8 : 4)) / 32 + 1] == '1'))
     {
         if (game->b_ghost->is_eaten == 0 &&
-            (blue_ghost_can_move_vertical(game, map, game->b_ghost->pending_direction) || 
-             blue_ghost_can_move_horizontal(game, map, game->b_ghost->pending_direction)))
+            (ghost_can_move_vertical(game->b_ghost, map, game->b_ghost->pending_direction) || 
+             ghost_can_move_horizontal(game->b_ghost, map, game->b_ghost->pending_direction)))
         {
             game->b_ghost->direction = game->b_ghost->pending_direction;
         }
-        else if (game->b_ghost->is_eaten == 1 && 
-                 (blue_ghost_can_move_fast_vertical(game, map, game->b_ghost->pending_direction) || 
-                  blue_ghost_can_move_fast_horizontal(game, map, game->b_ghost->pending_direction)))
+        else if (game->b_ghost->is_eaten == 1 &&
+                 (ghost_can_move_fast_vertical(game->b_ghost, map, game->b_ghost->pending_direction) || 
+                  ghost_can_move_fast_horizontal(game->b_ghost, map, game->b_ghost->pending_direction)))
         {
             game->b_ghost->direction = game->b_ghost->pending_direction;
         }

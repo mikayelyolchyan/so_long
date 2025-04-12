@@ -1,41 +1,5 @@
 #include "../../includes/headers/so_long.h"
 
-int orange_ghost_can_move_vertical(t_game *game, char **map, int direction)
-{
-    if (direction == UP && map[(game->o_ghost->y - 4) / 32][game->o_ghost->x / 32] != '1' && game->o_ghost->x % 32 == 0)
-        return (1);
-    if (direction == DOWN && map[(game->o_ghost->y + 4) / 32 + 1][game->o_ghost->x / 32] != '1' && game->o_ghost->x % 32 == 0)
-        return (1);
-    return (0);
-}
-
-int orange_ghost_can_move_horizontal(t_game *game, char **map, int direction)
-{
-    if (direction == LEFT && map[game->o_ghost->y / 32][(game->o_ghost->x - 4) / 32] != '1' && game->o_ghost->y % 32 == 0)
-        return (1);
-    if (direction == RIGHT && map[game->o_ghost->y / 32][(game->o_ghost->x + 4) / 32 + 1] != '1' && game->o_ghost->y % 32 == 0)
-        return (1);
-    return (0);
-}
-
-int orange_ghost_can_move_fast_vertical(t_game *game, char **map, int direction)
-{
-    if (direction == UP && map[(game->o_ghost->y - 16) / 32][game->o_ghost->x / 32] != '1' && game->o_ghost->x % 32 == 0)
-        return (1);
-    if (direction == DOWN && map[(game->o_ghost->y + 16) / 32 + 1][game->o_ghost->x / 32] != '1' && game->o_ghost->x % 32 == 0)
-        return (1);
-    return (0);
-}
-
-int orange_ghost_can_move_fast_horizontal(t_game *game, char **map, int direction)
-{
-    if (direction == LEFT && map[game->o_ghost->y / 32][(game->o_ghost->x - 16) / 32] != '1' && game->o_ghost->y % 32 == 0)
-        return (1);
-    if (direction == RIGHT && map[game->o_ghost->y / 32][(game->o_ghost->x + 16) / 32 + 1] != '1' && game->o_ghost->y % 32 == 0)
-        return (1);
-    return (0);
-}
-
 void orange_ghost_direction(t_game *game)
 {
     int dist_up = INT_MAX;
@@ -241,14 +205,14 @@ void orange_ghost_moving(t_game *game)
         (game->o_ghost->direction == RIGHT && map[game->o_ghost->y / 32][(game->o_ghost->x + (game->o_ghost->is_eaten ? 8 : 4)) / 32 + 1] == '1'))
     {
         if (game->o_ghost->is_eaten == 0 &&
-            (orange_ghost_can_move_vertical(game, map, game->o_ghost->pending_direction) || 
-             orange_ghost_can_move_horizontal(game, map, game->o_ghost->pending_direction)))
+            (ghost_can_move_vertical(game->o_ghost, map, game->o_ghost->pending_direction) || 
+             ghost_can_move_horizontal(game->o_ghost, map, game->o_ghost->pending_direction)))
         {
             game->o_ghost->direction = game->o_ghost->pending_direction;
         }
         else if (game->o_ghost->is_eaten == 1 && 
-                 (orange_ghost_can_move_fast_vertical(game, map, game->o_ghost->pending_direction) || 
-                  orange_ghost_can_move_fast_horizontal(game, map, game->o_ghost->pending_direction)))
+                 (ghost_can_move_fast_vertical(game->o_ghost, map, game->o_ghost->pending_direction) || 
+                  ghost_can_move_fast_horizontal(game->o_ghost, map, game->o_ghost->pending_direction)))
         {
             game->o_ghost->direction = game->o_ghost->pending_direction;
         }

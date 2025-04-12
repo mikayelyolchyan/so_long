@@ -183,42 +183,6 @@ void 	pac_moving(t_game *game);
 void	pac_fast_moving(t_game *game);
 void	update_pac_direction(t_game *game);
 
-void	*get_red_ghost_vertical_animation(t_game *game, t_ghost *r_ghost);
-void	*get_red_ghost_horizontal_animation(t_game *game, t_ghost *r_ghost);
-void	red_ghost_moving(t_game *game);
-void	*get_red_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost);
-void	*get_red_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost);
-void	*get_red_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost);
-void	*get_red_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost);
-void	*get_red_ghost_current_img(t_game *game, t_ghost *r_ghost);
-
-void	*get_orange_ghost_vertical_animation(t_game *game, t_ghost *o_ghost);
-void	*get_orange_ghost_horizontal_animation(t_game *game, t_ghost *o_ghost);
-void	orange_ghost_moving(t_game *game);
-void	*get_orange_ghost_panic_vertical_animation(t_game *game, t_ghost *o_ghost);
-void	*get_orange_ghost_panic_horizontal_animation(t_game *game, t_ghost *o_ghost);
-void	*get_orange_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *o_ghost);
-void	*get_orange_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *o_ghost);
-void	*get_orange_ghost_current_img(t_game *game, t_ghost *o_ghost);
-
-void	*get_magenta_ghost_vertical_animation(t_game *game, t_ghost *r_ghost);
-void	*get_magenta_ghost_horizontal_animation(t_game *game, t_ghost *r_ghost);
-void	magenta_ghost_moving(t_game *game);
-void	*get_magenta_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost);
-void	*get_magenta_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost);
-void	*get_magenta_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost);
-void	*get_magenta_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost);
-void	*get_magenta_ghost_current_img(t_game *game, t_ghost *r_ghost);
-
-void	*get_blue_ghost_vertical_animation(t_game *game, t_ghost *r_ghost);
-void	*get_blue_ghost_horizontal_animation(t_game *game, t_ghost *r_ghost);
-void	blue_ghost_moving(t_game *game);
-void	*get_blue_ghost_panic_vertical_animation(t_game *game, t_ghost *r_ghost);
-void	*get_blue_ghost_panic_horizontal_animation(t_game *game, t_ghost *r_ghost);
-void	*get_blue_ghost_panic_flashing_vertical_animation(t_game *game, t_ghost *r_ghost);
-void	*get_blue_ghost_panic_flashing_horizontal_animation(t_game *game, t_ghost *r_ghost);
-void	*get_blue_ghost_current_img(t_game *game, t_ghost *r_ghost);
-
 void	count_sprites(t_game *game);
 
 void	font_initialization(t_game *game);
@@ -240,5 +204,23 @@ void	pac_fast_moving_left_right(t_game *game);
 /* pac_utils.c */
 void	handle_collectibles(t_game *game);
 void	handle_portal(t_game *game, int portal_index);
+
+
+int 	ghost_can_move_fast_horizontal(t_ghost *c_ghost, char **map, int direction);
+int 	ghost_can_move_fast_vertical(t_ghost *c_ghost, char **map, int direction);
+int 	ghost_can_move_horizontal(t_ghost *c_ghost, char **map, int direction);
+int 	ghost_can_move_vertical(t_ghost *c_ghost, char **map, int direction);
+
+void	*get_ghost_horizontal_animation(t_game *game, t_ghost *c_ghost);
+void	*get_ghost_vertical_animation(t_game *game, t_ghost *c_ghost);
+void	*get_ghost_current_img(t_game *game, t_ghost *c_ghost);
+void	*get_ghost_panic_animation(t_game *game, t_ghost *c_ghost);
+void	*get_ghost_panic_flashing_animation(t_game *game, t_ghost *c_ghost);
+
+void	red_ghost_moving(t_game *game);
+void	orange_ghost_moving(t_game *game);
+void	magenta_ghost_moving(t_game *game);
+void	blue_ghost_moving(t_game *game);
+
 
 #endif

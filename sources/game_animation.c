@@ -143,10 +143,10 @@ int	game_animation(t_game *game)
 
 	handle_all_animation_timings(game);
 	pac_current_img = get_pac_current_img(game, game->player);
-	red_ghost_current_img = get_red_ghost_current_img(game, game->r_ghost);
-	orange_ghost_current_img = get_orange_ghost_current_img(game, game->o_ghost);
-	magenta_ghost_current_img = get_magenta_ghost_current_img(game, game->m_ghost);
-	blue_ghost_current_img = get_blue_ghost_current_img(game, game->b_ghost);
+	red_ghost_current_img = get_ghost_current_img(game, game->r_ghost);
+	orange_ghost_current_img = get_ghost_current_img(game, game->o_ghost);
+	magenta_ghost_current_img = get_ghost_current_img(game, game->m_ghost);
+	blue_ghost_current_img = get_ghost_current_img(game, game->b_ghost);
 	
 	update_map(game, game->map->map, game->r_ghost->direction);
 
