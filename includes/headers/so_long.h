@@ -7,15 +7,11 @@
 # include "../libraries/get_next_line/get_next_line_bonus.h"
 # include "../libraries/mlx_linux/mlx.h"
 
-# include <math.h>
-# include <limits.h>
-
 # define ESC 65307
 # define W 119
 # define A 97
 # define S 115
 # define D 100
-
 # define STOP 0
 # define LEFT 1
 # define RIGHT 2
@@ -24,9 +20,9 @@
 
 typedef struct s_portal
 {
-	int x;
+	int	x;
 	int	y;
-} t_portal;
+}	t_portal;
 
 typedef struct s_font
 {
@@ -44,9 +40,9 @@ typedef struct s_font
 
 typedef struct s_power_up_dot
 {
-    int	x;
-    int	y;
-} t_power_up_dot;
+	int	x;
+	int	y;
+}	t_power_up_dot;
 
 typedef struct s_ghost
 {
@@ -94,36 +90,35 @@ typedef struct s_player
 	void	*pac_semi_up;
 	void	*pac_closed;
 	void	*pac_black;
-	int	direction;
-	int	pending_direction;
-	int	x;
-	int	y;
-	int	prev_x;
-	int	prev_y;
-	int	start_x;
-	int	start_y;
-	int	move_count;
-	char *move_str;
+	int		direction;
+	int		pending_direction;
+	int		x;
+	int		y;
+	int		prev_x;
+	int		prev_y;
+	int		start_x;
+	int		start_y;
+	int		move_count;
+	char	*move_str;
 }	t_player;
 
 typedef struct s_map
 {
-	int	x;
-	int	y;
-	int	width;
-	int	height;
-	int	tile_size;
-	void	*wall_img;
-	void	*black_wall_img;
-	void	*food_img;
-	void	*portal_img;
-	void	*logo_img;
-	void	*power_up_img;
-	char	**map;
-
-	int		dots_count;
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+	int				tile_size;
+	void			*wall_img;
+	void			*black_wall_img;
+	void			*food_img;
+	void			*portal_img;
+	void			*logo_img;
+	void			*power_up_img;
+	char			**map;
+	int				dots_count;
 	int				power_up_dots_count;
-	t_power_up_dot 	*power_up_dots_array;
+	t_power_up_dot	*power_up_dots_array;
 }	t_map;
 
 typedef struct s_game
@@ -136,12 +131,10 @@ typedef struct s_game
 	int			ghost_attack_mode_delay;
 	int			pac_attack_mode;
 	int			last_pac_attack_mode;
-	int 		pac_attack_mode_delay;
+	int			pac_attack_mode_delay;
 	int			power_up_img_delay;
 	int			score;
-
 	char		*score_str;
-
 	t_map		*map;
 	t_player	*player;
 	t_ghost		*r_ghost;
@@ -152,40 +145,34 @@ typedef struct s_game
 	t_portal	portal[2];
 }	t_game;
 
-int	open_map(char *filename);
-int	read_map(int fd);
-
+int		open_map(char *filename);
+int		read_map(int fd);
 void	fill_map(t_map *map, int fd);
 void	create_map(char *filename, t_game *game);
-
-void	find_positions(t_game *game);
-
-int distance_calculator(int x1, int x2, int y1, int y2);
-
 void	draw_map(t_game *game);
+void	free_map(t_map *map);
+void	update_map(t_game *game, char **map, int direction);
 
 int		start_game(t_game *game);
+void	find_positions(t_game *game);
+
+int		distance_calculator(int x1, int x2, int y1, int y2);
 
 int		ft_exit(t_game *game);
 
 int		ft_hotkey(int keycode, t_game *game);
 
-void	free_map(t_map *map);
-
 int		game_animation(t_game *game);
-
-void	update_map(t_game *game, char **map, int direction);
-
-void	*get_pac_vertical_animation(t_game *game, t_player *player);
-void	*get_pac_horizontal_animation(t_game *game, t_player *player);
-void	*get_pac_current_img(t_game *game, t_player *player);
-void 	pac_moving(t_game *game);
-void	pac_fast_moving(t_game *game);
-void	update_pac_direction(t_game *game);
 
 void	count_sprites(t_game *game);
 
 void	font_initialization(t_game *game);
+
+
+void	*get_pac_vertical_animation(t_game *game, t_player *player);
+void	*get_pac_horizontal_animation(t_game *game, t_player *player);
+void	*get_pac_current_img(t_game *game, t_player *player);
+void	update_pac_direction(t_game *game);
 
 /* pac_moving.c */
 void	pac_moving(t_game *game);
