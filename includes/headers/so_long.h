@@ -152,6 +152,8 @@ void	create_map(char *filename, t_game *game);
 void	draw_map(t_game *game);
 void	free_map(t_map *map);
 void	update_map(t_game *game, char **map, int direction);
+void	update_ghost(t_game *game, char **map, int direction, t_ghost *ghost);
+void	update_player_position(t_game *game);
 
 int		start_game(t_game *game);
 void	find_positions(t_game *game);
@@ -167,6 +169,9 @@ int		game_animation(t_game *game);
 void	count_sprites(t_game *game);
 
 void	font_initialization(t_game *game);
+
+void	display_score(t_game *game);
+void	display_move(t_game *game);
 
 void	*get_pac_vertical_animation(t_game *game, t_player *player);
 void	*get_pac_horizontal_animation(t_game *game, t_player *player);

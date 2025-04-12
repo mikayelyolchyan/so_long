@@ -1,4 +1,4 @@
-#include "../includes/headers/so_long.h"
+#include "../../includes/headers/so_long.h"
 
 int distance_calculator(int x1, int x2, int y1, int y2)
 {
