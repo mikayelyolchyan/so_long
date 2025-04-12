@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map_render.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: <ваш_логин> <ваш_email>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 by <ваш_логин>             #+#    #+#             */
-/*   Updated: 2025/04/11 by <ваш_логин>             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/headers/so_long.h"
 
 static void	draw_tile(t_game *game, int x, int y, char tile)
@@ -51,11 +39,12 @@ void	draw_map(t_game *game)
 	}
 }
 
-void	update_map(t_game *game, char **map, int direction)
+void	update_map(t_game *game, char **map)
 {
-	update_player_position(game);
-	update_ghost(game, map, direction, game->r_ghost);
-	update_ghost(game, map, direction, game->o_ghost);
-	update_ghost(game, map, direction, game->m_ghost);
-	update_ghost(game, map, direction, game->b_ghost);
+	mlx_put_image_to_window(game->mlx, game->win, game->player->pac_black, game->player->prev_x, game->player->prev_y);
+	//update_player(game, map, game->player);
+	update_ghost(game, map, game->r_ghost->direction, game->r_ghost);
+	update_ghost(game, map, game->r_ghost->direction, game->o_ghost);
+	update_ghost(game, map, game->r_ghost->direction, game->m_ghost);
+	update_ghost(game, map, game->r_ghost->direction, game->b_ghost);
 }
