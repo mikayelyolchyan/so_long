@@ -39,7 +39,10 @@ void	handle_collectibles(t_game *game)
 	if (game->map->map[y][x] == 'U')
 		handle_power_up(game);
 	else if (game->map->map[y][x] == 'C')
+	{
 		game->score += 10;
+		game->eated_dots++;
+	}
 	if (game->map->map[y][x] != 'T')
 		game->map->map[y][x] = '0';
 }

@@ -18,6 +18,7 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/map/map_render.c \
 		$(SRC_DIR)/map/map_render_utils.c \
 		$(SRC_DIR)/map/map_build.c \
+		$(SRC_DIR)/map/map_flashing.c \
 		$(SRC_DIR)/free.c \
 		$(SRC_DIR)/game_animation.c \
 		$(SRC_DIR)/count_sprites.c \
@@ -27,8 +28,10 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/pacman/pac_animation.c \
 		$(SRC_DIR)/pacman/pac_current_img.c \
 		$(SRC_DIR)/pacman/pac_fast_moving_left_right.c \
+		$(SRC_DIR)/pacman/pac_fast_moving_up_down.c \
 		$(SRC_DIR)/pacman/pac_fast_moving.c \
 		$(SRC_DIR)/pacman/pac_moving_left_right.c \
+		$(SRC_DIR)/pacman/pac_moving_up_down.c \
 		$(SRC_DIR)/pacman/pac_moving.c \
 		$(SRC_DIR)/pacman/pac_utils.c \
 		$(SRC_DIR)/pacman/update_direction.c \
