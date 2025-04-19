@@ -15,6 +15,8 @@ void blue_ghost_direction(t_game *game)
         game->b_ghost->is_eaten == 0 && game->b_ghost->is_respawned == 0)
     {
         game->b_ghost->is_eaten = 1;
+		game->game_start_delay = 25000;
+		game->game_start = 0;
         game->b_ghost->targ_x = game->b_ghost->start_x;
         game->b_ghost->targ_y = game->b_ghost->start_y;
 
