@@ -12,6 +12,7 @@ FT_PRINTF_DIR = $(LIB_DIR)/ft_printf
 GET_NEXT_LINE_DIR = $(LIB_DIR)/get_next_line
 
 SRCS = $(SRC_DIR)/main.c \
+		$(SRC_DIR)/game_over.c \
 		$(SRC_DIR)/hotkeys.c \
 		$(SRC_DIR)/exit.c \
 		$(SRC_DIR)/map/map_utils.c \
@@ -34,6 +35,7 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/pacman/pac_moving_up_down.c \
 		$(SRC_DIR)/pacman/pac_moving.c \
 		$(SRC_DIR)/pacman/pac_utils.c \
+		$(SRC_DIR)/pacman/pac_dying.c \
 		$(SRC_DIR)/pacman/update_direction.c \
 		$(SRC_DIR)/ghosts/ghost_can_move.c \
 		$(SRC_DIR)/ghosts/ghost_animation.c \

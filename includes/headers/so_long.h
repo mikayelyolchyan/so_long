@@ -90,6 +90,19 @@ typedef struct s_player
 	void	*pac_semi_up;
 	void	*pac_closed;
 	void	*pac_black;
+	void	*dying1;
+	void	*dying2;
+	void	*dying3;
+	void	*dying4;
+	void	*dying5;
+	void	*dying6;
+	void	*dying7;
+	void	*dying8;
+	void	*dying9;
+	void	*dying10;
+	void	*woosh;
+	int		dying_frame;
+	int		dying_frame_delay;
 	int		direction;
 	int		pending_direction;
 	int		x;
@@ -99,6 +112,7 @@ typedef struct s_player
 	int		start_x;
 	int		start_y;
 	int		move_count;
+	int		died_count;
 	char	*move_str;
 }	t_player;
 
@@ -112,6 +126,7 @@ typedef struct s_map
 	void			*wall_img;
 	void			*black_wall_img;
 	void			*white_wall_img;
+	void			*red_wall_img;
 	void			*food_img;
 	void			*portal_img;
 	void			*logo_img;
@@ -140,6 +155,7 @@ typedef struct s_game
 	int			game_start;
 	int			game_start_delay;
 	int			game_win;
+	int			game_restart;
 	int			score;
 	char		*score_str;
 	int			eated_dots;
@@ -152,6 +168,8 @@ typedef struct s_game
 	t_font		*font;
 	t_portal	portal[2];
 }	t_game;
+
+void	game_over(t_game *game);
 
 void	map_flashing(t_map *map, t_game *game);
 int		open_map(char *filename);
@@ -187,6 +205,8 @@ void	*get_pac_horizontal_animation(t_game *game, t_player *player);
 void	*get_pac_current_img(t_game *game, t_player *player);
 void	update_pac_direction(t_game *game);
 
+
+void	pac_dying(t_game *game, t_player *player);
 void	pac_moving(t_game *game);
 void	pac_moving_up_down(t_game *game);
 void	pac_moving_left_right(t_game *game);

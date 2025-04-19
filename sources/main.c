@@ -12,6 +12,17 @@ void	pacman_initializations(t_game *game, t_map *map)
 	game->player->pac_semi_down = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_semi_down.xpm", &map->tile_size, &map->tile_size);
 	game->player->pac_closed = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_closed.xpm", &map->tile_size, &map->tile_size);
 	game->player->pac_black = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/black.xpm", &map->tile_size, &map->tile_size);
+	game->player->dying1 = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/Dying/dying1.xpm", &map->tile_size, &map->tile_size);
+	game->player->dying2 = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/Dying/dying2.xpm", &map->tile_size, &map->tile_size);
+	game->player->dying3 = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/Dying/dying3.xpm", &map->tile_size, &map->tile_size);
+	game->player->dying4 = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/Dying/dying4.xpm", &map->tile_size, &map->tile_size);
+	game->player->dying5 = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/Dying/dying5.xpm", &map->tile_size, &map->tile_size);
+	game->player->dying6 = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/Dying/dying6.xpm", &map->tile_size, &map->tile_size);
+	game->player->dying7 = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/Dying/dying7.xpm", &map->tile_size, &map->tile_size);
+	game->player->dying8 = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/Dying/dying8.xpm", &map->tile_size, &map->tile_size);
+	game->player->dying9 = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/Dying/dying9.xpm", &map->tile_size, &map->tile_size);
+	game->player->dying10 = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/Dying/dying10.xpm", &map->tile_size, &map->tile_size);
+	game->player->woosh = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/Dying/woosh.xpm", &map->tile_size, &map->tile_size);
 	game->player->x = game->player->start_x;
 	game->player->y = game->player->start_y;
 	game->player->prev_x = game->player->x;
@@ -19,6 +30,9 @@ void	pacman_initializations(t_game *game, t_map *map)
 	game->player->direction = RIGHT;
 	game->player->pending_direction = -1;
 	game->player->move_count = 0;
+	game->player->died_count = 0;
+	game->player->dying_frame = 0;
+	game->player->dying_frame_delay = 0;
 }
 
 void	red_ghost_initialization(t_game *game, t_map *map)
@@ -190,6 +204,7 @@ int	start_game(t_game *game)
 
 	map->wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/wall.xpm", &map->tile_size, &map->tile_size);
 	map->white_wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/white.xpm", &map->tile_size, &map->tile_size);
+	map->red_wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/red.xpm", &map->tile_size, &map->tile_size);
 	map->black_wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/black.xpm", &map->tile_size, &map->tile_size);
 	map->food_img = mlx_xpm_file_to_image(game->mlx, "sprites/Pacdots/pacdot_food.xpm", &map->tile_size, &map->tile_size);
 	map->portal_img = mlx_xpm_file_to_image(game->mlx, "sprites/Portal/portal.xpm", &map->tile_size, &map->tile_size);
@@ -251,6 +266,7 @@ int	start_game(t_game *game)
 	game->map_flashing_frame = 0;
 	game->map_flashing_delay = 0;
 	game->map_flashing_count = 0;
+	game->game_restart = 0;
 
 	map->x = 0;
 	map->y = 0;
