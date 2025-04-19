@@ -65,7 +65,7 @@ static void	handle_all_animation_timings(t_game *game)
 	delay_update(game);
 	if (game->game_start_delay >= 35000)
 		game->game_start = 1;
-	if (game->game_start == 1 && game->game_win == 0)
+	if (game->game_start == 1 && game->game_win == 0 && game->game_restart == 0)
 	{
 		game->game_start_delay = 0;
 		if (game->frame_delay >= 512)
@@ -81,7 +81,7 @@ static void	handle_all_animation_timings(t_game *game)
 			display_move(game);
 		}
 	}
-	if (game->eated_dots == 3)// == game->map->dots_count)
+	if (game->eated_dots == game->map->dots_count)
 	{
 		game->game_win = 1;
 		game->map_flashing_delay++;
@@ -105,7 +105,7 @@ int	game_animation(t_game *game)
 	void		*blue_ghost_current_img;
 
 	handle_all_animation_timings(game);
-	if (game->game_win == 0)
+	if (game->game_win == 0 && game->game_restart == 0)
 	{
 		pac_current_img = get_pac_current_img(game, game->player);
 		red_ghost_current_img = get_ghost_current_img(game, game->r_ghost);
@@ -123,6 +123,16 @@ int	game_animation(t_game *game)
 			magenta_ghost_current_img, game->m_ghost->x, game->m_ghost->y);
 		mlx_put_image_to_window(game->mlx, game->win, \
 			blue_ghost_current_img, game->b_ghost->x, game->b_ghost->y);
+	}
+	if (game->game_restart == 1)
+	{
+		game->player->dying_frame_delay++;
+		if (game->player->dying_frame_delay >= 12500)
+		{
+			game->player->dying_frame_delay = 0;
+			game->player->dying_frame = (game->player->dying_frame + 1) % 15;
+			pac_dying(game, game->player);
+		}
 	}
 	return (0);
 }

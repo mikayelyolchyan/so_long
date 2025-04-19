@@ -38,6 +38,18 @@ void red_ghost_direction(t_game *game)
         }
 	}
 
+	// Проверка на "съедение" пакмана
+	if (game->pac_attack_mode == 0 &&
+		(game->player->x - game->r_ghost->x <= 16 && game->player->x - game->r_ghost->x >= -16) &&
+    	(game->player->y - game->r_ghost->y <= 16 && game->player->y - game->r_ghost->y >= -16) &&
+    	game->r_ghost->is_eaten == 0 && game->r_ghost->is_respawned == 0)
+	{
+		//printf("game->game_restart = 1;\n");
+		game->game_restart = 1;
+		game->player->died_count++;
+		draw_map(game);
+	}
+
     // Логика режимов атаки
     if (game->ghost_attack_mode_delay >= 262144 && game->pac_attack_mode == 0)
         game->ghost_attack_mode = 1;
