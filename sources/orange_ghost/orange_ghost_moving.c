@@ -18,6 +18,8 @@ void orange_ghost_direction(t_game *game)
         game->o_ghost->is_eaten == 0 && game->o_ghost->is_respawned == 0)
     {
         game->o_ghost->is_eaten = 1;
+		game->game_start_delay = 25000;
+		game->game_start = 0;
         game->o_ghost->targ_x = game->o_ghost->start_x;
         game->o_ghost->targ_y = game->o_ghost->start_y;
 

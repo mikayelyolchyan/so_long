@@ -16,6 +16,8 @@ void magenta_ghost_direction(t_game *game)
         game->m_ghost->is_eaten == 0 && game->m_ghost->is_respawned == 0)
     {
         game->m_ghost->is_eaten = 1;
+		game->game_start_delay = 25000;
+		game->game_start = 0;
         game->m_ghost->targ_x = game->m_ghost->start_x;
         game->m_ghost->targ_y = game->m_ghost->start_y;
 
