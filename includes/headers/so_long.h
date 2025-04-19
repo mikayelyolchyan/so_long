@@ -111,6 +111,7 @@ typedef struct s_map
 	int				tile_size;
 	void			*wall_img;
 	void			*black_wall_img;
+	void			*white_wall_img;
 	void			*food_img;
 	void			*portal_img;
 	void			*logo_img;
@@ -133,8 +134,15 @@ typedef struct s_game
 	int			last_pac_attack_mode;
 	int			pac_attack_mode_delay;
 	int			power_up_img_delay;
+	int			map_flashing_frame;
+	int			map_flashing_delay;
+	int			map_flashing_count;
+	int			game_start;
+	int			game_start_delay;
+	int			game_win;
 	int			score;
 	char		*score_str;
+	int			eated_dots;
 	t_map		*map;
 	t_player	*player;
 	t_ghost		*r_ghost;
@@ -145,6 +153,7 @@ typedef struct s_game
 	t_portal	portal[2];
 }	t_game;
 
+void	map_flashing(t_map *map, t_game *game);
 int		open_map(char *filename);
 int		read_map(int fd);
 void	fill_map(t_map *map, int fd);
@@ -178,21 +187,12 @@ void	*get_pac_horizontal_animation(t_game *game, t_player *player);
 void	*get_pac_current_img(t_game *game, t_player *player);
 void	update_pac_direction(t_game *game);
 
-/* pac_moving.c */
 void	pac_moving(t_game *game);
 void	pac_moving_up_down(t_game *game);
-
-/* pac_moving_left_right.c */
 void	pac_moving_left_right(t_game *game);
-
-/* pac_fast_moving.c */
 void	pac_fast_moving(t_game *game);
 void	pac_fast_moving_up_down(t_game *game);
-
-/* pac_fast_moving_left_right.c */
 void	pac_fast_moving_left_right(t_game *game);
-
-/* pac_utils.c */
 void	handle_collectibles(t_game *game);
 void	handle_pac_portal(t_game *game, int portal_index);
 

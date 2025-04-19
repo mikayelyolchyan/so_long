@@ -12,12 +12,12 @@ void	pacman_initializations(t_game *game, t_map *map)
 	game->player->pac_semi_down = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_semi_down.xpm", &map->tile_size, &map->tile_size);
 	game->player->pac_closed = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/pac_closed.xpm", &map->tile_size, &map->tile_size);
 	game->player->pac_black = mlx_xpm_file_to_image(game->mlx, "sprites/Pac-Man/black.xpm", &map->tile_size, &map->tile_size);
+	game->player->x = game->player->start_x;
+	game->player->y = game->player->start_y;
 	game->player->prev_x = game->player->x;
 	game->player->prev_y = game->player->y;
 	game->player->direction = RIGHT;
 	game->player->pending_direction = -1;
-	game->player->x = game->player->start_x;
-	game->player->y = game->player->start_y;
 	game->player->move_count = 0;
 }
 
@@ -189,6 +189,7 @@ int	start_game(t_game *game)
 	}
 
 	map->wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/wall.xpm", &map->tile_size, &map->tile_size);
+	map->white_wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/white.xpm", &map->tile_size, &map->tile_size);
 	map->black_wall_img = mlx_xpm_file_to_image(game->mlx, "sprites/Walls/black.xpm", &map->tile_size, &map->tile_size);
 	map->food_img = mlx_xpm_file_to_image(game->mlx, "sprites/Pacdots/pacdot_food.xpm", &map->tile_size, &map->tile_size);
 	map->portal_img = mlx_xpm_file_to_image(game->mlx, "sprites/Portal/portal.xpm", &map->tile_size, &map->tile_size);
@@ -243,6 +244,13 @@ int	start_game(t_game *game)
 	game->last_pac_attack_mode = 0;
 	game->pac_attack_mode_delay = 0;
 	game->score = 0;
+	game->eated_dots = 0;
+	game->game_start = 0;
+	game->game_start_delay = 0;
+	game->game_win = 0;
+	game->map_flashing_frame = 0;
+	game->map_flashing_delay = 0;
+	game->map_flashing_count = 0;
 
 	map->x = 0;
 	map->y = 0;
@@ -261,6 +269,8 @@ int	main(void)
 	draw_map(&game);
 	mlx_put_image_to_window(game.mlx, game.win, game.player->pac_open_right, game.player->x, game.player->y);
 	mlx_put_image_to_window(game.mlx, game.win, game.map->logo_img, game.map->width / 2 * 32 - 65, game.map->height * 32);
+	mlx_put_image_to_window(game.mlx, game.win, game.player->pac_semi_right, 4 * 32, game.map->height * 32);
+	mlx_put_image_to_window(game.mlx, game.win, game.player->pac_semi_right, 5 * 32, game.map->height * 32);
 	mlx_hook(game.win, 17, 1L << 2, ft_exit, &game);
 	mlx_hook(game.win, 2, 1L << 0, &ft_hotkey, &game);
 	mlx_loop_hook(game.mlx, &game_animation, &game);

@@ -19,11 +19,6 @@ static void	get_ghost_coords(t_ghost *ghost, int *x, int *y)
 	*x = ghost->prev_x;
 	*y = ghost->prev_y;
 }
-//static void	get_pac_coords(t_player *player, int *x, int *y)
-//{
-//	*x = player->prev_x;
-//	*y = player->prev_y;
-//}
 
 //void	update_player(t_game *game, char **map, t_player *player)
 //{
