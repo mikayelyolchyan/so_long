@@ -40,6 +40,17 @@ void orange_ghost_direction(t_game *game)
         }
     }
 
+	if (game->pac_attack_mode == 0 &&
+		(game->player->x - game->o_ghost->x <= 16 && game->player->x - game->o_ghost->x >= -16) &&
+    	(game->player->y - game->o_ghost->y <= 16 && game->player->y - game->o_ghost->y >= -16) &&
+    	game->o_ghost->is_eaten == 0 && game->o_ghost->is_respawned == 0)
+	{
+		//printf("game->game_restart = 1;\n");
+		game->game_restart = 1;
+		game->player->died_count++;
+		draw_map(game);
+	}
+
     // Установка цели для нормального режима (Clyde)
     if (!game->o_ghost->is_eaten && game->pac_attack_mode == 0)
     {

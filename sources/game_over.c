@@ -36,9 +36,6 @@ void	game_over(t_game *game)
 	red_map(game->map, game);
 	time = 0;
 	while (time <= 3000000)
-	{
-		printf("time %d\n", time);
 		time++;
-	}
 	ft_exit(game);
 }

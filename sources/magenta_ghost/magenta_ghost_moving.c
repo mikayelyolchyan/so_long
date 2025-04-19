@@ -38,6 +38,17 @@ void magenta_ghost_direction(t_game *game)
         }
     }
 
+	if (game->pac_attack_mode == 0 &&
+		(game->player->x - game->m_ghost->x <= 16 && game->player->x - game->m_ghost->x >= -16) &&
+    	(game->player->y - game->m_ghost->y <= 16 && game->player->y - game->m_ghost->y >= -16) &&
+    	game->m_ghost->is_eaten == 0 && game->m_ghost->is_respawned == 0)
+	{
+		//printf("game->game_restart = 1;\n");
+		game->game_restart = 1;
+		game->player->died_count++;
+		draw_map(game);
+	}
+
     // Логика режимов атаки
     if (game->ghost_attack_mode_delay >= 262144 && game->pac_attack_mode == 0)
         game->ghost_attack_mode = 1;
