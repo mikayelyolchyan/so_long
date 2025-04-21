@@ -264,7 +264,7 @@ void orange_ghost_moving(t_game *game)
         else if (game->o_ghost->direction == LEFT)
         {
             game->o_ghost->x -= 4;
-            if (map[game->o_ghost->y / 32][(game->o_ghost->x - 4) / 32] == 'T')
+            if (map[game->o_ghost->y / 32][(game->o_ghost->x - 32) / 32] == 'T')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->o_ghost->x, game->o_ghost->y);
                 handle_ghost_portal(game, game->o_ghost, 1);
@@ -289,7 +289,7 @@ void orange_ghost_moving(t_game *game)
         else if (game->o_ghost->direction == LEFT)
         {
             game->o_ghost->x -= 16;
-            if (map[game->o_ghost->y / 32][(game->o_ghost->x - 16) / 32] == 'T')
+            if (map[game->o_ghost->y / 32][(game->o_ghost->x - 32) / 32] == 'T')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->o_ghost->x, game->o_ghost->y);
               	handle_ghost_portal(game, game->o_ghost, 1);

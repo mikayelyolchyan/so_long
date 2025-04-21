@@ -175,8 +175,9 @@ void	font_initialization(t_game *game)
 	game->font->nine = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/9.xpm", &i, &j);
 }
 
-int	start_game(t_game *game)
+int	start_game(t_game *game, char **argv)
 {
+	printf("%s\n", argv[0]);
 	t_map	*map;
 
 	game->map = malloc(sizeof(t_map));
@@ -194,7 +195,8 @@ int	start_game(t_game *game)
 	}
 
 	map->tile_size = 32;
-	create_map("maps/classic.ber", game);
+	map_is_valid(&argv[0], game);
+	//create_map("maps/classic.ber", game);
 	game->win = mlx_new_window(game->mlx, map->width * map->tile_size, map->height * map->tile_size + 32, "PACMAN");
 	if (!game->win)
 	{
@@ -273,23 +275,27 @@ int	start_game(t_game *game)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	if (start_game(&game) == 1)
+	if (argc == 2)
+	{
+		if (start_game(&game, &argv[0]) == 1)
+			return (1);
+		draw_map(&game);
+		mlx_put_image_to_window(game.mlx, game.win, game.player->pac_open_right, game.player->x, game.player->y);
+		mlx_put_image_to_window(game.mlx, game.win, game.map->logo_img, game.map->width / 2 * 32 - 65, game.map->height * 32);
+		mlx_put_image_to_window(game.mlx, game.win, game.player->pac_semi_right, 4 * 32, game.map->height * 32);
+		mlx_put_image_to_window(game.mlx, game.win, game.player->pac_semi_right, 5 * 32, game.map->height * 32);
+		mlx_hook(game.win, 17, 1L << 2, ft_exit, &game);
+		mlx_hook(game.win, 2, 1L << 0, &ft_hotkey, &game);
+		mlx_loop_hook(game.mlx, &game_animation, &game);
+		mlx_loop(game.mlx);
+	}
+	else
 	{
 		return (1);
 	}
-
-	draw_map(&game);
-	mlx_put_image_to_window(game.mlx, game.win, game.player->pac_open_right, game.player->x, game.player->y);
-	mlx_put_image_to_window(game.mlx, game.win, game.map->logo_img, game.map->width / 2 * 32 - 65, game.map->height * 32);
-	mlx_put_image_to_window(game.mlx, game.win, game.player->pac_semi_right, 4 * 32, game.map->height * 32);
-	mlx_put_image_to_window(game.mlx, game.win, game.player->pac_semi_right, 5 * 32, game.map->height * 32);
-	mlx_hook(game.win, 17, 1L << 2, ft_exit, &game);
-	mlx_hook(game.win, 2, 1L << 0, &ft_hotkey, &game);
-	mlx_loop_hook(game.mlx, &game_animation, &game);
-	mlx_loop(game.mlx);
 	return (0);
 }

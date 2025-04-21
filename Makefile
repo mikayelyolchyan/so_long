@@ -12,6 +12,7 @@ FT_PRINTF_DIR = $(LIB_DIR)/ft_printf
 GET_NEXT_LINE_DIR = $(LIB_DIR)/get_next_line
 
 SRCS = $(SRC_DIR)/main.c \
+		$(SRC_DIR)/validation/validation.c \
 		$(SRC_DIR)/game_over.c \
 		$(SRC_DIR)/hotkeys.c \
 		$(SRC_DIR)/exit.c \

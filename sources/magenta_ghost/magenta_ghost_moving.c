@@ -300,7 +300,7 @@ void magenta_ghost_moving(t_game *game)
         else if (game->m_ghost->direction == LEFT)
         {
             game->m_ghost->x -= 4;
-            if (map[game->m_ghost->y / 32][(game->m_ghost->x - 4) / 32] == 'T')
+            if (map[game->m_ghost->y / 32][(game->m_ghost->x - 32) / 32] == 'T')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->m_ghost->x, game->m_ghost->y);
                 handle_ghost_portal(game, game->m_ghost, 1);
@@ -325,7 +325,7 @@ void magenta_ghost_moving(t_game *game)
         else if (game->m_ghost->direction == LEFT)
         {
             game->m_ghost->x -= 16;
-            if (map[game->m_ghost->y / 32][(game->m_ghost->x - 16) / 32] == 'T')
+            if (map[game->m_ghost->y / 32][(game->m_ghost->x - 32) / 32] == 'T')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->m_ghost->x, game->m_ghost->y);
                 handle_ghost_portal(game, game->m_ghost, 1);

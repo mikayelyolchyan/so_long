@@ -265,7 +265,8 @@ void red_ghost_moving(t_game *game)
         else if (game->r_ghost->direction == LEFT)
         {
             game->r_ghost->x -= 4;
-            if (map[game->r_ghost->y / 32][(game->r_ghost->x - 4) / 32] == 'T')
+            if (game->r_ghost->x % 32 == 0 && \
+				map[game->r_ghost->y / 32][(game->r_ghost->x - 32) / 32] == 'T')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->r_ghost->x, game->r_ghost->y);
                 handle_ghost_portal(game, game->r_ghost, 1);
@@ -274,7 +275,8 @@ void red_ghost_moving(t_game *game)
         else if (game->r_ghost->direction == RIGHT)
         {
             game->r_ghost->x += 4;
-            if (map[game->r_ghost->y / 32][(game->r_ghost->x + 32) / 32] == 'T')
+            if (game->r_ghost->x % 32 == 0 && \
+				map[game->r_ghost->y / 32][(game->r_ghost->x + 32) / 32] == 'T')
             {
             	mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->r_ghost->x, game->r_ghost->y);
             	handle_ghost_portal(game, game->r_ghost, 0);
@@ -290,7 +292,7 @@ void red_ghost_moving(t_game *game)
         else if (game->r_ghost->direction == LEFT)
         {
             game->r_ghost->x -= 16;
-            if (map[game->r_ghost->y / 32][(game->r_ghost->x - 16) / 32] == 'T')
+            if (map[game->r_ghost->y / 32][(game->r_ghost->x - 32) / 32] == 'T')
             {
                 mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img, game->r_ghost->x, game->r_ghost->y);
                	handle_ghost_portal(game, game->r_ghost, 1);

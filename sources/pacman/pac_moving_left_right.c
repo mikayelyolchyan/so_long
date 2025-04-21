@@ -21,7 +21,6 @@ static void	move_right(t_game *game)
 		game->player->x = (game->player->x + 4) / 32 * 32;
 	if (game->player->x % 32 == 0 && \
 		game->map->map[game->player->y / 32][(game->player->x + 32) / 32] == 'T')
-		
 	{
 		handle_collectibles(game);
 		handle_pac_portal(game, 0);
