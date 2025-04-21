@@ -231,7 +231,7 @@ void red_ghost_moving(t_game *game)
         }
 
         // Логика разворота при тупике
-        if (game->r_ghost->direction == RIGHT && 
+        if (game->r_ghost->direction == RIGHT &&
             map[game->r_ghost->y / 32][(game->r_ghost->x + 32) / 32] == '1' && 
             map[(game->r_ghost->y + 32) / 32][(game->r_ghost->x) / 32] == '1' && 
             map[(game->r_ghost->y - 32) / 32][(game->r_ghost->x) / 32] == '1')
