@@ -14,8 +14,10 @@ void blue_ghost_direction(t_game *game)
         (game->player->y - game->b_ghost->y <= 16 && game->player->y - game->b_ghost->y >= -16) &&
         game->b_ghost->is_eaten == 0 && game->b_ghost->is_respawned == 0)
     {
+		mlx_put_image_to_window(game->mlx, game->win, \
+			game->map->black_wall_img, game->b_ghost->x, game->b_ghost->y);
         game->b_ghost->is_eaten = 1;
-		game->game_start_delay = 25000;
+		game->game_start_delay = GHOST_EATEN_FREEZE;
 		game->game_start = 0;
         game->b_ghost->targ_x = game->b_ghost->start_x;
         game->b_ghost->targ_y = game->b_ghost->start_y;
@@ -51,9 +53,9 @@ void blue_ghost_direction(t_game *game)
 	}
 
     // Логика режимов атаки
-    if (game->ghost_attack_mode_delay >= 262144 && game->pac_attack_mode == 0)
+    if (game->ghost_attack_mode_delay >= GHOST_NEUTRAL_LIMIT && game->pac_attack_mode == 0)
         game->ghost_attack_mode = 1;
-    else if (game->ghost_attack_mode_delay <= 262144 && game->pac_attack_mode == 0)
+    else if (game->ghost_attack_mode_delay <= GHOST_ATTACK_LIMIT && game->pac_attack_mode == 0)
         game->ghost_attack_mode = 0;
 
     // Установка цели для нормального режима
@@ -63,6 +65,9 @@ void blue_ghost_direction(t_game *game)
         {
             // Шаг 1: Определяем точку на 2 клетки впереди Пакмана
             int pivot_x, pivot_y;
+
+			pivot_x = 0;
+			pivot_y = 0;
             if (game->player->direction == RIGHT)
             {
                 pivot_x = game->player->x + 64; // 2 клетки вправо (2 * 32)
@@ -144,6 +149,9 @@ void blue_ghost_direction(t_game *game)
             game->b_ghost->is_respawned = 1;
             // После респавна устанавливаем цель в зависимости от поведения Inky
             int pivot_x, pivot_y;
+
+			pivot_x = 0;
+			pivot_y = 0;
             if (game->player->direction == RIGHT)
             {
                 pivot_x = game->player->x + 64;

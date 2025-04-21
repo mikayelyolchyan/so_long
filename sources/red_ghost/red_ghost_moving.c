@@ -15,8 +15,10 @@ void red_ghost_direction(t_game *game)
     	(game->player->y - game->r_ghost->y <= 16 && game->player->y - game->r_ghost->y >= -16) &&
     	game->r_ghost->is_eaten == 0 && game->r_ghost->is_respawned == 0)
 	{
+		mlx_put_image_to_window(game->mlx, game->win, \
+			game->map->black_wall_img, game->r_ghost->x, game->r_ghost->y);
 		game->r_ghost->is_eaten = 1;
-		game->game_start_delay = 25000;
+		game->game_start_delay = GHOST_EATEN_FREEZE;
 		game->game_start = 0;
 		game->r_ghost->targ_x = game->r_ghost->start_x;
 		game->r_ghost->targ_y = game->r_ghost->start_y;
@@ -27,7 +29,7 @@ void red_ghost_direction(t_game *game)
         if (game->r_ghost->remainder_x != 0)
         {
             if (game->r_ghost->remainder_x < 16)
-                game->r_ghost->x -= game->r_ghost->remainder_x; // Округляем вниз
+                game->r_ghost->x -= game->r_ghost->remainder_x;
             else
                 game->r_ghost->x += (32 - game->r_ghost->remainder_x); // Округляем вверх
         }
@@ -46,16 +48,17 @@ void red_ghost_direction(t_game *game)
     	(game->player->y - game->r_ghost->y <= 16 && game->player->y - game->r_ghost->y >= -16) &&
     	game->r_ghost->is_eaten == 0 && game->r_ghost->is_respawned == 0)
 	{
-		//printf("game->game_restart = 1;\n");
 		game->game_restart = 1;
 		game->player->died_count++;
 		draw_map(game);
 	}
 
     // Логика режимов атаки
-    if (game->ghost_attack_mode_delay >= 262144 && game->pac_attack_mode == 0)
+    if (game->ghost_attack_mode_delay >= GHOST_NEUTRAL_LIMIT \
+		&& game->pac_attack_mode == 0)
         game->ghost_attack_mode = 1;
-    else if (game->ghost_attack_mode_delay <= 262144 && game->pac_attack_mode == 0)
+    else if (game->ghost_attack_mode_delay <= GHOST_ATTACK_LIMIT \
+		&& game->pac_attack_mode == 0)
         game->ghost_attack_mode = 0;
 
     // Установка цели для нормального режима

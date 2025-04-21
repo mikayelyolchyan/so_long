@@ -15,8 +15,10 @@ void magenta_ghost_direction(t_game *game)
         (game->player->y - game->m_ghost->y <= 16 && game->player->y - game->m_ghost->y >= -16) &&
         game->m_ghost->is_eaten == 0 && game->m_ghost->is_respawned == 0)
     {
+		mlx_put_image_to_window(game->mlx, game->win, \
+			game->map->black_wall_img, game->m_ghost->x, game->m_ghost->y);
         game->m_ghost->is_eaten = 1;
-		game->game_start_delay = 25000;
+		game->game_start_delay = GHOST_EATEN_FREEZE;
 		game->game_start = 0;
         game->m_ghost->targ_x = game->m_ghost->start_x;
         game->m_ghost->targ_y = game->m_ghost->start_y;
@@ -52,9 +54,9 @@ void magenta_ghost_direction(t_game *game)
 	}
 
     // Логика режимов атаки
-    if (game->ghost_attack_mode_delay >= 262144 && game->pac_attack_mode == 0)
+    if (game->ghost_attack_mode_delay >= GHOST_NEUTRAL_LIMIT && game->pac_attack_mode == 0)
         game->ghost_attack_mode = 1;
-    else if (game->ghost_attack_mode_delay <= 262144 && game->pac_attack_mode == 0)
+    else if (game->ghost_attack_mode_delay <= GHOST_ATTACK_LIMIT && game->pac_attack_mode == 0)
         game->ghost_attack_mode = 0;
 
     // Установка цели для нормального режима

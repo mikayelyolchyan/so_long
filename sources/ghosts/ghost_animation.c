@@ -4,6 +4,7 @@ void	*get_ghost_vertical_animation(t_game *game, t_ghost *c_ghost)
 {
 	void	*current_img;
 
+	current_img = NULL;
 	if (c_ghost->direction == UP)
 	{
 		if (game->frame == 0 || game->frame == 2)
@@ -25,6 +26,7 @@ void	*get_ghost_horizontal_animation(t_game *game, t_ghost *c_ghost)
 {
 	void	*current_img;
 
+	current_img = NULL;
 	if (c_ghost->direction == LEFT)
 	{
 		if (game->frame == 0 || game->frame == 2)

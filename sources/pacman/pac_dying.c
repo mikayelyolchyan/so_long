@@ -48,6 +48,7 @@ void	pac_dying(t_game *game, t_player *player)
 {
 	void	*current_img;
 
+	current_img = NULL;
 	if (game->player->dying_frame == 0)
 		current_img = player->dying1;
 	else if (game->player->dying_frame == 1)

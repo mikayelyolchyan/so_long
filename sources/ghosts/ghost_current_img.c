@@ -4,6 +4,7 @@ static void	*get_ghost_eaten_img(t_ghost *c_ghost)
 {
 	void	*current_img;
 
+	current_img = NULL;
 	if (c_ghost->direction == UP)
 		current_img = c_ghost->ghost_is_eaten_up;
 	else if (c_ghost->direction == DOWN)
@@ -19,6 +20,7 @@ void	*get_ghost_current_img(t_game *game, t_ghost *c_ghost)
 {
 	void	*current_img;
 
+	current_img = NULL;
 	if (c_ghost->is_eaten == 1)
 	{
 		current_img = get_ghost_eaten_img(c_ghost);
@@ -27,7 +29,7 @@ void	*get_ghost_current_img(t_game *game, t_ghost *c_ghost)
 			c_ghost->is_eaten == 0 && \
 			c_ghost->is_respawned == 0)
 	{
-		if (game->pac_attack_mode_delay <= 128)
+		if (game->pac_attack_mode_delay <= GHOST_PANIC_LIMIT)
 			current_img = get_ghost_panic_animation(game, c_ghost);
 		else
 			current_img = get_ghost_panic_flashing_animation(game, c_ghost);

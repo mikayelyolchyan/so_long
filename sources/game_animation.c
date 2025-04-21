@@ -28,7 +28,7 @@ static void render_power_up_dots(t_game *game)
 	        game->power_up_img_delay = 0;
 	}
 }
-static void	delay_update(t_game *game)
+static void	delays_update(t_game *game)
 {
 	game->frame_delay++;
 	game->ghost_attack_mode_delay++;
@@ -50,7 +50,7 @@ static void pac_move_mode(t_game *game)
 	{
 		pac_fast_moving(game);
 		game->pac_attack_mode_delay++;
-		if (game->pac_attack_mode_delay >= 192)
+		if (game->pac_attack_mode_delay >= GHOST_PANIC_FLASHING_LIMIT)
 		{
 			game->pac_attack_mode = 0;
 			game->pac_attack_mode_delay = 0;
@@ -60,27 +60,8 @@ static void pac_move_mode(t_game *game)
 		pac_moving(game);
 }
 
-static void	handle_all_animation_timings(t_game *game)
+void	game_win(t_game *game)
 {
-	delay_update(game);
-	if (game->game_start_delay >= 35000)
-		game->game_start = 1;
-	if (game->game_start == 1 && game->game_win == 0 && game->game_restart == 0)
-	{
-		game->game_start_delay = 0;
-		if (game->frame_delay >= 512)
-		{
-			game->frame = (game->frame + 1) % 4;
-			game->frame_delay = 0;
-			ghosts_movings(game);
-			pac_move_mode(game);
-			if (game->ghost_attack_mode_delay >= 1048576)
-				game->ghost_attack_mode_delay = 0;
-			render_power_up_dots(game);
-			display_score(game);
-			display_move(game);
-		}
-	}
 	if (game->eated_dots == game->map->dots_count)
 	{
 		game->game_win = 1;
@@ -94,6 +75,33 @@ static void	handle_all_animation_timings(t_game *game)
 				ft_exit(game);
 		}
 	}
+}
+
+static void	handle_all_animation_timings(t_game *game)
+{
+	delays_update(game);
+	if (game->game_start_delay >= GAME_START_LIMIT)
+		game->game_start = 1;
+	if (game->game_start == 1 && game->game_win == 0 && game->game_restart == 0)
+	{
+		game->game_start_delay = 0;
+		if (game->frame_delay >= GAME_FRAME_LIMIT)
+		{
+			game->frame = (game->frame + 1) % 4;
+			game->frame_delay = 0;
+			ghosts_movings(game);
+			pac_move_mode(game);
+			if (game->ghost_attack_mode_delay >= GHOST_ATTACK_LIMIT)
+			{
+				//printf("game->ghost_attack_mode_delay >= 1048576\n");
+				game->ghost_attack_mode_delay = 0;
+			}
+			render_power_up_dots(game);
+			display_score(game);
+			display_move(game);
+		}
+	}
+	game_win(game);
 }
 
 int	game_animation(t_game *game)
@@ -127,7 +135,7 @@ int	game_animation(t_game *game)
 	if (game->game_restart == 1)
 	{
 		game->player->dying_frame_delay++;
-		if (game->player->dying_frame_delay >= 12500)
+		if (game->player->dying_frame_delay >= DYING_FRAME_LIMIT)
 		{
 			game->player->dying_frame_delay = 0;
 			game->player->dying_frame = (game->player->dying_frame + 1) % 15;

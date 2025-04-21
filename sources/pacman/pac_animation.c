@@ -4,6 +4,7 @@ void	*get_pac_vertical_animation(t_game *game, t_player *player)
 {
 	void	*current_img;
 
+	current_img = NULL;
 	if (player->direction == UP)
 	{
 		if (game->frame == 0)
@@ -29,6 +30,7 @@ void	*get_pac_horizontal_animation(t_game *game, t_player *player)
 {
 	void	*current_img;
 
+	current_img = NULL;
 	if (player->direction == LEFT)
 	{
 		if (game->frame == 0)

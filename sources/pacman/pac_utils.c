@@ -43,6 +43,6 @@ void	handle_collectibles(t_game *game)
 		game->score += 10;
 		game->eated_dots++;
 	}
-	if (game->map->map[y][x] != 'T')
+	if (game->map->map[y][x] != 'T' && game->map->map[y][x] != 'E')
 		game->map->map[y][x] = '0';
 }
