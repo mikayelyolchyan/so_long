@@ -31,6 +31,12 @@
 # define GHOST_PANIC_LIMIT 128
 # define GHOST_PANIC_FLASHING_LIMIT 196
 
+typedef struct  s_valid
+{
+  int           x;
+  int           y;
+}               t_valid;
+
 typedef struct s_portal
 {
 	int	x;
@@ -184,6 +190,7 @@ typedef struct s_game
 
 void	game_over(t_game *game);
 
+int		map_is_valid(char **argv, t_game *game);
 void	map_flashing(t_map *map, t_game *game);
 int		open_map(char *filename);
 int		read_map(int fd);
@@ -195,7 +202,7 @@ void	update_map(t_game *game, char **map);
 void	update_ghost(t_game *game, char **map, int direction, t_ghost *ghost);
 void	update_player(t_game *game, char **map, t_player *player);
 
-int		start_game(t_game *game);
+int		start_game(t_game *game, char **argv);
 void	find_positions(t_game *game);
 
 int		distance_calculator(int x1, int x2, int y1, int y2);
