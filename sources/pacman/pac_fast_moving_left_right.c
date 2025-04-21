@@ -5,7 +5,10 @@ static void	fast_move_left(t_game *game)
 	if (game->map->map[game->player->y / 32][(game->player->x - 8) / 32] != '1')
 		game->player->x -= 8;
 	if (game->map->map[game->player->y / 32][game->player->x / 32] == 'T')
+	{
+		handle_collectibles(game);
 		handle_pac_portal(game, 1);
+	}
 }
 
 static void	fast_move_right(t_game *game)
@@ -15,8 +18,11 @@ static void	fast_move_right(t_game *game)
 		game->player->x += 8;
 	else
 		game->player->x = (game->player->x + 8) / 32 * 32;
-	if (game->map->map[game->player->y / 32][(game->player->x + 32 )/ 32] == 'T')
+	if (game->map->map[game->player->y / 32][(game->player->x + 32)/ 32] == 'T')
+	{
+		handle_collectibles(game);
 		handle_pac_portal(game, 0);
+	}
 }
 
 void	pac_fast_moving_left_right(t_game *game)

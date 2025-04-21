@@ -35,7 +35,7 @@ void	game_over(t_game *game)
 
 	red_map(game->map, game);
 	time = 0;
-	while (time <= 3000000)
+	while (time <= INT_MAX / 3)
 		time++;
 	ft_exit(game);
 }

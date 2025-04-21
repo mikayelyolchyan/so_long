@@ -4,6 +4,7 @@ void	*get_pac_current_img(t_game *game, t_player *player)
 {
 	void	*current_img;
 
+	current_img = NULL;
 	if (player->direction == LEFT || player->direction == RIGHT)
 	{
 		current_img = get_pac_horizontal_animation(game, player);
