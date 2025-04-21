@@ -8,14 +8,14 @@
 # include "../libraries/mlx_linux/mlx.h"
 
 # define ESC 65307
-# define W 1731
-# define A 1734
-# define S 1753
-# define D 1751
-//# define W 119
-//# define A 97
-//# define S 115
-//# define D 100
+//# define W 1731
+//# define A 1734
+//# define S 1753
+//# define D 1751
+# define W 119
+# define A 97
+# define S 115
+# define D 100
 # define STOP 0
 # define LEFT 1
 # define RIGHT 2
@@ -24,7 +24,7 @@
 
 # define GHOST_NEUTRAL_LIMIT 131072
 # define GHOST_ATTACK_LIMIT 524288
-# define GAME_FRAME_LIMIT 256
+# define GAME_FRAME_LIMIT 512
 # define GAME_START_LIMIT 20000
 # define GHOST_EATEN_FREEZE 15000
 # define DYING_FRAME_LIMIT 12500
@@ -190,7 +190,7 @@ typedef struct s_game
 
 void	game_over(t_game *game);
 
-int		map_is_valid(char **argv, t_game *game);
+int		map_is_valid(char *argv, t_game *game);
 void	map_flashing(t_map *map, t_game *game);
 int		open_map(char *filename);
 int		read_map(int fd);
@@ -202,7 +202,7 @@ void	update_map(t_game *game, char **map);
 void	update_ghost(t_game *game, char **map, int direction, t_ghost *ghost);
 void	update_player(t_game *game, char **map, t_player *player);
 
-int		start_game(t_game *game, char **argv);
+int		start_game(t_game *game, char *argv);
 void	find_positions(t_game *game);
 
 int		distance_calculator(int x1, int x2, int y1, int y2);

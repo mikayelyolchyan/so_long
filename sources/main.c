@@ -175,9 +175,8 @@ void	font_initialization(t_game *game)
 	game->font->nine = mlx_xpm_file_to_image(game->mlx, "sprites/Fonts/9.xpm", &i, &j);
 }
 
-int	start_game(t_game *game, char **argv)
+int	start_game(t_game *game, char *argv)
 {
-	printf("%s\n", argv[0]);
 	t_map	*map;
 
 	game->map = malloc(sizeof(t_map));
@@ -195,7 +194,7 @@ int	start_game(t_game *game, char **argv)
 	}
 
 	map->tile_size = 32;
-	map_is_valid(&argv[0], game);
+	map_is_valid(argv, game);
 	//create_map("maps/classic.ber", game);
 	game->win = mlx_new_window(game->mlx, map->width * map->tile_size, map->height * map->tile_size + 32, "PACMAN");
 	if (!game->win)
@@ -281,7 +280,7 @@ int	main(int argc, char **argv)
 
 	if (argc == 2)
 	{
-		if (start_game(&game, &argv[0]) == 1)
+		if (start_game(&game, argv[1]) == 1)
 			return (1);
 		draw_map(&game);
 		mlx_put_image_to_window(game.mlx, game.win, game.player->pac_open_right, game.player->x, game.player->y);
@@ -294,8 +293,6 @@ int	main(int argc, char **argv)
 		mlx_loop(game.mlx);
 	}
 	else
-	{
 		return (1);
-	}
 	return (0);
 }
