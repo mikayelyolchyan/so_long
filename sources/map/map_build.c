@@ -39,7 +39,7 @@ void	create_map(char *filename, t_game *game)
 
 	map = game->map;
 	fd = open_map(filename);
-	map->height = read_map(fd);
+	map->height = read_map_size(fd);
 	close(fd);
 	map->map = (char **)malloc(sizeof(char *) * (map->height + 1));
 	if (!map->map)

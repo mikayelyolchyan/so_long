@@ -14,7 +14,7 @@ int	open_map(char *filename)
 	return (fd);
 }
 
-int		read_map(int fd)
+int		read_map_size(int fd)
 {
 	int	map_size;
 	char	*line;
