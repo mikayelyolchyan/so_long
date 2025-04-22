@@ -28,6 +28,9 @@ static void	render_player_tile(t_game *game, int x, int y, char tile)
 	else if (tile == 'T')
 	mlx_put_image_to_window(game->mlx, game->win, \
 		game->map->portal_img, x, y);
+	else if (tile == 'T')
+	mlx_put_image_to_window(game->mlx, game->win, \
+		game->map->portal_img, x, y);
 }
 
 

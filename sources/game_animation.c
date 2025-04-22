@@ -89,14 +89,13 @@ static void	handle_all_animation_timings(t_game *game)
 		{
 			game->frame = (game->frame + 1) % 4;
 			game->frame_delay = 0;
-			ghosts_movings(game);
+			if (game->map->ghost_count == 4)
+				ghosts_movings(game);
 			pac_move_mode(game);
 			if (game->ghost_attack_mode_delay >= GHOST_ATTACK_LIMIT)
-			{
-				//printf("game->ghost_attack_mode_delay >= 1048576\n");
 				game->ghost_attack_mode_delay = 0;
-			}
-			render_power_up_dots(game);
+			if (game->map->power_up_dots_count == 4)
+				render_power_up_dots(game);
 			display_score(game);
 			display_move(game);
 		}
@@ -116,21 +115,24 @@ int	game_animation(t_game *game)
 	if (game->game_win == 0 && game->game_restart == 0)
 	{
 		pac_current_img = get_pac_current_img(game, game->player);
-		red_ghost_current_img = get_ghost_current_img(game, game->r_ghost);
-		orange_ghost_current_img = get_ghost_current_img(game, game->o_ghost);
-		magenta_ghost_current_img = get_ghost_current_img(game, game->m_ghost);
-		blue_ghost_current_img = get_ghost_current_img(game, game->b_ghost);
 		update_map(game, game->map->map);
 		mlx_put_image_to_window(game->mlx, game->win, \
 			pac_current_img, game->player->x, game->player->y);
-		mlx_put_image_to_window(game->mlx, game->win, \
-			red_ghost_current_img, game->r_ghost->x, game->r_ghost->y);
-		mlx_put_image_to_window(game->mlx, game->win, \
-			orange_ghost_current_img, game->o_ghost->x, game->o_ghost->y);
-		mlx_put_image_to_window(game->mlx, game->win,\
-			magenta_ghost_current_img, game->m_ghost->x, game->m_ghost->y);
-		mlx_put_image_to_window(game->mlx, game->win, \
-			blue_ghost_current_img, game->b_ghost->x, game->b_ghost->y);
+		if (game->map->ghost_count == 4)
+		{	
+			red_ghost_current_img = get_ghost_current_img(game, game->r_ghost);
+			orange_ghost_current_img = get_ghost_current_img(game, game->o_ghost);
+			magenta_ghost_current_img = get_ghost_current_img(game, game->m_ghost);
+			blue_ghost_current_img = get_ghost_current_img(game, game->b_ghost);
+			mlx_put_image_to_window(game->mlx, game->win, \
+				red_ghost_current_img, game->r_ghost->x, game->r_ghost->y);
+			mlx_put_image_to_window(game->mlx, game->win, \
+				orange_ghost_current_img, game->o_ghost->x, game->o_ghost->y);
+			mlx_put_image_to_window(game->mlx, game->win,\
+				magenta_ghost_current_img, game->m_ghost->x, game->m_ghost->y);
+			mlx_put_image_to_window(game->mlx, game->win, \
+				blue_ghost_current_img, game->b_ghost->x, game->b_ghost->y);
+		}
 	}
 	if (game->game_restart == 1)
 	{

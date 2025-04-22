@@ -44,8 +44,11 @@ void	update_map(t_game *game, char **map)
 	mlx_put_image_to_window(game->mlx, game->win, game->player->pac_black, \
 		game->player->prev_x, game->player->prev_y);
 	update_player(game, map, game->player);
-	update_ghost(game, map, game->r_ghost->direction, game->r_ghost);
-	update_ghost(game, map, game->r_ghost->direction, game->o_ghost);
-	update_ghost(game, map, game->r_ghost->direction, game->m_ghost);
-	update_ghost(game, map, game->r_ghost->direction, game->b_ghost);
+	if (game->map->ghost_count == 4)
+	{
+		update_ghost(game, map, game->r_ghost->direction, game->r_ghost);
+		update_ghost(game, map, game->o_ghost->direction, game->o_ghost);
+		update_ghost(game, map, game->m_ghost->direction, game->m_ghost);
+		update_ghost(game, map, game->b_ghost->direction, game->b_ghost);
+	}
 }
