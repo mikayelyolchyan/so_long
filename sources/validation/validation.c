@@ -158,7 +158,8 @@ int check_elements(t_map *map, t_point *start, t_check *total)
                     left_portal++;
                     if ((i > 0 && map->map[i - 1][j] != '1') ||
                         (i < map->height - 1 && map->map[i + 1][j] != '1') ||
-                        map->map[i][j - 1] != '1' || map->map[i][j + 1] == '1')
+                        map->map[i][j - 1] != '1' || map->map[i][j + 1] == '1' ||
+						map->map[i][j + 1] == 'E')
                     {
                         ft_putstr_fd("Error: Left portal invalid surroundings\n", 2);
                         return (0);
@@ -169,7 +170,8 @@ int check_elements(t_map *map, t_point *start, t_check *total)
                     right_portal++;
                     if ((i > 0 && map->map[i - 1][j] != '1') ||
                         (i < map->height - 1 && map->map[i + 1][j] != '1') ||
-                        map->map[i][j + 1] != '1' || map->map[i][j - 1] == '1')
+                        map->map[i][j + 1] != '1' || map->map[i][j - 1] == '1' ||
+						map->map[i][j - 1] == 'E')
                     {
                         ft_putstr_fd("Error: Right portal invalid surroundings\n", 2);
                         return (0);
