@@ -3,13 +3,14 @@
 static void	render_ghost_tile(t_game *game, int x, int y, char tile)
 {
 	if (tile == 'C')
-	{
 		mlx_put_image_to_window(game->mlx, game->win, \
 		game->map->food_img, x, y);
-	}
 	else if (tile == 'U')
 		mlx_put_image_to_window(game->mlx, game->win, \
 		game->map->power_up_img, x, y);
+	else if (tile == 'E')
+		mlx_put_image_to_window(game->mlx, game->win, \
+		game->map->exit_img, x, y);
 	else
 		mlx_put_image_to_window(game->mlx, game->win, \
 		game->map->black_wall_img, x, y);
@@ -18,19 +19,20 @@ static void	render_ghost_tile(t_game *game, int x, int y, char tile)
 static void	render_player_tile(t_game *game, int x, int y, char tile)
 {
 	if (tile == 'C')
-	{
 		mlx_put_image_to_window(game->mlx, game->win, \
 		game->map->food_img, x, y);
-	}
 	else if (tile == 'U')
 		mlx_put_image_to_window(game->mlx, game->win, \
 		game->map->power_up_img, x, y);
 	else if (tile == 'T')
-	mlx_put_image_to_window(game->mlx, game->win, \
+		mlx_put_image_to_window(game->mlx, game->win, \
 		game->map->portal_img, x, y);
 	else if (tile == 'T')
-	mlx_put_image_to_window(game->mlx, game->win, \
+		mlx_put_image_to_window(game->mlx, game->win, \
 		game->map->portal_img, x, y);
+	else if (tile == 'E')
+		mlx_put_image_to_window(game->mlx, game->win, \
+		game->map->exit_img, x, y);
 }
 
 

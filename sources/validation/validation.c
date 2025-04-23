@@ -51,9 +51,9 @@ int read_map(char *filename, t_map *map)
     }
     free(line);
     close(fd);
-    if (height < 10 || width < 10)
+    if (height < 3 || width < 5)
     {
-        ft_putstr_fd("Error: Map must be at least 10x10\n", 2);
+        ft_putstr_fd("Error: Map must be at least 3x5\n", 2);
         return (0);
     }
     map->map = malloc(sizeof(char *) * (height + 1));

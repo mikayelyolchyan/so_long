@@ -142,24 +142,25 @@ typedef struct s_player
 
 typedef struct s_map
 {
-    int x;
-    int y;
-    int width;
-    int height;
-    int tile_size;
-    void *wall_img;
-    void *black_wall_img;
-    void *white_wall_img;
-    void *red_wall_img;
-    void *food_img;
-    void *portal_img;
-    void *logo_img;
-    void *power_up_img;
+	int		x;
+    int		y;
+    int		width;
+    int		height;
+    int		tile_size;
+	int		ghost_count;
+    void	*wall_img;
+    void	*black_wall_img;
+    void	*white_wall_img;
+    void	*red_wall_img;
+    void	*food_img;
+    void	*portal_img;
+    void	*logo_img;
+    void	*power_up_img;
+	void	*exit_img;
     char **map;
     int dots_count;
     int power_up_dots_count;
     t_power_up_dot *power_up_dots_array;
-	int ghost_count;
 } t_map;
 
 typedef struct s_game
