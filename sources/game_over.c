@@ -6,10 +6,8 @@ static void	red_walls(t_game *game, int x, int y, char tile)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->red_wall_img,
 			x * game->map->tile_size, y * game->map->tile_size);
 	else
-	{
 		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img,
 			x * game->map->tile_size, y * game->map->tile_size);
-	}
 }
 static void	red_map(t_map *map, t_game *game)
 {
@@ -33,9 +31,10 @@ void	game_over(t_game *game)
 {
 	int time;
 
-	red_map(game->map, game);
 	time = 0;
-	while (time <= INT_MAX / 3)
+	red_map(game->map, game);
+	red_map(game->map, game);
+	while (time < INT_MAX / 3)
 		time++;
 	ft_exit(game);
 }

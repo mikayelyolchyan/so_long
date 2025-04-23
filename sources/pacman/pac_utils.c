@@ -3,10 +3,13 @@
 static void	handle_power_up(t_game *game)
 {
 	game->pac_attack_mode = 1;
-	game->r_ghost->is_respawned = 0;
-	game->o_ghost->is_respawned = 0;
-	game->m_ghost->is_respawned = 0;
-	game->b_ghost->is_respawned = 0;
+	if (game->map->ghost_count == 4)
+	{
+		game->r_ghost->is_respawned = 0;
+		game->o_ghost->is_respawned = 0;
+		game->m_ghost->is_respawned = 0;
+		game->b_ghost->is_respawned = 0;
+	}
 	game->pac_attack_mode_delay = 0;
 	game->score += 50;
 }
