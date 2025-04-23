@@ -79,8 +79,9 @@ int ft_exit(t_game *game)
         mlx_destroy_image(game->mlx, game->map->power_up_img);
     if (game->map->white_wall_img)
         mlx_destroy_image(game->mlx, game->map->white_wall_img);
-    if (game->map->red_wall_img)
-        mlx_destroy_image(game->mlx, game->map->red_wall_img);
+
+    mlx_destroy_image(game->mlx, game->map->red_wall_img);
+	mlx_destroy_image(game->mlx, game->map->exit_img);
     // Освобождение остальных изображений
     free_pacman_images(game);
 	if (game->map->ghost_count == 4)

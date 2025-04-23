@@ -17,6 +17,9 @@ static void	draw_tile(t_game *game, int x, int y, char tile)
 	else if (tile == 'U')
 		mlx_put_image_to_window(game->mlx, game->win, game->map->power_up_img,
 			x * game->map->tile_size, y * game->map->tile_size);
+	else if (tile == 'E')
+	mlx_put_image_to_window(game->mlx, game->win, game->map->exit_img,
+		x * game->map->tile_size, y * game->map->tile_size);
 }
 
 void	draw_map(t_game *game)

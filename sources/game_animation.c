@@ -62,7 +62,10 @@ static void pac_move_mode(t_game *game)
 
 void	game_win(t_game *game)
 {
-	if (game->eated_dots == game->map->dots_count)
+	if (game->eated_dots == game->map->dots_count && \
+		game->player->y % 32 == 0 && \
+		game->player->x % 32 == 0 && \
+		game->map->map[game->player->y / 32][game->player->x / 32] == 'E')
 	{
 		game->game_win = 1;
 		game->map_flashing_delay++;
