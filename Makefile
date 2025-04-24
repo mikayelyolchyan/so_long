@@ -56,7 +56,17 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(SRC_DIR)/initializations/blue_ghost_initialization.c \
 	   $(SRC_DIR)/initializations/magenta_ghost_initialization.c \
 	   $(SRC_DIR)/initializations/font_initialization.c \
-	   $(SRC_DIR)/initializations/map_initialization.c
+	   $(SRC_DIR)/initializations/map_initialization.c \
+	   $(SRC_DIR)/start_game/init_font.c \
+	   $(SRC_DIR)/start_game/init_game_state.c \
+	   $(SRC_DIR)/start_game/init_ghost_position_textures.c \
+	   $(SRC_DIR)/start_game/init_ghosts.c \
+	   $(SRC_DIR)/start_game/init_map.c \
+	   $(SRC_DIR)/start_game/init_map_images.c \
+	   $(SRC_DIR)/start_game/init_mlx.c \
+	   $(SRC_DIR)/start_game/init_player.c \
+	   $(SRC_DIR)/start_game/init_power_up_dots.c \
+	   $(SRC_DIR)/start_game/start_game.c
 
 
 OBJS = $(SRCS:%.c=%.o)

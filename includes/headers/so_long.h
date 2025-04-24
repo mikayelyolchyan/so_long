@@ -221,7 +221,6 @@ void update_ghost(t_game *game, char **map, int direction, t_ghost *ghost);
 void update_player(t_game *game, char **map, t_player *player);
 void	render_power_up_dots(t_game *game);
 
-int start_game(t_game *game, char *argv);
 void find_positions(t_game *game);
 
 void	set_portal_position(t_game *game, int x, int y);
@@ -284,5 +283,17 @@ void	orange_ghost_initialization(t_game *game, t_map *map);
 void	magenta_ghost_initialization(t_game *game, t_map *map);
 void	blue_ghost_initialization(t_game *game, t_map *map);
 void	map_initialization(t_game *game, t_map *map);
+
+int		start_game(t_game *game, char *argv);
+int		init_map(char *argv, t_map **map);
+int		init_mlx(t_game *game, t_map *map);
+int		init_map_images(t_game *game, t_map *map);
+int		init_player(t_game *game, t_map *map);
+int		init_ghosts(t_game *game, t_map *map);
+int		init_power_up_dots(t_game *game, t_map *map);
+int		init_ghost_positions_textures(t_game *game, t_map *map);
+int		init_font(t_game *game, t_map *map);
+void	init_game_state(t_game *game, t_map *map);
+
 
 #endif
