@@ -39,6 +39,7 @@ void	red_ghost_initialization(t_game *game, t_map *map)
 	game->r_ghost->remainder_x = 0;
 	game->r_ghost->remainder_y = 0;
 	game->r_ghost->direction = RIGHT;
+	game->r_ghost->pending_direction = RIGHT;
 	game->r_ghost->prev_x = game->r_ghost->x;
 	game->r_ghost->prev_y = game->r_ghost->y;
 	game->r_ghost->targ_x = game->map->width * 32;

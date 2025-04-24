@@ -5,6 +5,7 @@ void	init_game_state(t_game *game, t_map *map)
 	game->frame = 0;
 	game->frame_delay = 0;
 	game->ghost_attack_mode = 0;
+	game->ghost_attack_mode_delay = 0;
 	game->power_up_img_delay = 0;
 	game->pac_attack_mode = 0;
 	game->last_pac_attack_mode = 0;

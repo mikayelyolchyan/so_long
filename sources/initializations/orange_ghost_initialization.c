@@ -39,6 +39,7 @@ void	orange_ghost_initialization(t_game *game, t_map *map)
 	game->o_ghost->remainder_x = 0;
 	game->o_ghost->remainder_y = 0;
 	game->o_ghost->direction = LEFT;
+	game->o_ghost->pending_direction = LEFT;
 	game->o_ghost->prev_x = game->o_ghost->x;
 	game->o_ghost->prev_y = game->o_ghost->y;
 	game->o_ghost->targ_x = game->map->width * 32;

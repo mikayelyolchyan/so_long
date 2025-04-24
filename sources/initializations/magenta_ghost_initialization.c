@@ -39,6 +39,7 @@ void	magenta_ghost_initialization(t_game *game, t_map *map)
 	game->m_ghost->remainder_x = 0;
 	game->m_ghost->remainder_y = 0;
 	game->m_ghost->direction = LEFT;
+	game->m_ghost->pending_direction = LEFT;
 	game->m_ghost->prev_x = game->m_ghost->x;
 	game->m_ghost->prev_y = game->m_ghost->y;
 	game->m_ghost->targ_x = game->map->width * 32;
