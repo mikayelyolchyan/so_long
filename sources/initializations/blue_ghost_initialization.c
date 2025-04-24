@@ -39,6 +39,7 @@ void	blue_ghost_initialization(t_game *game, t_map *map)
 	game->b_ghost->remainder_x = 0;
 	game->b_ghost->remainder_y = 0;
 	game->b_ghost->direction = RIGHT;
+	game->b_ghost->pending_direction = RIGHT;
 	game->b_ghost->prev_x = game->b_ghost->x;
 	game->b_ghost->prev_y = game->b_ghost->y;
 	game->b_ghost->targ_x = game->map->width * 32;
