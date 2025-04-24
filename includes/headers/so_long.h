@@ -8,14 +8,14 @@
 # include "../libraries/mlx_linux/mlx.h"
 
 # define ESC 65307
-//# define W 119
-//# define A 97
-//# define S 115
-//# define D 100
-# define W 1731
-# define A 1734
-# define S 1753
-# define D 1751
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+//# define W 1731
+//# define A 1734
+//# define S 1753
+//# define D 1751
 # define STOP 0
 # define LEFT 1
 # define RIGHT 2
@@ -24,7 +24,7 @@
 
 # define GHOST_NEUTRAL_LIMIT 131072
 # define GHOST_ATTACK_LIMIT 524288
-# define GAME_FRAME_LIMIT 256
+# define GAME_FRAME_LIMIT 512
 # define GAME_START_LIMIT 20000
 # define GHOST_EATEN_FREEZE 15000
 # define DYING_FRAME_LIMIT 12500
