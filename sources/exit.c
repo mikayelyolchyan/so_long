@@ -89,6 +89,16 @@ int	ft_exit(t_game *game)
 	free(game->mlx);
 	free(game->map->power_up_dots_array);
 	free_map(game->map);
+	if (game->map->ghost_count == 4)
+	{
+		free(game->r_ghost);
+		free(game->o_ghost);
+		free(game->m_ghost);
+		free(game->b_ghost);
+	}
 	free(game->map);
+	free(game->player);
+	free(game->font);
 	exit(0);
 }
+
