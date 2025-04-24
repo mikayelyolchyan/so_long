@@ -63,7 +63,7 @@ int read_map(char *filename, t_map *map)
     close(fd);
     if (line_count < 3)
     {
-        ft_putstr_fd("Error: Map must be at least 3x5\n", 2);
+        ft_putstr_fd("Error: Map must be at least 3x8 or isspace\n", 2);
         return (0);
     }
     // Step 2: Allocate temp_map based on line_count
@@ -167,12 +167,12 @@ int read_map(char *filename, t_map *map)
     while ((line = get_next_line(fd)) != NULL)
         free(line);
     close(fd);
-    if (width < 5)
+    if (width < 8)
     {
         while (height > 0)
             free(temp_map[--height]);
         free(temp_map);
-        ft_putstr_fd("Error: Map must be at least 3x5\n", 2);
+        ft_putstr_fd("Error: Map must be at least 3x8\n", 2);
         return (0);
     }
     // Step 4: Allocate final map
