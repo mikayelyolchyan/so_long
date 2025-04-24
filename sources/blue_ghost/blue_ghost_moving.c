@@ -52,6 +52,16 @@ void blue_ghost_direction(t_game *game)
 		draw_map(game);
 	}
 
+	if (game->pac_attack_mode == 1 &&
+		(game->player->x - game->b_ghost->x <= 16 && game->player->x - game->b_ghost->x >= -16) &&
+    	(game->player->y - game->b_ghost->y <= 16 && game->player->y - game->b_ghost->y >= -16) &&
+    	game->b_ghost->is_respawned == 1) // && game-r_ghost->is_eaten == 0)
+	{
+		game->game_restart = 1;
+		game->player->died_count++;
+		draw_map(game);
+	}
+
     // Логика режимов атаки
     if (game->ghost_attack_mode_delay >= GHOST_NEUTRAL_LIMIT && game->pac_attack_mode == 0)
         game->ghost_attack_mode = 1;

@@ -1,66 +1,42 @@
 #include "../includes/headers/so_long.h"
 
-void	find_positions(t_game *game)
+static void	process_map_tile(t_game *game, int x, int y, int *power_up_index)
 {
-	int	x;
-	int	y;
-	t_map *map;
-	int	power_up_index = 0;
+	t_map	*map;
 
 	map = game->map;
+	if (map->map[y][x] == 'P')
+		set_player_position(game, x, y);
+	else if (map->map[y][x] == 'R')
+		set_ghost_position(game->r_ghost, x, y, map->tile_size);
+	else if (map->map[y][x] == 'O')
+		set_ghost_position(game->o_ghost, x, y, map->tile_size);
+	else if (map->map[y][x] == 'M')
+		set_ghost_position(game->m_ghost, x, y, map->tile_size);
+	else if (map->map[y][x] == 'B')
+		set_ghost_position(game->b_ghost, x, y, map->tile_size);
+	else if (map->map[y][x] == 'U')
+		set_power_up_position(map, x, y, power_up_index);
+	else if (map->map[y][x] == 'T')
+		set_portal_position(game, x, y);
+}
+
+void	find_positions(t_game *game)
+{
+	int		x;
+	int		y;
+	int		power_up_index;
+	t_map	*map;
+
+	map = game->map;
+	power_up_index = 0;
 	y = 0;
-	while(map->map[y])
+	while (map->map[y])
 	{
 		x = 0;
 		while (map->map[y][x])
 		{
-			if (map->map[y][x] == 'P')
-			{
-				game->player->start_x = x * map->tile_size;
-				game->player->start_y = y * map->tile_size;
-			}
-			else if (map->map[y][x] == 'R')
-			{
-				game->r_ghost->start_x = x * map->tile_size;
-				game->r_ghost->start_y = y * map->tile_size;
-			}
-			else if (map->map[y][x] == 'O')
-			{
-				game->o_ghost->start_x = x * map->tile_size;
-				game->o_ghost->start_y = y * map->tile_size;
-			}
-			else if (map->map[y][x] == 'M')
-			{
-				game->m_ghost->start_x = x * map->tile_size;
-				game->m_ghost->start_y = y * map->tile_size;
-			}
-			else if (map->map[y][x] == 'B')
-			{
-				game->b_ghost->start_x = x * map->tile_size;
-				game->b_ghost->start_y = y * map->tile_size;
-			}
-			else if (map->map[y][x] == 'U')
-            {
-                if (power_up_index < map->power_up_dots_count)
-                {
-					map->power_up_dots_array[power_up_index].x = x * map->tile_size;
-                    map->power_up_dots_array[power_up_index].y = y * map->tile_size;
-                    power_up_index++;
-                }
-            }
-			else if (map->map[y][x] == 'T')
-			{
-				if (x == 1)
-				{
-					game->portal[0].x = x;
-					game->portal[0].y = y;
-				}
-				else if (x == game->map->width - 2)
-				{
-					game->portal[1].x = x;
-					game->portal[1].y = y;
-				}
-			}
+			process_map_tile(game, x, y, &power_up_index);
 			x++;
 		}
 		y++;

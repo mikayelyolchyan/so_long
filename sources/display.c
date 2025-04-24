@@ -26,38 +26,38 @@ static void	display_put_image(t_game *game, int x, int y, int digit)
 
 void	display_score(t_game *game)
 {
-    int x;
-    int digit;
-    int i;
+	int		x;
+	int		digit;
+	int		i;
 
 	x = 1 * 32;
 	i = 0;
-    game->score_str = ft_itoa(game->score);
-    while (game->score_str[i] != '\0')
-    {
-        digit = game->score_str[i] - '0';
+	game->score_str = ft_itoa(game->score);
+	while (game->score_str[i] != '\0')
+	{
+		digit = game->score_str[i] - '0';
 		display_put_image(game, x, (game->map->height) * 32 + 8, digit);
-        x += 16; 
-        i++;
-    }
-    free(game->score_str);
+		x += 16;
+		i++;
+	}
+	free(game->score_str);
 }
 
 void	display_move(t_game *game)
 {
-    int x;
-    int digit;
-    int i;
+	int		x;
+	int		digit;
+	int		i;
 
 	x = (game->map->width - 2) * 32;
 	i = 0;
-    game->player->move_str = ft_itoa(game->player->move_count);
-    while (game->player->move_str[i] != '\0')
-    {
-        digit = game->player->move_str[i] - '0';
+	game->player->move_str = ft_itoa(game->player->move_count);
+	while (game->player->move_str[i] != '\0')
+	{
+		digit = game->player->move_str[i] - '0';
 		display_put_image(game, x, (game->map->height) * 32 + 8, digit);
-        x += 16; 
-        i++;
-    }
-    free(game->player->move_str);
+		x += 16;
+		i++;
+	}
+	free(game->player->move_str);
 }

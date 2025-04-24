@@ -14,17 +14,19 @@ GET_NEXT_LINE_DIR = $(LIB_DIR)/get_next_line
 SRCS = $(SRC_DIR)/main.c \
        $(SRC_DIR)/validation/validation.c \
        $(SRC_DIR)/game_over.c \
+	   $(SRC_DIR)/game_restart.c \
+	   $(SRC_DIR)/game_win.c \
        $(SRC_DIR)/hotkeys.c \
        $(SRC_DIR)/exit.c \
-       $(SRC_DIR)/map/map_utils.c \
        $(SRC_DIR)/map/map_render.c \
-       $(SRC_DIR)/map/map_render_utils.c \
-       $(SRC_DIR)/map/map_build.c \
+       $(SRC_DIR)/map/map_render_utils_ghost.c \
+	   $(SRC_DIR)/map/map_render_utils_pac.c \
        $(SRC_DIR)/map/map_flashing.c \
-       $(SRC_DIR)/free.c \
+	   $(SRC_DIR)/map/render_power_dots.c \
        $(SRC_DIR)/game_animation.c \
        $(SRC_DIR)/count_sprites.c \
        $(SRC_DIR)/find_positions.c \
+	   $(SRC_DIR)/set_positions.c \
        $(SRC_DIR)/ghosts/distance_calculator.c \
        $(SRC_DIR)/display.c \
        $(SRC_DIR)/pacman/pac_animation.c \
