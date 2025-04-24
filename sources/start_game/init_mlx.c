@@ -2,6 +2,8 @@
 
 int	init_mlx(t_game *game, t_map *map)
 {
+	game->mlx = NULL;
+    game->win = NULL;
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{

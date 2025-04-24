@@ -1,12 +1,20 @@
 #include "../../includes/headers/so_long.h"
 
+int is_space(char c)
+{
+    return (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == '\f');
+}
+
 int check_extension(char *filename)
 {
     int len;
 
-    len = 0;
-    while (filename[len])
-        len++;
+    if (!filename)
+    {
+        ft_putstr_fd("Error: Filename is NULL\n", 2);
+        return (0);
+    }
+    len = ft_strlen(filename);
     if (len < 4 || ft_strncmp(filename + len - 4, ".ber", 4) != 0)
     {
         ft_putstr_fd("Error: File must have .ber extension\n", 2);
@@ -21,57 +29,172 @@ int read_map(char *filename, t_map *map)
     char *line;
     int height;
     int width;
+    char **temp_map;
+    int i;
+    int line_count;
 
+    if (!filename || !map)
+    {
+        ft_putstr_fd("Error: Invalid arguments\n", 2);
+        return (0);
+    }
+    // Step 1: Count valid lines to determine height
     fd = open(filename, O_RDONLY);
     if (fd < 0)
     {
         ft_putstr_fd("Error: Cannot open file\n", 2);
         return (0);
     }
-    height = 0;
-    width = 0;
-    line = get_next_line(fd);
-    while (line && line[0] != '\n')
+    line_count = 0;
+    while (1)
     {
-        if (!width)
-        {
-            while (line[width] && line[width] != '\n')
-                width++;
-        }
-        else if ((int)ft_strlen(line) != width + (line[width] == '\n'))
-        {
-            ft_putstr_fd("Error: Map is not rectangular\n", 2);
-            free(line);
-            close(fd);
-            return (0);
-        }
-        height++;
-        free(line);
         line = get_next_line(fd);
+        if (!line || line[0] == '\n' || line[0] == '\0')
+        {
+            free(line);
+            break;
+        }
+        line_count++;
+        free(line);
     }
-    free(line);
+    // Clear any remaining get_next_line buffers
+    while ((line = get_next_line(fd)) != NULL)
+        free(line);
     close(fd);
-    if (height < 3 || width < 5)
+    if (line_count < 3)
     {
         ft_putstr_fd("Error: Map must be at least 3x5\n", 2);
         return (0);
     }
-    map->map = malloc(sizeof(char *) * (height + 1));
-    if (!map->map)
+    // Step 2: Allocate temp_map based on line_count
+    temp_map = malloc(sizeof(char *) * line_count);
+    if (!temp_map)
+    {
+        ft_putstr_fd("Error: Memory allocation failed\n", 2);
         return (0);
-    map->height = height;
-    map->width = width;
+    }
+    // Step 3: Reopen file and read lines
     fd = open(filename, O_RDONLY);
+    if (fd < 0)
+    {
+        free(temp_map);
+        ft_putstr_fd("Error: Cannot open file\n", 2);
+        return (0);
+    }
     height = 0;
-    while (height < map->height)
+    width = 0;
+    while (height < line_count)
     {
         line = get_next_line(fd);
-        map->map[height] = ft_strdup(line);
-        free(line);
+        if (!line || line[0] == '\n' || line[0] == '\0')
+        {
+            free(line);
+            // Clear remaining get_next_line buffers
+            while ((line = get_next_line(fd)) != NULL)
+                free(line);
+            while (height > 0)
+                free(temp_map[--height]);
+            free(temp_map);
+            close(fd);
+            ft_putstr_fd("Error: Unexpected end of file\n", 2);
+            return (0);
+        }
+        // Check for invalid whitespace at start
+        if (is_space(line[0]))
+        {
+            free(line);
+            // Clear remaining get_next_line buffers
+            while ((line = get_next_line(fd)) != NULL)
+                free(line);
+            while (height > 0)
+                free(temp_map[--height]);
+            free(temp_map);
+            close(fd);
+            ft_putstr_fd("Error: Map contains invalid whitespace characters\n", 2);
+            return (0);
+        }
+        i = 0;
+        while (line[i] && line[i] != '\n')
+        {
+            if (is_space(line[i]))
+            {
+                free(line);
+                // Clear remaining get_next_line buffers
+                while ((line = get_next_line(fd)) != NULL)
+                    free(line);
+                while (height > 0)
+                    free(temp_map[--height]);
+                free(temp_map);
+                close(fd);
+                ft_putstr_fd("Error: Map contains invalid whitespace characters\n", 2);
+                return (0);
+            }
+            i++;
+        }
+        // Check for invalid whitespace at end
+        if (i > 0 && is_space(line[i - 1]))
+        {
+            free(line);
+            // Clear remaining get_next_line buffers
+            while ((line = get_next_line(fd)) != NULL)
+                free(line);
+            while (height > 0)
+                free(temp_map[--height]);
+            free(temp_map);
+            close(fd);
+            ft_putstr_fd("Error: Map contains invalid whitespace characters\n", 2);
+            return (0);
+        }
+        if (!width)
+            width = i;
+        else if (i != width)
+        {
+            free(line);
+            // Clear remaining get_next_line buffers
+            while ((line = get_next_line(fd)) != NULL)
+                free(line);
+            while (height > 0)
+                free(temp_map[--height]);
+            free(temp_map);
+            close(fd);
+            ft_putstr_fd("Error: Map is not rectangular\n", 2);
+            return (0);
+        }
+        temp_map[height] = line;
         height++;
     }
-    map->map[height] = NULL;
+    // Clear any remaining get_next_line buffers
+    while ((line = get_next_line(fd)) != NULL)
+        free(line);
     close(fd);
+    if (width < 5)
+    {
+        while (height > 0)
+            free(temp_map[--height]);
+        free(temp_map);
+        ft_putstr_fd("Error: Map must be at least 3x5\n", 2);
+        return (0);
+    }
+    // Step 4: Allocate final map
+    map->map = malloc(sizeof(char *) * (height + 1));
+    if (!map->map)
+    {
+        while (height > 0)
+            free(temp_map[--height]);
+        free(temp_map);
+        ft_putstr_fd("Error: Memory allocation failed\n", 2);
+        return (0);
+    }
+    for (i = 0; i < height; i++)
+    {
+        map->map[i] = temp_map[i];
+        if (map->map[i][width - 1] == '\n')
+            map->map[i][width - 1] = '\0';
+    }
+    map->map[height] = NULL;
+    free(temp_map);
+    map->height = height;
+    map->width = width;
     return (1);
 }
 
@@ -90,7 +213,7 @@ int check_structure(t_map *map)
         if (map->map[0][i] != '1' || map->map[map->height - 1][i] != '1')
         {
             ft_putstr_fd("Error: Map not surrounded by walls\n", 2);
-    return (0);
+            return (0);
         }
         i++;
     }
@@ -115,6 +238,11 @@ int check_elements(t_map *map, t_point *start, t_check *total)
     int left_portal;
     int right_portal;
 
+    if (!map || !map->map || !start || !total)
+    {
+        ft_putstr_fd("Error: Invalid arguments\n", 2);
+        return (0);
+    }
     ghosts[0] = 0; // R
     ghosts[1] = 0; // B
     ghosts[2] = 0; // O
@@ -123,7 +251,7 @@ int check_elements(t_map *map, t_point *start, t_check *total)
     total->power_ups = 0;
     total->exits = 0;
     total->portals = 0;
-    total->ghost_count = 0; // Уже добавлено тобой
+    total->ghost_count = 0;
     start->x = -1;
     left_portal = 0;
     right_portal = 0;
@@ -159,7 +287,7 @@ int check_elements(t_map *map, t_point *start, t_check *total)
                     if ((i > 0 && map->map[i - 1][j] != '1') ||
                         (i < map->height - 1 && map->map[i + 1][j] != '1') ||
                         map->map[i][j - 1] != '1' || map->map[i][j + 1] == '1' ||
-						map->map[i][j + 1] == 'E')
+                        map->map[i][j + 1] == 'E')
                     {
                         ft_putstr_fd("Error: Left portal invalid surroundings\n", 2);
                         return (0);
@@ -171,7 +299,7 @@ int check_elements(t_map *map, t_point *start, t_check *total)
                     if ((i > 0 && map->map[i - 1][j] != '1') ||
                         (i < map->height - 1 && map->map[i + 1][j] != '1') ||
                         map->map[i][j + 1] != '1' || map->map[i][j - 1] == '1' ||
-						map->map[i][j - 1] == 'E')
+                        map->map[i][j - 1] == 'E')
                     {
                         ft_putstr_fd("Error: Right portal invalid surroundings\n", 2);
                         return (0);
@@ -186,22 +314,22 @@ int check_elements(t_map *map, t_point *start, t_check *total)
             else if (c == 'R')
             {
                 ghosts[0]++;
-                total->ghost_count++; // Уже добавлено тобой
+                total->ghost_count++;
             }
             else if (c == 'B')
             {
                 ghosts[1]++;
-                total->ghost_count++; // Уже добавлено тобой
+                total->ghost_count++;
             }
             else if (c == 'O')
             {
                 ghosts[2]++;
-                total->ghost_count++; // Уже добавлено тобой
+                total->ghost_count++;
             }
             else if (c == 'M')
             {
                 ghosts[3]++;
-                total->ghost_count++; // Уже добавлено тобой
+                total->ghost_count++;
             }
             else if (c != '1' && c != '0')
             {
@@ -222,7 +350,6 @@ int check_elements(t_map *map, t_point *start, t_check *total)
         ft_putstr_fd("Error: At least one coin required\n", 2);
         return (0);
     }
-    // Добавил: проверка power_ups (0 или 4)
     if (total->power_ups != 0 && total->power_ups != 4)
     {
         ft_putstr_fd("Error: Power-ups must be 0 or exactly 4\n", 2);
@@ -233,13 +360,11 @@ int check_elements(t_map *map, t_point *start, t_check *total)
         ft_putstr_fd("Error: Exactly one exit required\n", 2);
         return (0);
     }
-    // Добавил: проверка порталов (0 или 2)
     if (total->portals != 0 && (total->portals != 2 || left_portal != 1 || right_portal != 1))
     {
         ft_putstr_fd("Error: Portals must be 0 or exactly two at x=1 and x=width-2\n", 2);
         return (0);
     }
-    // Добавил: проверка призраков (0 или 4, по 1 каждого)
     if (total->ghost_count != 0 && total->ghost_count != 4)
     {
         ft_putstr_fd("Error: Ghosts must be 0 or exactly 4\n", 2);
@@ -299,6 +424,8 @@ void free_visited(int **visited, int height)
 {
     int i;
 
+    if (!visited)
+        return;
     i = 0;
     while (i < height)
     {
@@ -312,6 +439,8 @@ void flood_fill(t_map *map, t_point pos, t_check *reached, int **visited)
 {
     t_point next;
 
+    if (!map || !map->map || !reached || !visited)
+        return;
     if (pos.y < 0 || pos.y >= map->height || pos.x < 0 || pos.x >= map->width)
         return;
     if (visited[pos.y][pos.x] || map->map[pos.y][pos.x] == '1' ||
@@ -327,7 +456,6 @@ void flood_fill(t_map *map, t_point pos, t_check *reached, int **visited)
         reached->exits++;
     else if (map->map[pos.y][pos.x] == 'T')
         reached->portals++;
-    // Удалил: подсчёт ghost_count в reached (призраки не должны быть достижимыми)
     next.y = pos.y - 1;
     next.x = pos.x;
     flood_fill(map, next, reached, visited);
@@ -363,16 +491,21 @@ int validate_map(char *filename, t_map *map)
     t_check reached;
     int **visited;
 
+    if (!filename || !map)
+    {
+        ft_putstr_fd("Error: Invalid arguments\n", 2);
+        return (0);
+    }
     total.coins = 0;
     total.power_ups = 0;
     total.exits = 0;
     total.portals = 0;
-    total.ghost_count = 0; // Уже добавлено тобой
+    total.ghost_count = 0;
     reached.coins = 0;
     reached.power_ups = 0;
     reached.exits = 0;
     reached.portals = 0;
-    reached.ghost_count = 0; // Уже добавлено тобой
+    reached.ghost_count = 0;
     if (!check_extension(filename) || !read_map(filename, map))
         return (0);
     if (!check_structure(map) || !check_elements(map, &start, &total))
@@ -389,7 +522,6 @@ int validate_map(char *filename, t_map *map)
     }
     flood_fill(map, start, &reached, visited);
     free_visited(visited, map->height);
-    // Заменил: убрал проверку ghost_count, оставил только достижимые элементы
     if (reached.coins != total.coins || reached.power_ups != total.power_ups ||
         reached.exits != total.exits || reached.portals != total.portals)
     {
@@ -397,7 +529,6 @@ int validate_map(char *filename, t_map *map)
         ft_putstr_fd("Error: Not all elements reachable\n", 2);
         return (0);
     }
-    // Добавил: сохраняем total.ghost_count в map для использования в других функциях
     map->ghost_count = total.ghost_count;
     return (1);
 }
