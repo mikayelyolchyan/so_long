@@ -200,15 +200,25 @@ typedef struct s_game
 	t_check *check;
 } t_game;
 
-int validate_map(char *filename, t_map *map);
-int check_extension(char *filename);
-int read_map(char *filename, t_map *map);
-int check_structure(t_map *map);
-int check_elements(t_map *map, t_point *start, t_check *total);
-void flood_fill(t_map *map, t_point pos, t_check *reached, int **visited);
-int **create_visited(int height, int width);
-void free_visited(int **visited, int height);
-void free_map(t_map *map);
+
+/* File validation */
+int		check_extension(char *filename);
+
+/* Map reading */
+int		read_map(char *filename, t_map *map);
+
+/* Map validation */
+int		check_structure(t_map *map);
+int		check_elements(t_map *map, t_point *start, t_check *total);
+int		validate_map(char *filename, t_map *map);
+
+/* Flood fill */
+void	flood_fill(t_map *map, t_point pos, t_check *reached, int **visited);
+
+/* Memory utils */
+int		**create_visited(int height, int width);
+void	free_visited(int **visited, int height);
+void	free_map(t_map *map);
 
 void	game_over(t_game *game);
 void	game_restart(t_game *game);

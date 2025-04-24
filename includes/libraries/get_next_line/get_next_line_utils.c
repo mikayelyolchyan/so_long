@@ -73,7 +73,7 @@ char	*ft_strjoin_gnl(char const *s1, char const *s2)
 	size_t	len1;
 	size_t	len2;
 
-	if (!s1 || !s2)
+	if (!s1 && !s2)
 		return (NULL);
 	len1 = ft_strlen_gnl(s1);
 	len2 = ft_strlen_gnl(s2);
