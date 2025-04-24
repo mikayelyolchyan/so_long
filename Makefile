@@ -48,7 +48,16 @@ SRCS = $(SRC_DIR)/main.c \
        $(SRC_DIR)/red_ghost/red_ghost_moving.c \
        $(SRC_DIR)/blue_ghost/blue_ghost_moving.c \
        $(SRC_DIR)/orange_ghost/orange_ghost_moving.c \
-       $(SRC_DIR)/magenta_ghost/magenta_ghost_moving.c
+       $(SRC_DIR)/magenta_ghost/magenta_ghost_moving.c \
+	   $(SRC_DIR)/initializations/pac_initialization.c \
+	   $(SRC_DIR)/initializations/ghost_panic_initialization.c \
+	   $(SRC_DIR)/initializations/red_ghost_initialization.c \
+	   $(SRC_DIR)/initializations/orange_ghost_initialization.c \
+	   $(SRC_DIR)/initializations/blue_ghost_initialization.c \
+	   $(SRC_DIR)/initializations/magenta_ghost_initialization.c \
+	   $(SRC_DIR)/initializations/font_initialization.c \
+	   $(SRC_DIR)/initializations/map_initialization.c
+
 
 OBJS = $(SRCS:%.c=%.o)
 

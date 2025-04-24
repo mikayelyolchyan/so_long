@@ -277,4 +277,12 @@ void orange_ghost_moving(t_game *game);
 void magenta_ghost_moving(t_game *game);
 void blue_ghost_moving(t_game *game);
 
+void	pacman_initializations(t_game *game, t_map *map);
+void	ghost_panic_textures(t_game *game, t_map *map, t_ghost *c_ghost);
+void	red_ghost_initialization(t_game *game, t_map *map);
+void	orange_ghost_initialization(t_game *game, t_map *map);
+void	magenta_ghost_initialization(t_game *game, t_map *map);
+void	blue_ghost_initialization(t_game *game, t_map *map);
+void	map_initialization(t_game *game, t_map *map);
+
 #endif
