@@ -31,14 +31,14 @@ void red_ghost_direction(t_game *game)
             if (game->r_ghost->remainder_x < 16)
                 game->r_ghost->x -= game->r_ghost->remainder_x;
             else
-                game->r_ghost->x += (32 - game->r_ghost->remainder_x); // Округляем вверх
+                game->r_ghost->x += (32 - game->r_ghost->remainder_x);
         }
         if (game->r_ghost->remainder_y != 0)
         {
             if (game->r_ghost->remainder_y < 16)
-                game->r_ghost->y -= game->r_ghost->remainder_y; // Округляем вниз
+                game->r_ghost->y -= game->r_ghost->remainder_y;
             else
-                game->r_ghost->y += (32 - game->r_ghost->remainder_y); // Округляем вверх
+                game->r_ghost->y += (32 - game->r_ghost->remainder_y);
         }
 	}
 
@@ -53,7 +53,16 @@ void red_ghost_direction(t_game *game)
 		draw_map(game);
 	}
 
-    // Логика режимов атаки
+	if (game->pac_attack_mode == 1 &&
+		(game->player->x - game->r_ghost->x <= 16 && game->player->x - game->r_ghost->x >= -16) &&
+    	(game->player->y - game->r_ghost->y <= 16 && game->player->y - game->r_ghost->y >= -16) &&
+    	game->r_ghost->is_respawned == 1) // && game-r_ghost->is_eaten == 0)
+	{
+		game->game_restart = 1;
+		game->player->died_count++;
+		draw_map(game);
+	}
+
     if (game->ghost_attack_mode_delay >= GHOST_NEUTRAL_LIMIT \
 		&& game->pac_attack_mode == 0)
         game->ghost_attack_mode = 1;

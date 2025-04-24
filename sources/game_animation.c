@@ -1,33 +1,5 @@
 #include "../includes/headers/so_long.h"
 
-static void render_power_up_dots(t_game *game)
-{
-	int index;
-	int x;
-	int y;
-	int map_x;
-	int map_y;
-	
-	index = (game->power_up_img_delay / 1024) % game->map->power_up_dots_count;
-	x = game->map->power_up_dots_array[index].x;
-	y = game->map->power_up_dots_array[index].y;
-	map_x = x / game->map->tile_size;
-	map_y = y / game->map->tile_size;
-	if (game->power_up_img_delay >= 4096 && game->power_up_img_delay < 8192)
-	{
-	    if (game->map->map[map_y][map_x] == 'U')
-	        mlx_put_image_to_window(game->mlx, \
-			game->win, game->map->power_up_img, x, y);
-	}
-	else if (game->power_up_img_delay >= 8192)
-	{
-	    if (game->map->map[map_y][map_x] == 'U')
-	        mlx_put_image_to_window(game->mlx, game->win, \
-			game->map->black_wall_img, x, y);
-	    if (game->power_up_img_delay >= 16384)
-	        game->power_up_img_delay = 0;
-	}
-}
 static void	delays_update(t_game *game)
 {
 	game->frame_delay++;
@@ -58,26 +30,6 @@ static void pac_move_mode(t_game *game)
 	}
 	else
 		pac_moving(game);
-}
-
-void	game_win(t_game *game)
-{
-	if (game->eated_dots == game->map->dots_count && \
-		game->player->y % 32 == 0 && \
-		game->player->x % 32 == 0 && \
-		game->map->map[game->player->y / 32][game->player->x / 32] == 'E')
-	{
-		game->game_win = 1;
-		game->map_flashing_delay++;
-		if (game->map_flashing_delay >= 25000)
-		{
-			map_flashing(game->map, game);
-			game->map_flashing_delay = 0;
-			game->map_flashing_count++;
-			if (game->map_flashing_count == 16)
-				ft_exit(game);
-		}
-	}
 }
 
 static void	handle_all_animation_timings(t_game *game)

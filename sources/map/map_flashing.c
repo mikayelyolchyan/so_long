@@ -31,6 +31,7 @@ static void	flashing(t_game *game, int x, int y)
 	else if (game->map_flashing_frame == 1)
 		white_walls(game, x, y, game->map->map[y][x]);
 }
+
 void	map_flashing(t_map *map, t_game *game)
 {
 	int		x;

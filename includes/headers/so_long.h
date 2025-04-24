@@ -8,10 +8,14 @@
 # include "../libraries/mlx_linux/mlx.h"
 
 # define ESC 65307
-# define W 119
-# define A 97
-# define S 115
-# define D 100
+//# define W 119
+//# define A 97
+//# define S 115
+//# define D 100
+# define W 1731
+# define A 1734
+# define S 1753
+# define D 1751
 # define STOP 0
 # define LEFT 1
 # define RIGHT 2
@@ -20,7 +24,7 @@
 
 # define GHOST_NEUTRAL_LIMIT 131072
 # define GHOST_ATTACK_LIMIT 524288
-# define GAME_FRAME_LIMIT 512
+# define GAME_FRAME_LIMIT 256
 # define GAME_START_LIMIT 20000
 # define GHOST_EATEN_FREEZE 15000
 # define DYING_FRAME_LIMIT 12500
@@ -206,21 +210,24 @@ int **create_visited(int height, int width);
 void free_visited(int **visited, int height);
 void free_map(t_map *map);
 
-void game_over(t_game *game);
+void	game_over(t_game *game);
+void	game_restart(t_game *game);
+void	game_win(t_game *game);
 
-int map_is_valid(char *argv, t_game *game);
 void map_flashing(t_map *map, t_game *game);
-int open_map(char *filename);
-int read_map_size(int fd);
-void fill_map(t_map *map, int fd);
-void create_map(char *filename, t_game *game);
 void draw_map(t_game *game);
 void update_map(t_game *game, char **map);
 void update_ghost(t_game *game, char **map, int direction, t_ghost *ghost);
 void update_player(t_game *game, char **map, t_player *player);
+void	render_power_up_dots(t_game *game);
 
 int start_game(t_game *game, char *argv);
 void find_positions(t_game *game);
+
+void	set_portal_position(t_game *game, int x, int y);
+void	set_power_up_position(t_map *map, int x, int y, int *power_up_index);
+void	set_ghost_position(t_ghost *ghost, int x, int y, int tile_size);
+void	set_player_position(t_game *game, int x, int y);
 
 int distance_calculator(int x1, int x2, int y1, int y2);
 
