@@ -16,22 +16,6 @@ static void	ghosts_movings(t_game *game)
 	blue_ghost_moving(game);
 }
 
-static void pac_move_mode(t_game *game)
-{
-	if (game->pac_attack_mode == 1)
-	{
-		pac_fast_moving(game);
-		game->pac_attack_mode_delay++;
-		if (game->pac_attack_mode_delay >= GHOST_PANIC_FLASHING_LIMIT)
-		{
-			game->pac_attack_mode = 0;
-			game->pac_attack_mode_delay = 0;
-		}
-	}
-	else
-		pac_moving(game);
-}
-
 static void	handle_all_animation_timings(t_game *game)
 {
 	delays_update(game);
@@ -58,13 +42,41 @@ static void	handle_all_animation_timings(t_game *game)
 	game_win(game);
 }
 
-int	game_animation(t_game *game)
+static void	pac_dying_and_restart(t_game *game)
 {
-	void		*pac_current_img;
+	game->player->dying_frame_delay++;
+	if (game->player->dying_frame_delay >= DYING_FRAME_LIMIT)
+	{
+		game->player->dying_frame_delay = 0;
+		game->player->dying_frame = (game->player->dying_frame + 1) % 15;
+		pac_dying(game, game->player);
+	}
+}
+
+static void	ghost_current_image_to_window(t_game *game)
+{
 	void		*red_ghost_current_img;
 	void		*orange_ghost_current_img;
 	void		*magenta_ghost_current_img;
 	void		*blue_ghost_current_img;
+
+	red_ghost_current_img = get_ghost_current_img(game, game->r_ghost);
+	orange_ghost_current_img = get_ghost_current_img(game, game->o_ghost);
+	magenta_ghost_current_img = get_ghost_current_img(game, game->m_ghost);
+	blue_ghost_current_img = get_ghost_current_img(game, game->b_ghost);
+	mlx_put_image_to_window(game->mlx, game->win, \
+		red_ghost_current_img, game->r_ghost->x, game->r_ghost->y);
+	mlx_put_image_to_window(game->mlx, game->win, \
+		orange_ghost_current_img, game->o_ghost->x, game->o_ghost->y);
+	mlx_put_image_to_window(game->mlx, game->win,\
+		magenta_ghost_current_img, game->m_ghost->x, game->m_ghost->y);
+	mlx_put_image_to_window(game->mlx, game->win, \
+		blue_ghost_current_img, game->b_ghost->x, game->b_ghost->y);
+}
+
+int	game_animation(t_game *game)
+{
+	void		*pac_current_img;
 
 	handle_all_animation_timings(game);
 	if (game->game_win == 0 && game->game_restart == 0)
@@ -74,30 +86,9 @@ int	game_animation(t_game *game)
 		mlx_put_image_to_window(game->mlx, game->win, \
 			pac_current_img, game->player->x, game->player->y);
 		if (game->map->ghost_count == 4)
-		{	
-			red_ghost_current_img = get_ghost_current_img(game, game->r_ghost);
-			orange_ghost_current_img = get_ghost_current_img(game, game->o_ghost);
-			magenta_ghost_current_img = get_ghost_current_img(game, game->m_ghost);
-			blue_ghost_current_img = get_ghost_current_img(game, game->b_ghost);
-			mlx_put_image_to_window(game->mlx, game->win, \
-				red_ghost_current_img, game->r_ghost->x, game->r_ghost->y);
-			mlx_put_image_to_window(game->mlx, game->win, \
-				orange_ghost_current_img, game->o_ghost->x, game->o_ghost->y);
-			mlx_put_image_to_window(game->mlx, game->win,\
-				magenta_ghost_current_img, game->m_ghost->x, game->m_ghost->y);
-			mlx_put_image_to_window(game->mlx, game->win, \
-				blue_ghost_current_img, game->b_ghost->x, game->b_ghost->y);
-		}
+			ghost_current_image_to_window(game);
 	}
 	if (game->game_restart == 1)
-	{
-		game->player->dying_frame_delay++;
-		if (game->player->dying_frame_delay >= DYING_FRAME_LIMIT)
-		{
-			game->player->dying_frame_delay = 0;
-			game->player->dying_frame = (game->player->dying_frame + 1) % 15;
-			pac_dying(game, game->player);
-		}
-	}
+		pac_dying_and_restart(game);
 	return (0);
 }

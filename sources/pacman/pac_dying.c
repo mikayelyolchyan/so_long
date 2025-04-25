@@ -62,4 +62,3 @@ void	pac_dying(t_game *game, t_player *player)
 	if (player->dying_frame == 14)
 		game_restart(game);
 }
-

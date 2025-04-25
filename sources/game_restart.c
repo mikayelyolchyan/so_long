@@ -23,11 +23,8 @@ static void	set_default_directions(t_game *game)
 	game->b_ghost->direction = RIGHT;
 }
 
-void	game_restart(t_game *game)
+static void	set_variables_to_zero(t_game *game)
 {
-	set_positions_in_start(game);
-	set_default_directions(game);
-	draw_map(game);
 	game->player->dying_frame = 0;
 	game->game_restart = 0;
 	game->game_start = 0;
@@ -44,6 +41,14 @@ void	game_restart(t_game *game)
 	game->o_ghost->is_respawned = 0;
 	game->b_ghost->is_eaten = 0;
 	game->b_ghost->is_respawned = 0;
+}
+
+void	game_restart(t_game *game)
+{
+	set_positions_in_start(game);
+	set_default_directions(game);
+	draw_map(game);
+	set_variables_to_zero(game);
 	if (game->player->died_count == 1)
 		mlx_put_image_to_window(game->mlx, game->win, \
 	game->map->black_wall_img, 5 * 32, game->map->height * 32);
