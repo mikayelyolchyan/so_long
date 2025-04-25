@@ -87,7 +87,6 @@ int	ft_exit(t_game *game)
 		free(game->o_ghost);
 		free(game->m_ghost);
 		free(game->b_ghost);
-		free(game->dist);
 	}
 	free_font_images(game);
 	mlx_destroy_display(game->mlx);
