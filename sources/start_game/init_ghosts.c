@@ -8,6 +8,7 @@ int	init_ghosts(t_game *game, t_map *map)
 	game->o_ghost = malloc(sizeof(t_ghost));
 	game->m_ghost = malloc(sizeof(t_ghost));
 	game->b_ghost = malloc(sizeof(t_ghost));
+	game->dist = malloc(sizeof(t_dist));
 	if (!game->r_ghost || !game->o_ghost || !game->m_ghost || !game->b_ghost)
 	{
 		free(game->player);
@@ -15,6 +16,7 @@ int	init_ghosts(t_game *game, t_map *map)
 		free(game->o_ghost);
 		free(game->m_ghost);
 		free(game->b_ghost);
+		free(game->dist);
 		free_map(map);
 		free(map);
 		ft_printf("Error: t_ghost memory allocation failed\n");

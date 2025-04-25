@@ -31,6 +31,16 @@
 # define GHOST_PANIC_LIMIT 128
 # define GHOST_PANIC_FLASHING_LIMIT 196
 
+typedef struct s_dist
+{
+	int dist_up;
+    int dist_left;
+    int dist_down;
+    int dist_right;
+	int min_dist;
+	int	max_dist;
+}	t_dist;
+
 typedef struct s_point
 {
 	int	x;
@@ -198,6 +208,7 @@ typedef struct s_game
 	t_font		*font;
 	t_portal	portal[2];
 	t_check		*check;
+	t_dist		*dist;
 }	t_game;
 
 /* File validation */
@@ -281,11 +292,6 @@ void	*get_ghost_panic_flashing_animation(t_game *game, t_ghost *c_ghost);
 
 void	handle_ghost_portal(t_game *game, t_ghost *c_ghost, int portal_index);
 
-void	red_ghost_moving(t_game *game);
-void	orange_ghost_moving(t_game *game);
-void	magenta_ghost_moving(t_game *game);
-void	blue_ghost_moving(t_game *game);
-
 void	pacman_initializations(t_game *game, t_map *map);
 void	ghost_panic_textures(t_game *game, t_map *map, t_ghost *c_ghost);
 void	red_ghost_initialization(t_game *game, t_map *map);
@@ -304,5 +310,30 @@ int		init_power_up_dots(t_game *game, t_map *map);
 int		init_ghost_positions_textures(t_game *game, t_map *map);
 int		init_font(t_game *game, t_map *map);
 void	init_game_state(t_game *game, t_map *map);
+
+void	red_ghost_moving(t_game *game);
+void	red_ghost_direction(t_game *game);
+void	set_red_ghost_target(t_game *game, t_ghost *ghost);
+void	red_ghost_respawned(t_game *game, t_ghost *ghost);
+
+void	orange_ghost_moving(t_game *game);
+void	magenta_ghost_moving(t_game *game);
+void	blue_ghost_moving(t_game *game);
+
+void	calculating_to_start(t_game *game, t_dist *dist, t_ghost *ghost);
+void	calculating_to_target(t_game *game, t_dist *dist, t_ghost *ghost);
+
+void	set_dist_struct_variables(t_dist *dist);
+void	ghost_move(t_game *game, t_ghost *ghost);
+void	ghost_is_eaten_move(t_game *game, t_ghost *ghost);
+void	set_ghost_direction(t_game *game, t_ghost *ghost);
+void	handle_dead_end_turn(t_game *game, t_ghost *ghost);
+void	detect_collision_with_speed(t_game *game, t_ghost *ghost, char **map);
+void	when_pac_eated_ghost(t_game *game, t_ghost *ghost);
+void	when_ghost_eated_pac(t_game *game, t_ghost *ghost);
+void	check_ghost_attack_mode(t_game *game);
+void	direction_when_ghost_eated(t_ghost *ghost, t_dist *dist);
+void	ghost_direction(t_ghost *ghost, t_dist *dist);
+void	direction_when_ghost_in_panic(t_ghost *ghost, t_dist *dist);
 
 #endif

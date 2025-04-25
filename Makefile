@@ -1,7 +1,7 @@
 NAME = so_long
 
 CC = cc
-C_FLAGS = -Wall -Wextra -Werror -I./$(INC_DIR) #-g3 -fsanitize=address
+C_FLAGS = -Wall -Wextra -Werror -I./$(INC_DIR) -g3 -fsanitize=address
 
 SRC_DIR = sources
 INC_DIR = includes/headers
@@ -45,7 +45,21 @@ SRCS = $(SRC_DIR)/main.c \
        $(SRC_DIR)/ghosts/ghost_current_img.c \
        $(SRC_DIR)/ghosts/ghost_panic_animation.c \
        $(SRC_DIR)/ghosts/ghost_utils.c \
+	   $(SRC_DIR)/ghosts/detect_collision_with_speed.c \
+	   $(SRC_DIR)/ghosts/ghost_move.c \
+	   $(SRC_DIR)/ghosts/calculating_distance.c \
+	   $(SRC_DIR)/ghosts/check_ghost_attack_mode.c \
+	   $(SRC_DIR)/ghosts/direction_when_ghost_eated.c \
+	   $(SRC_DIR)/ghosts/direction_when_ghost_in_panic.c \
+	   $(SRC_DIR)/ghosts/ghost_direction.c \
+	   $(SRC_DIR)/ghosts/red_ghost_target.c \
+	   $(SRC_DIR)/ghosts/set_ghost_direction.c \
+	   $(SRC_DIR)/ghosts/when_ghost_eated_pac.c \
+	   $(SRC_DIR)/ghosts/when_pac_eated_ghost.c \
+	   $(SRC_DIR)/ghosts/handle_dead_end_turn.c \
+	   $(SRC_DIR)/ghosts/red_ghost_respawned.c \
        $(SRC_DIR)/red_ghost/red_ghost_moving.c \
+	   $(SRC_DIR)/red_ghost/red_ghost_direction.c \
        $(SRC_DIR)/blue_ghost/blue_ghost_moving.c \
        $(SRC_DIR)/orange_ghost/orange_ghost_moving.c \
        $(SRC_DIR)/magenta_ghost/magenta_ghost_moving.c \
