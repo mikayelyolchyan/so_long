@@ -208,7 +208,6 @@ typedef struct s_game
 	t_font		*font;
 	t_portal	portal[2];
 	t_check		*check;
-	t_dist		*dist;
 }	t_game;
 
 /* File validation */
