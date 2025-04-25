@@ -63,7 +63,7 @@ int read_map(char *filename, t_map *map)
     close(fd);
     if (line_count < 3)
     {
-        ft_putstr_fd("Error: Map must be at least 3x8 or isspace\n", 2);
+        ft_putstr_fd("Error: Map must be at least 3x8 or dont use isspace\n", 2);
         return (0);
     }
     // Step 2: Allocate temp_map based on line_count
