@@ -210,24 +210,42 @@ typedef struct s_game
 	t_check		*check;
 }	t_game;
 
-/* File validation */
-int		check_extension(char *filename);
+typedef struct s_map_finalize
+{
+    int		fd;
+    char	**temp_map;
+    t_map	*map;
+    int		height;
+    int		width;
+}	t_map_finalize;
 
-/* Map reading */
+int		check_extension(char *filename);  
+
 int		read_map(char *filename, t_map *map);
 
-/* Map validation */
-int		check_structure(t_map *map);
-int		check_elements(t_map *map, t_point *start, t_check *total);
-int		validate_map(char *filename, t_map *map);
+int		check_structure(t_map *map);  
+int		check_elements(t_map *map, t_point *start, t_check *total);  
+int		validate_map(char *filename, t_map *map);  
 
-/* Flood fill */
-void	flood_fill(t_map *map, t_point pos, t_check *reached, int **visited);
+void	flood_fill(t_map *map, t_point pos, t_check *reached, int **visited);  
 
-/* Memory utils */
-int		**create_visited(int height, int width, int i);
-void	free_visited(int **visited, int height);
+int		**create_visited(int height, int width, int i);  
+void	free_visited(int **visited, int height);  
 void	free_map(t_map *map);
+
+int		read_map_store_lines(int fd, \
+		char **temp_map, int line_count, t_map *map);
+
+int		check_portals(t_map *map, \
+		t_check *total, int i, int j, int *portals);
+int		check_player(t_point *start, char c, int i, int j);
+int		check_collectibles(t_check *total, char c);
+int		check_ghosts(t_check *total, char c, int *ghosts);
+int		check_invalid_char(char c);
+int		check_elements_validate(t_check *total, \
+		t_point *start, int *ghosts, int *portals);
+
+int		is_space(char c); 
 
 void	game_over(t_game *game);
 void	game_restart(t_game *game);
