@@ -219,6 +219,13 @@ typedef struct s_map_finalize
     int		width;
 }	t_map_finalize;
 
+typedef struct s_check_elements_variables
+{
+	int	i;
+	int	j;
+	int	portals[2];
+}	t_check_elements_variables;
+
 int		check_extension(char *filename);  
 
 int		read_map(char *filename, t_map *map);
@@ -236,8 +243,8 @@ void	free_map(t_map *map);
 int		read_map_store_lines(int fd, \
 		char **temp_map, int line_count, t_map *map);
 
-int		check_portals(t_map *map, \
-		t_check *total, int i, int j, int *portals);
+int		check_portals(t_map *map, t_check *total, \
+	t_check_elements_variables *vars);
 int		check_player(t_point *start, char c, int i, int j);
 int		check_collectibles(t_check *total, char c);
 int		check_ghosts(t_check *total, char c, int *ghosts);
