@@ -7,7 +7,6 @@ void	red_ghost_respawned(t_game *game, t_ghost *ghost)
 	{
 		ghost->is_eaten = 0;
 		ghost->is_respawned = 1;
-		game->r_ghost->targ_x = game->player->x;
-		game->r_ghost->targ_y = game->player->y;
+		set_red_ghost_target(game, ghost);
 	}
 }

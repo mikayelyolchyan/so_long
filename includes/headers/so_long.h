@@ -24,7 +24,7 @@
 
 # define GHOST_NEUTRAL_LIMIT 131072
 # define GHOST_ATTACK_LIMIT 524288
-# define GAME_FRAME_LIMIT 128
+# define GAME_FRAME_LIMIT 256
 # define GAME_START_LIMIT 20000
 # define GHOST_EATEN_FREEZE 15000
 # define DYING_FRAME_LIMIT 12500
@@ -315,9 +315,13 @@ void	red_ghost_direction(t_game *game);
 void	set_red_ghost_target(t_game *game, t_ghost *ghost);
 void	red_ghost_respawned(t_game *game, t_ghost *ghost);
 
+void	blue_ghost_moving(t_game *game);
+void	blue_ghost_direction(t_game *game);
+void	set_blue_ghost_target(t_game *game);
+void	blue_ghost_respawned(t_game *game, t_ghost *ghost);
+
 void	orange_ghost_moving(t_game *game);
 void	magenta_ghost_moving(t_game *game);
-void	blue_ghost_moving(t_game *game);
 
 void	calculating_to_start(t_game *game, t_dist *dist, t_ghost *ghost);
 void	calculating_to_target(t_game *game, t_dist *dist, t_ghost *ghost);
