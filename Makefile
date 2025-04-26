@@ -1,7 +1,7 @@
 NAME = so_long
 
 CC = cc
-C_FLAGS = -Wall -Wextra -Werror -I./$(INC_DIR) -g3 -fsanitize=address
+C_FLAGS = -Wall -Wextra -Werror -I./$(INC_DIR) #-g3 -fsanitize=address
 
 SRC_DIR = sources
 INC_DIR = includes/headers
@@ -40,6 +40,7 @@ SRCS = $(SRC_DIR)/main.c \
        $(SRC_DIR)/pacman/pac_utils.c \
        $(SRC_DIR)/pacman/pac_dying.c \
        $(SRC_DIR)/pacman/update_direction.c \
+	   $(SRC_DIR)/ghosts/set_dist_struct_variables.c \
        $(SRC_DIR)/ghosts/ghost_can_move.c \
        $(SRC_DIR)/ghosts/ghost_animation.c \
        $(SRC_DIR)/ghosts/ghost_current_img.c \
@@ -58,9 +59,12 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(SRC_DIR)/ghosts/when_pac_eated_ghost.c \
 	   $(SRC_DIR)/ghosts/handle_dead_end_turn.c \
 	   $(SRC_DIR)/ghosts/red_ghost_respawned.c \
+	   $(SRC_DIR)/ghosts/blue_ghost_respawned.c \
+	   $(SRC_DIR)/ghosts/blue_ghost_target.c \
        $(SRC_DIR)/red_ghost/red_ghost_moving.c \
 	   $(SRC_DIR)/red_ghost/red_ghost_direction.c \
        $(SRC_DIR)/blue_ghost/blue_ghost_moving.c \
+	   $(SRC_DIR)/blue_ghost/blue_ghost_direction.c \
        $(SRC_DIR)/orange_ghost/orange_ghost_moving.c \
        $(SRC_DIR)/magenta_ghost/magenta_ghost_moving.c \
 	   $(SRC_DIR)/initializations/pac_initialization.c \
