@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation_main_utils.c                            :+:      :+:    :+:   */
+/*   cleanup_gnl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 23:37:43 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/26 23:37:47 by miyolchy         ###   ########.fr       */
+/*   Created: 2025/04/26 23:49:26 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 23:49:33 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/headers/so_long.h"
 
-int	check_extension(char *filename)
+void	cleanup_gnl(int fd, char **temp_map, int height)
 {
-	int	len;
+	char	*line;
 
-	if (!filename)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		ft_putstr_fd("Error: Filename is NULL\n", 2);
-		return (0);
+		free(line);
+		line = get_next_line(fd);
 	}
-	len = ft_strlen(filename);
-	if (len < 4 || ft_strncmp(filename + len - 4, ".ber", 4) != 0)
-	{
-		ft_putstr_fd("Error: File must have .ber extension\n", 2);
-		return (0);
-	}
-	return (1);
+	while (height > 0)
+		free(temp_map[--height]);
+	free(temp_map);
+	close(fd);
 }
