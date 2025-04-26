@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 23:52:33 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 23:54:21 by miyolchy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -33,11 +45,11 @@
 
 typedef struct s_dist
 {
-	int dist_up;
-    int dist_left;
-    int dist_down;
-    int dist_right;
-	int min_dist;
+	int	dist_up;
+	int	dist_left;
+	int	dist_down;
+	int	dist_right;
+	int	min_dist;
 	int	max_dist;
 }	t_dist;
 
@@ -212,11 +224,11 @@ typedef struct s_game
 
 typedef struct s_map_finalize
 {
-    int		fd;
-    char	**temp_map;
-    t_map	*map;
-    int		height;
-    int		width;
+	int		fd;
+	char	**temp_map;
+	t_map	*map;
+	int		height;
+	int		width;
 }	t_map_finalize;
 
 typedef struct s_check_elements_variables
@@ -226,18 +238,19 @@ typedef struct s_check_elements_variables
 	int	portals[2];
 }	t_check_elements_variables;
 
-int		check_extension(char *filename);  
+int		check_extension(char *filename);
 
 int		read_map(char *filename, t_map *map);
+void	cleanup_gnl(int fd, char **temp_map, int height);
 
-int		check_structure(t_map *map);  
-int		check_elements(t_map *map, t_point *start, t_check *total);  
-int		validate_map(char *filename, t_map *map);  
+int		check_structure(t_map *map);
+int		check_elements(t_map *map, t_point *start, t_check *total);
+int		validate_map(char *filename, t_map *map);
 
-void	flood_fill(t_map *map, t_point pos, t_check *reached, int **visited);  
+void	flood_fill(t_map *map, t_point pos, t_check *reached, int **visited);
 
-int		**create_visited(int height, int width, int i);  
-void	free_visited(int **visited, int height);  
+int		**create_visited(int height, int width, int i);
+void	free_visited(int **visited, int height);
 void	free_map(t_map *map);
 
 int		read_map_store_lines(int fd, \
@@ -252,7 +265,7 @@ int		check_invalid_char(char c);
 int		check_elements_validate(t_check *total, \
 		t_point *start, int *ghosts, int *portals);
 
-int		is_space(char c); 
+int		is_space(char c);
 
 void	game_over(t_game *game);
 void	game_restart(t_game *game);
