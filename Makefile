@@ -23,6 +23,7 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(SRC_DIR)/validation/validation_main_utils.c \
 	   $(SRC_DIR)/validation/validation_main.c \
 	   $(SRC_DIR)/validation/visitation.c \
+	   $(SRC_DIR)/validation/cleanup_gnl.c \
        $(SRC_DIR)/game_over.c \
 	   $(SRC_DIR)/game_restart.c \
 	   $(SRC_DIR)/game_win.c \
