@@ -61,12 +61,15 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(SRC_DIR)/ghosts/red_ghost_respawned.c \
 	   $(SRC_DIR)/ghosts/blue_ghost_respawned.c \
 	   $(SRC_DIR)/ghosts/blue_ghost_target.c \
+	   $(SRC_DIR)/ghosts/magenta_ghost_respawned.c \
+	   $(SRC_DIR)/ghosts/magenta_ghost_target.c \
        $(SRC_DIR)/red_ghost/red_ghost_moving.c \
 	   $(SRC_DIR)/red_ghost/red_ghost_direction.c \
        $(SRC_DIR)/blue_ghost/blue_ghost_moving.c \
 	   $(SRC_DIR)/blue_ghost/blue_ghost_direction.c \
        $(SRC_DIR)/orange_ghost/orange_ghost_moving.c \
        $(SRC_DIR)/magenta_ghost/magenta_ghost_moving.c \
+	   $(SRC_DIR)/magenta_ghost/magenta_ghost_direction.c \
 	   $(SRC_DIR)/initializations/pac_initialization.c \
 	   $(SRC_DIR)/initializations/ghost_panic_initialization.c \
 	   $(SRC_DIR)/initializations/red_ghost_initialization.c \
