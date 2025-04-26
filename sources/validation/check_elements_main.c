@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 22:34:47 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/26 22:35:32 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/26 23:00:47 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,31 @@ static int	check_elements_init(t_map *map, \
     return (1);
 }
 
-static int	check_elements_loop(t_map *map, \
-	t_point *start, t_check *total, int *ghosts)
+static int	check_elements_loop(t_map *map, t_point *start, t_check *total, int *ghosts)
 {
-	int		i;
-	int		j;
-	int		portals[2];
-	char	c;
+	t_check_elements_variables	vars;
+	char				c;
 
-	i = 0;
-	portals[0] = 0;
-	portals[1] = 0;
-	while (i < map->height)
+	vars.i = 0;
+	vars.portals[0] = 0;
+	vars.portals[1] = 0;
+	while (vars.i < map->height)
 	{
-		j = 0;
-		while (j < map->width)
+		vars.j = 0;
+		while (vars.j < map->width)
 		{
-			c = map->map[i][j];
-			if (!check_player(start, c, i, j) \
+			c = map->map[vars.i][vars.j];
+			if (!check_player(start, c, vars.i, vars.j) \
 				|| !check_collectibles(total, c) \
-				|| !check_portals(map, total, i, j, portals) \
+				|| !check_portals(map, total, &vars) \
 				|| !check_ghosts(total, c, ghosts) \
 				|| !check_invalid_char(c))
 				return (0);
-			j++;
+			vars.j++;
 		}
-		i++;
+		vars.i++;
 	}
-	return (check_elements_validate(total, start, ghosts, portals));
+	return (check_elements_validate(total, start, ghosts, vars.portals));
 }
 
 int check_elements(t_map *map, t_point *start, t_check *total)

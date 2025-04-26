@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_elements_loop_utils1.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 23:03:35 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 23:08:25 by miyolchy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/headers/so_long.h"
 
 int	check_player(t_point *start, char c, int i, int j)
@@ -14,6 +26,7 @@ int	check_player(t_point *start, char c, int i, int j)
 	}
 	return (1);
 }
+
 int	check_collectibles(t_check *total, char c)
 {
 	if (c == 'C')
@@ -25,40 +38,41 @@ int	check_collectibles(t_check *total, char c)
 	return (1);
 }
 
-static int check_elements_portal(t_map *map, int i, int j, int *portals)
+static int	check_elements_portal(t_map *map, t_check_elements_variables *vars)
 {
-    if (j == 1)
-    {
-        portals[0]++;
-        if ((i > 0 && map->map[i - 1][j] != '1') ||
-            (i < map->height - 1 && map->map[i + 1][j] != '1') ||
-            map->map[i][j - 1] != '1' || map->map[i][j + 1] == '1' ||
-            map->map[i][j + 1] == 'E')
-            return (ft_putstr_fd(\
-				"Error: Left portal invalid surroundings\n", 2), 0);
-    }
-    else if (j == map->width - 2)
-    {
-        portals[1]++;
-        if ((i > 0 && map->map[i - 1][j] != '1') ||
-            (i < map->height - 1 && map->map[i + 1][j] != '1') ||
-            map->map[i][j + 1] != '1' || map->map[i][j - 1] == '1' ||
-            map->map[i][j - 1] == 'E')
-            return (ft_putstr_fd(\
-				"Error: Right portal invalid surroundings\n", 2), 0);
-    }
-    else
-        return (ft_putstr_fd("Error: Portal in invalid position\n", 2), 0);
-    return (1);
+	if (vars->j == 1)
+	{
+		vars->portals[0]++;
+		if ((vars->i > 0 && map->map[vars->i - 1][vars->j] != '1') || \
+			(vars->i < map->height - 1 && \
+			map->map[vars->i + 1][vars->j] != '1') || \
+			map->map[vars->i][vars->j - 1] != '1' || \
+			map->map[vars->i][vars->j + 1] == '1' || \
+			map->map[vars->i][vars->j + 1] == 'E')
+			return (ft_putstr_fd("Error: Invalid Left portal\n", 2), 0);
+	}
+	else if (vars->j == map->width - 2)
+	{
+		vars->portals[1]++;
+		if ((vars->i > 0 && map->map[vars->i - 1][vars->j] != '1') || \
+		(vars->i < map->height - 1 && \
+		map->map[vars->i + 1][vars->j] != '1') || \
+		map->map[vars->i][vars->j + 1] != '1' || \
+		map->map[vars->i][vars->j - 1] == '1' || \
+		map->map[vars->i][vars->j - 1] == 'E')
+			return (ft_putstr_fd("Error: Invalid right portal\n", 2), 0);
+	}
+	else
+		return (ft_putstr_fd("Error: Portal in invalid position\n", 2), 0);
+	return (1);
 }
 
-int	check_portals(t_map *map, \
-	t_check *total, int i, int j, int *portals)
+int	check_portals(t_map *map, t_check *total, t_check_elements_variables *vars)
 {
-	if (map->map[i][j] == 'T')
+	if (map->map[vars->i][vars->j] == 'T')
 	{
 		total->portals++;
-		if (!check_elements_portal(map, i, j, portals))
+		if (!check_elements_portal(map, vars))
 			return (0);
 	}
 	return (1);

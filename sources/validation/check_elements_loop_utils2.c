@@ -13,27 +13,28 @@ int	check_invalid_char(char c)
 
 int	check_structure(t_map *map)
 {
-    int i;
+	int	i;
 
-    if (!map || !map->map)
-        return (ft_putstr_fd("Error: Invalid map structure\n", 2), 0);
-    i = 0;
-    while (i < map->width)
-    {
-        if (map->map[0][i] != '1' || map->map[map->height - 1][i] != '1')
-            return (ft_putstr_fd("Error: Map not surrounded by walls\n", 2), 0);
-        i++;
-    }
-    i = 0;
-    while (i < map->height)
-    {
-        if (map->map[i][0] != '1' || map->map[i][map->width - 1] != '1')
-            return (ft_putstr_fd("Error: Map not surrounded by walls\n", 2), 0);
-        i++;
-    }
-    return (1);
+	if (!map || !map->map)
+		return (ft_putstr_fd("Error: Invalid map structure\n", 2), 0);
+	i = 0;
+	while (i < map->width)
+	{
+		if (map->map[0][i] != '1' || map->map[map->height - 1][i] != '1')
+			return (ft_putstr_fd("Error: Map not surrounded by walls\n", 2), 0);
+		i++;
+	}
+	i = 0;
+	while (i < map->height)
+	{
+		if (map->map[i][0] != '1' || map->map[i][map->width - 1] != '1')
+		{
+	    	return (ft_putstr_fd("Error: Map not surrounded by walls\n", 2), 0);
+		}
+		i++;
+	}
+	return (1);
 }
-
 
 static int check_elements_validate_util(int *ghosts)
 {
