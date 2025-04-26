@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_render_utils_pac.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:36:44 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 17:36:45 by miyolchy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/headers/so_long.h"
 
 static void	render_player_tile(t_game *game, int x, int y, char tile)

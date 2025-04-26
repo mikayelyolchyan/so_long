@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ghost_animation.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:30:50 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 17:30:51 by miyolchy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/headers/so_long.h"
 
 void	*get_ghost_vertical_animation(t_game *game, t_ghost *c_ghost)

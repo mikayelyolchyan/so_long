@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:45:08 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 17:46:01 by miyolchy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/headers/so_long.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    t_game game;
+	t_game	game;
 
-    if (argc != 2)
+	if (argc != 2)
 	{
 		ft_printf("Error: use second argument .ber map\n");
 		return (1);
@@ -24,5 +36,5 @@ int main(int argc, char **argv)
 	mlx_hook(game.win, 2, 1L << 0, &ft_hotkey, &game);
 	mlx_loop_hook(game.mlx, &game_animation, &game);
 	mlx_loop(game.mlx);
-    return (0);
+	return (0);
 }

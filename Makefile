@@ -25,8 +25,8 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(SRC_DIR)/map/render_power_dots.c \
        $(SRC_DIR)/game_animation.c \
        $(SRC_DIR)/count_sprites.c \
-       $(SRC_DIR)/find_positions.c \
-	   $(SRC_DIR)/set_positions.c \
+       $(SRC_DIR)/positions/find_positions.c \
+	   $(SRC_DIR)/positions/set_positions.c \
        $(SRC_DIR)/ghosts/distance_calculator.c \
        $(SRC_DIR)/display.c \
        $(SRC_DIR)/pacman/pac_animation.c \
@@ -39,13 +39,14 @@ SRCS = $(SRC_DIR)/main.c \
        $(SRC_DIR)/pacman/pac_moving.c \
        $(SRC_DIR)/pacman/pac_utils.c \
        $(SRC_DIR)/pacman/pac_dying.c \
+	   $(SRC_DIR)/pacman/pac_dying_and_restart.c \
        $(SRC_DIR)/pacman/update_direction.c \
 	   $(SRC_DIR)/ghosts/set_dist_struct_variables.c \
        $(SRC_DIR)/ghosts/ghost_can_move.c \
        $(SRC_DIR)/ghosts/ghost_animation.c \
        $(SRC_DIR)/ghosts/ghost_current_img.c \
        $(SRC_DIR)/ghosts/ghost_panic_animation.c \
-       $(SRC_DIR)/ghosts/ghost_utils.c \
+       $(SRC_DIR)/ghosts/handle_ghost_portal.c \
 	   $(SRC_DIR)/ghosts/detect_collision_with_speed.c \
 	   $(SRC_DIR)/ghosts/ghost_move.c \
 	   $(SRC_DIR)/ghosts/calculating_distance.c \
@@ -53,23 +54,26 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(SRC_DIR)/ghosts/direction_when_ghost_eated.c \
 	   $(SRC_DIR)/ghosts/direction_when_ghost_in_panic.c \
 	   $(SRC_DIR)/ghosts/ghost_direction.c \
-	   $(SRC_DIR)/ghosts/red_ghost_target.c \
 	   $(SRC_DIR)/ghosts/set_ghost_direction.c \
 	   $(SRC_DIR)/ghosts/when_ghost_eated_pac.c \
 	   $(SRC_DIR)/ghosts/when_pac_eated_ghost.c \
 	   $(SRC_DIR)/ghosts/handle_dead_end_turn.c \
-	   $(SRC_DIR)/ghosts/red_ghost_respawned.c \
-	   $(SRC_DIR)/ghosts/blue_ghost_respawned.c \
-	   $(SRC_DIR)/ghosts/blue_ghost_target.c \
-	   $(SRC_DIR)/ghosts/magenta_ghost_respawned.c \
-	   $(SRC_DIR)/ghosts/magenta_ghost_target.c \
-       $(SRC_DIR)/red_ghost/red_ghost_moving.c \
-	   $(SRC_DIR)/red_ghost/red_ghost_direction.c \
-       $(SRC_DIR)/blue_ghost/blue_ghost_moving.c \
-	   $(SRC_DIR)/blue_ghost/blue_ghost_direction.c \
-       $(SRC_DIR)/orange_ghost/orange_ghost_moving.c \
-       $(SRC_DIR)/magenta_ghost/magenta_ghost_moving.c \
-	   $(SRC_DIR)/magenta_ghost/magenta_ghost_direction.c \
+	   $(SRC_DIR)/ghosts/red_ghost/red_ghost_target.c \
+	   $(SRC_DIR)/ghosts/red_ghost/red_ghost_respawned.c \
+       $(SRC_DIR)/ghosts/red_ghost/red_ghost_moving.c \
+	   $(SRC_DIR)/ghosts/red_ghost/red_ghost_direction.c \
+       $(SRC_DIR)/ghosts/blue_ghost/blue_ghost_moving.c \
+	   $(SRC_DIR)/ghosts/blue_ghost/blue_ghost_direction.c \
+	   $(SRC_DIR)/ghosts/blue_ghost/blue_ghost_respawned.c \
+	   $(SRC_DIR)/ghosts/blue_ghost/blue_ghost_target.c \
+	   $(SRC_DIR)/ghosts/orange_ghost/orange_ghost_respawned.c \
+	   $(SRC_DIR)/ghosts/orange_ghost/orange_ghost_target.c \
+       $(SRC_DIR)/ghosts/orange_ghost/orange_ghost_moving.c \
+	   $(SRC_DIR)/ghosts/orange_ghost/orange_ghost_direction.c \
+	   $(SRC_DIR)/ghosts/magenta_ghost/magenta_ghost_respawned.c \
+	   $(SRC_DIR)/ghosts/magenta_ghost/magenta_ghost_target.c \
+       $(SRC_DIR)/ghosts/magenta_ghost/magenta_ghost_moving.c \
+	   $(SRC_DIR)/ghosts/magenta_ghost/magenta_ghost_direction.c \
 	   $(SRC_DIR)/initializations/pac_initialization.c \
 	   $(SRC_DIR)/initializations/ghost_panic_initialization.c \
 	   $(SRC_DIR)/initializations/red_ghost_initialization.c \

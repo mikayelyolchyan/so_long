@@ -254,6 +254,7 @@ int		ft_exit(t_game *game);
 int		ft_hotkey(int keycode, t_game *game);
 
 int		game_animation(t_game *game);
+void	pac_dying_and_restart(t_game *game);
 
 void	count_sprites(t_game *game);
 
@@ -326,6 +327,9 @@ void	set_magenta_ghost_target(t_game *game, t_ghost *ghost);
 void	magenta_ghost_respawned(t_game *game, t_ghost *ghost);
 
 void	orange_ghost_moving(t_game *game);
+void	orange_ghost_direction(t_game *game);
+void	set_orange_ghost_target(t_game *game, t_ghost *ghost);
+void	orange_ghost_respawned(t_game *game, t_ghost *ghost);
 
 void	calculating_to_start(t_game *game, t_dist *dist, t_ghost *ghost);
 void	calculating_to_target(t_game *game, t_dist *dist, t_ghost *ghost);

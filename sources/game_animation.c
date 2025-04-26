@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_animation.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:40:39 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 17:41:41 by miyolchy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/headers/so_long.h"
 
 static void	delays_update(t_game *game)
@@ -42,17 +54,6 @@ static void	handle_all_animation_timings(t_game *game)
 	game_win(game);
 }
 
-static void	pac_dying_and_restart(t_game *game)
-{
-	game->player->dying_frame_delay++;
-	if (game->player->dying_frame_delay >= DYING_FRAME_LIMIT)
-	{
-		game->player->dying_frame_delay = 0;
-		game->player->dying_frame = (game->player->dying_frame + 1) % 15;
-		pac_dying(game, game->player);
-	}
-}
-
 static void	ghost_current_image_to_window(t_game *game)
 {
 	void		*red_ghost_current_img;
@@ -68,7 +69,7 @@ static void	ghost_current_image_to_window(t_game *game)
 		red_ghost_current_img, game->r_ghost->x, game->r_ghost->y);
 	mlx_put_image_to_window(game->mlx, game->win, \
 		orange_ghost_current_img, game->o_ghost->x, game->o_ghost->y);
-	mlx_put_image_to_window(game->mlx, game->win,\
+	mlx_put_image_to_window(game->mlx, game->win, \
 		magenta_ghost_current_img, game->m_ghost->x, game->m_ghost->y);
 	mlx_put_image_to_window(game->mlx, game->win, \
 		blue_ghost_current_img, game->b_ghost->x, game->b_ghost->y);
