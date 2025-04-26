@@ -320,8 +320,12 @@ void	blue_ghost_direction(t_game *game);
 void	set_blue_ghost_target(t_game *game);
 void	blue_ghost_respawned(t_game *game, t_ghost *ghost);
 
-void	orange_ghost_moving(t_game *game);
 void	magenta_ghost_moving(t_game *game);
+void	magenta_ghost_direction(t_game *game);
+void	set_magenta_ghost_target(t_game *game, t_ghost *ghost);
+void	magenta_ghost_respawned(t_game *game, t_ghost *ghost);
+
+void	orange_ghost_moving(t_game *game);
 
 void	calculating_to_start(t_game *game, t_dist *dist, t_ghost *ghost);
 void	calculating_to_target(t_game *game, t_dist *dist, t_ghost *ghost);
