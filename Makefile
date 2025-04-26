@@ -12,7 +12,17 @@ FT_PRINTF_DIR = $(LIB_DIR)/ft_printf
 GET_NEXT_LINE_DIR = $(LIB_DIR)/get_next_line
 
 SRCS = $(SRC_DIR)/main.c \
-       $(SRC_DIR)/validation/validation.c \
+       $(SRC_DIR)/validation/check_elements_main.c \
+	   $(SRC_DIR)/validation/check_elements_loop_utils1.c \
+	   $(SRC_DIR)/validation/check_elements_loop_utils2.c \
+	   $(SRC_DIR)/validation/flood_fill.c \
+	   $(SRC_DIR)/validation/free.c \
+	   $(SRC_DIR)/validation/is_space.c \
+	   $(SRC_DIR)/validation/read_map.c \
+	   $(SRC_DIR)/validation/read_map_store_lines.c \
+	   $(SRC_DIR)/validation/validation_main_utils.c \
+	   $(SRC_DIR)/validation/validation_main.c \
+	   $(SRC_DIR)/validation/visitation.c \
        $(SRC_DIR)/game_over.c \
 	   $(SRC_DIR)/game_restart.c \
 	   $(SRC_DIR)/game_win.c \
