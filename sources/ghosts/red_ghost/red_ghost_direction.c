@@ -1,4 +1,16 @@
-#include "../../includes/headers/so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   red_ghost_direction.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:24:27 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 17:26:34 by miyolchy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/headers/so_long.h"
 
 static void	movement_logic(t_game *game, t_dist dist)
 {
@@ -28,20 +40,15 @@ static void	movement_logic(t_game *game, t_dist dist)
 	}
 }
 
-void red_ghost_direction(t_game *game)
+void	red_ghost_direction(t_game *game)
 {
-    t_dist dist;
+	t_dist	dist;
 
 	set_dist_struct_variables(&dist);
-    // Проверка на "съедение" призрака
 	when_pac_eated_ghost(game, game->r_ghost);
-	// Проверка на "съедение" пакмана
 	when_ghost_eated_pac(game, game->r_ghost);
-
 	check_ghost_attack_mode(game);
-    // Установка цели для нормального режима
 	set_red_ghost_target(game, game->r_ghost);
-    // Логика движения в зависимости от состояния
 	movement_logic(game, dist);
 	game->last_pac_attack_mode = game->pac_attack_mode;
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_over.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:44:02 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 17:44:45 by miyolchy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/headers/so_long.h"
 
 static void	red_walls(t_game *game, int x, int y, char tile)
@@ -9,6 +21,7 @@ static void	red_walls(t_game *game, int x, int y, char tile)
 		mlx_put_image_to_window(game->mlx, game->win, game->map->black_wall_img,
 			x * game->map->tile_size, y * game->map->tile_size);
 }
+
 static void	red_map(t_map *map, t_game *game)
 {
 	int		x;
@@ -29,7 +42,7 @@ static void	red_map(t_map *map, t_game *game)
 
 void	game_over(t_game *game)
 {
-	int time;
+	int	time;
 
 	time = 0;
 	red_map(game->map, game);

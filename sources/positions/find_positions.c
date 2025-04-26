@@ -1,4 +1,16 @@
-#include "../includes/headers/so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   find_positions.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:38:22 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 17:38:23 by miyolchy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/headers/so_long.h"
 
 static void	process_map_tile(t_game *game, int x, int y, int *power_up_index)
 {

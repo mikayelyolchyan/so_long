@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_mlx.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:38:50 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 17:39:15 by miyolchy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/headers/so_long.h"
 
 int	init_mlx(t_game *game, t_map *map)
 {
 	game->mlx = NULL;
-    game->win = NULL;
+	game->win = NULL;
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{

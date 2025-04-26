@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   when_pac_eated_ghost.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:34:07 by miyolchy          #+#    #+#             */
+/*   Updated: 2025/04/26 17:35:41 by miyolchy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/headers/so_long.h"
 
 static void	pac_eat_ghost_utils(t_game *game, t_ghost *ghost)
@@ -13,29 +25,29 @@ static void	pac_eat_ghost_utils(t_game *game, t_ghost *ghost)
 
 void	when_pac_eated_ghost(t_game *game, t_ghost *ghost)
 {
-	if (game->pac_attack_mode == 1 &&
+	if (game->pac_attack_mode == 1 && \
 		(game->player->x - ghost->x <= 16 && \
 		game->player->x - ghost->x >= -16) && \
 		(game->player->y - ghost->y <= 16 && \
-		game->player->y - ghost->y >= -16) &&
-    	ghost->is_eaten == 0 && ghost->is_respawned == 0)
+		game->player->y - ghost->y >= -16) && \
+		ghost->is_eaten == 0 && ghost->is_respawned == 0)
 	{
 		mlx_put_image_to_window(game->mlx, game->win, \
 			game->map->black_wall_img, ghost->x, ghost->y);
 		pac_eat_ghost_utils(game, ghost);
-        if (ghost->remainder_x != 0)
-        {
-            if (ghost->remainder_x < 16)
-                ghost->x -= ghost->remainder_x;
-            else
-                ghost->x += (32 - ghost->remainder_x);
-        }
-        if (ghost->remainder_y != 0)
-        {
-            if (ghost->remainder_y < 16)
-                ghost->y -= ghost->remainder_y;
-            else
-                ghost->y += (32 - ghost->remainder_y);
-        }
+		if (ghost->remainder_x != 0)
+		{
+			if (ghost->remainder_x < 16)
+				ghost->x -= ghost->remainder_x;
+			else
+				ghost->x += (32 - ghost->remainder_x);
+		}
+		if (ghost->remainder_y != 0)
+		{
+			if (ghost->remainder_y < 16)
+				ghost->y -= ghost->remainder_y;
+			else
+				ghost->y += (32 - ghost->remainder_y);
+		}
 	}
 }
