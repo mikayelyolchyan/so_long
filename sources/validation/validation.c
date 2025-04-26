@@ -1,8 +1,18 @@
 #include "../../includes/headers/so_long.h"
 
+typedef struct s_map_finalize
+{
+    int		fd;
+    char	**temp_map;
+    t_map	*map;
+    int		height;
+    int		width;
+}	t_map_finalize;
+
 int is_space(char c)
 {
-    return (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == '\f');
+    return (c == ' ' || c == '\t' || c == '\n' || \
+		c == '\r' || c == '\v' || c == '\f');
 }
 
 int check_extension(char *filename)
@@ -35,24 +45,72 @@ static void cleanup_gnl(int fd, char **temp_map, int height)
     close(fd);
 }
 
-static int read_map_count_lines(int fd, int *line_count)
+static int	process_line(char *line, int *line_count, int *started)
 {
-    char *line;
-
-    *line_count = 0;
-    while (1)
-    {
-        line = get_next_line(fd);
-        if (!line || line[0] == '\n' || line[0] == '\0')
-        {
-            free(line);
-            break;
-        }
-        (*line_count)++;
-        free(line);
-    }
-    return (*line_count >= 3);
+	if (!(*started))
+	{
+		if (line[0] == '\n' || line[0] == '\0')
+			return (0);
+		*started = 1;
+	}
+	if (line[0] == '\n' || line[0] == '\0')
+		return (1);
+	(*line_count)++;
+	return (0);
 }
+
+static int	read_map_count_lines(int fd, int *line_count)
+{
+	char	*line;
+	int		started;
+	int		stop_reading;
+
+	started = 0;
+	*line_count = 0;
+	stop_reading = 0;
+	while (!stop_reading)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		stop_reading = process_line(line, line_count, &started);
+		free(line);
+	}
+	return (*line_count >= 3);
+}
+
+//static int read_map_count_lines(int fd, int *line_count)
+//{
+//    char	*line;
+//    int	started;
+
+//	started = 0;
+//    *line_count = 0;
+//    while (1)
+//    {
+//        line = get_next_line(fd);
+//        if (!line)
+//            break ;
+//        if (!started)
+//        {
+//            if (line[0] == '\n' || line[0] == '\0')
+//            {
+//                free(line);
+//                continue ;
+//            }
+//            started = 1;
+//        }
+//        if (line[0] == '\n' || line[0] == '\0')
+//        {
+//            free(line);
+//            break ;
+//        }
+//        (*line_count)++;
+//        free(line);
+//    }
+//    return (*line_count >= 3);
+//}
+
 
 static int read_map_allocate(int fd, char ***temp_map, int line_count)
 {
@@ -84,62 +142,78 @@ static int read_map_check_line(char *line, int *width, int *i)
     return (1);
 }
 
-static int read_map_finalize(int fd, char **temp_map, t_map *map, int height, int width)
+static int read_map_finalize(t_map_finalize *params)
 {
     int i;
 
-    cleanup_gnl(fd, NULL, 0);
-    map->map = malloc(sizeof(char *) * (height + 1));
-    if (!map->map)
+    cleanup_gnl(params->fd, NULL, 0);
+    params->map->map = malloc(sizeof(char *) * (params->height + 1));
+    if (!params->map->map)
     {
-        cleanup_gnl(fd, temp_map, height);
+        cleanup_gnl(params->fd, params->temp_map, params->height);
         ft_putstr_fd("Error: Memory allocation failed\n", 2);
         return (0);
     }
     i = 0;
-    while (i < height)
+    while (i < params->height)
     {
-        map->map[i] = temp_map[i];
-        if (map->map[i][width - 1] == '\n')
-            map->map[i][width - 1] = '\0';
+        params->map->map[i] = params->temp_map[i];
+        if (params->map->map[i][params->width - 1] == '\n')
+            params->map->map[i][params->width - 1] = '\0';
         i++;
     }
-    map->map[height] = NULL;
-    free(temp_map);
-    map->height = height;
-    map->width = width;
+    params->map->map[params->height] = NULL;
+    free(params->temp_map);
+    params->map->height = params->height;
+    params->map->width = params->width;
     return (1);
 }
 
-static int read_map_store_lines(int fd, char **temp_map, int line_count, t_map *map)
+static void util(t_map_finalize *params, int fd, int height, int width)
 {
-    char *line;
-    int height = 0;
-    int width = 0;
-    int i;
+	params->fd = fd;
+    params->height = height;
+    params->width = width;
+}
 
+static int check_map_size(int fd, char **temp_map, int width, int height)
+{
+	if (width < 8)
+		return (cleanup_gnl(fd, temp_map, height), \
+			ft_putstr_fd("Error: Map must be at least 3x8\n", 2), 0);
+	return (1);
+}
+
+static int	read_map_store_lines(int fd, char **temp_map, int line_count, t_map *map)
+{
+    char			*line;
+    int				height;
+    int 			width;
+    int				i;
+    t_map_finalize	params;
+
+	height = 0;
+	width = 0;
     while (height < line_count)
     {
         line = get_next_line(fd);
         if (!line || line[0] == '\n' || line[0] == '\0')
             return (free(line), cleanup_gnl(fd, temp_map, height), \
-			ft_putstr_fd("Error: Unexpected end of file\n", 2), 0);
+                    ft_putstr_fd("Error: Unexpected end of file\n", 2), 0);
         if (is_space(line[0]) || !read_map_check_line(line, &width, &i))
             return (free(line), cleanup_gnl(fd, temp_map, height), \
-		ft_putstr_fd(\
-			"Error: Map contains invalid whitespace characters\n", 2), 0);
+		ft_putstr_fd("Error: Map have invalid isspace characters\n", 2), 0);
         temp_map[height++] = line;
     }
-    if (width < 8)
-    {
-        cleanup_gnl(fd, temp_map, height);
-        ft_putstr_fd("Error: Map must be at least 3x8\n", 2);
-        return (0);
-    }
-    return (read_map_finalize(fd, temp_map, map, height, width));
+	if (check_map_size(fd, temp_map, width, height) == 0)
+		return (0);
+	params.temp_map = temp_map;
+	params.map = map;
+	util(&params, fd, height, width);
+    return (read_map_finalize(&params));
 }
 
-int read_map(char *filename, t_map *map)
+int	read_map(char *filename, t_map *map)
 {
     int fd;
     int line_count;
@@ -165,7 +239,7 @@ int read_map(char *filename, t_map *map)
     return (read_map_store_lines(fd, map->map, line_count, map));
 }
 
-int check_structure(t_map *map)
+int	check_structure(t_map *map)
 {
     int i;
 
@@ -188,7 +262,7 @@ int check_structure(t_map *map)
     return (1);
 }
 
-static int check_elements_init(t_map *map, t_point *start, t_check *total, int *ghosts)
+static int	check_elements_init(t_map *map, t_point *start, t_check *total, int *ghosts)
 {
     int i;
 
@@ -249,7 +323,7 @@ static int check_elements_validate_util(int *ghosts)
 	return (1);
 }
 
-static int check_elements_validate(t_check *total, t_point *start, int *ghosts, int *portals)
+static int	check_elements_validate(t_check *total, t_point *start, int *ghosts, int *portals)
 {
     if (start->x == -1)
         return (ft_putstr_fd("Error: No player\n", 2), 0);
@@ -261,8 +335,8 @@ static int check_elements_validate(t_check *total, t_point *start, int *ghosts, 
         return (ft_putstr_fd("Error: Exactly one exit required\n", 2), 0);
     if (total->portals != 0 && (total->portals != 2 || \
 		portals[0] != 1 || portals[1] != 1))
-        return (ft_putstr_fd("Error: Portals must be 0 or \
-			exactly two at x=1 and x=width-2\n", 2), 0);
+        return (ft_putstr_fd("Error: Portals must be 0 or exactly \
+			two at x=1 and x=width-2\n", 2), 0);
     if (total->ghost_count != 0 && total->ghost_count != 4)
         return (ft_putstr_fd("Error: Ghosts must be 0 or exactly 4\n", 2), 0);
     if (total->ghost_count == 4)
@@ -362,10 +436,10 @@ static int	check_elements_loop(t_map *map, t_point *start, t_check *total, int *
 		while (j < map->width)
 		{
 			c = map->map[i][j];
-			if (!check_player(start, c, i, j)
-				|| !check_collectibles(total, c)
-				|| !check_portals(map, total, i, j, portals)
-				|| !check_ghosts(total, c, ghosts)
+			if (!check_player(start, c, i, j) \
+				|| !check_collectibles(total, c) \
+				|| !check_portals(map, total, i, j, portals) \
+				|| !check_ghosts(total, c, ghosts) \
 				|| !check_invalid_char(c))
 				return (0);
 			j++;
@@ -374,73 +448,6 @@ static int	check_elements_loop(t_map *map, t_point *start, t_check *total, int *
 	}
 	return (check_elements_validate(total, start, ghosts, portals));
 }
-
-//static int check_elements_loop(t_map *map, t_point *start, t_check *total, int *ghosts)
-//{
-//    int i = 0;
-//    int j;
-//    int portals[2] = {0, 0};
-//	char c;
-
-//    while (i < map->height)
-//    {
-//        j = 0;
-//        while (j < map->width)
-//        {
-//            c = map->map[i][j];
-//            if (c == 'P')
-//            {
-//                if (start->x != -1)
-//                {
-//                    ft_putstr_fd("Error: Multiple players\n", 2);
-//                    return (0);
-//                }
-//                start->x = j;
-//                start->y = i;
-//            }
-//            else if (c == 'C')
-//                total->coins++;
-//            else if (c == 'U')
-//                total->power_ups++;
-//            else if (c == 'E')
-//                total->exits++;
-//            else if (c == 'T')
-//            {
-//                total->portals++;
-//                if (!check_elements_portal(map, i, j, portals))
-//                    return (0);
-//            }
-//            else if (c == 'R')
-//            {
-//                ghosts[0]++;
-//                total->ghost_count++;
-//            }
-//            else if (c == 'B')
-//            {
-//                ghosts[1]++;
-//                total->ghost_count++;
-//            }
-//            else if (c == 'O')
-//            {
-//                ghosts[2]++;
-//                total->ghost_count++;
-//            }
-//            else if (c == 'M')
-//            {
-//                ghosts[3]++;
-//                total->ghost_count++;
-//            }
-//            else if (c != '1' && c != '0')
-//            {
-//                ft_putstr_fd("Error: Invalid character\n", 2);
-//                return (0);
-//            }
-//            j++;
-//        }
-//        i++;
-//    }
-//    return (check_elements_validate(total, start, ghosts, portals));
-//}
 
 int check_elements(t_map *map, t_point *start, t_check *total)
 {
