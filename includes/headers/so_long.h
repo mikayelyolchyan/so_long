@@ -8,14 +8,14 @@
 # include "../libraries/mlx_linux/mlx.h"
 
 # define ESC 65307
-//# define W 119
-//# define A 97
-//# define S 115
-//# define D 100
-# define W 1731
-# define A 1734
-# define S 1753
-# define D 1751
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+//# define W 1731
+//# define A 1734
+//# define S 1753
+//# define D 1751
 # define STOP 0
 # define LEFT 1
 # define RIGHT 2
@@ -225,7 +225,7 @@ int		validate_map(char *filename, t_map *map);
 void	flood_fill(t_map *map, t_point pos, t_check *reached, int **visited);
 
 /* Memory utils */
-int		**create_visited(int height, int width);
+int		**create_visited(int height, int width, int i);
 void	free_visited(int **visited, int height);
 void	free_map(t_map *map);
 
