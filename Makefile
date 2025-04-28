@@ -53,6 +53,7 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(SRC_DIR)/pacman/pac_dying_and_restart.c \
        $(SRC_DIR)/pacman/update_direction.c \
 	   $(SRC_DIR)/ghosts/set_dist_struct_variables.c \
+	   $(SRC_DIR)/ghosts/total_deadlock.c \
        $(SRC_DIR)/ghosts/ghost_can_move.c \
        $(SRC_DIR)/ghosts/ghost_animation.c \
        $(SRC_DIR)/ghosts/ghost_current_img.c \
