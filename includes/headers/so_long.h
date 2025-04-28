@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:52:33 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/27 20:23:48 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/28 18:59:30 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,5 +384,7 @@ void	check_ghost_attack_mode(t_game *game);
 void	direction_when_ghost_eated(t_ghost *ghost, t_dist *dist);
 void	ghost_direction(t_ghost *ghost, t_dist *dist);
 void	direction_when_ghost_in_panic(t_ghost *ghost, t_dist *dist);
+
+int		total_deadlock(t_game *game, t_ghost *ghost);
 
 #endif
