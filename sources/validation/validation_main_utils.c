@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:37:43 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/26 23:37:47 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:43:50 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	check_extension(char *filename)
 
 	if (!filename)
 	{
-		ft_putstr_fd("Error: Filename is NULL\n", 2);
+		ft_printf("Error: Filename is NULL\n");
 		return (0);
 	}
 	len = ft_strlen(filename);
 	if (len < 4 || ft_strncmp(filename + len - 4, ".ber", 4) != 0)
 	{
-		ft_putstr_fd("Error: File must have .ber extension\n", 2);
+		ft_printf("Error: File must have .ber extension\n");
 		return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:03:35 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/26 23:08:25 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:39:56 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_player(t_point *start, char c, int i, int j)
 	{
 		if (start->x != -1)
 		{
-			ft_putstr_fd("Error: Multiple players\n", 2);
+			ft_printf("Error: Multiple players\n");
 			return (0);
 		}
 		start->x = j;
@@ -49,7 +49,7 @@ static int	check_elements_portal(t_map *map, t_check_elements_variables *vars)
 			map->map[vars->i][vars->j - 1] != '1' || \
 			map->map[vars->i][vars->j + 1] == '1' || \
 			map->map[vars->i][vars->j + 1] == 'E')
-			return (ft_putstr_fd("Error: Invalid Left portal\n", 2), 0);
+			return (ft_printf("Error: Invalid Left portal\n", 2));
 	}
 	else if (vars->j == map->width - 2)
 	{
@@ -60,10 +60,10 @@ static int	check_elements_portal(t_map *map, t_check_elements_variables *vars)
 		map->map[vars->i][vars->j + 1] != '1' || \
 		map->map[vars->i][vars->j - 1] == '1' || \
 		map->map[vars->i][vars->j - 1] == 'E')
-			return (ft_putstr_fd("Error: Invalid right portal\n", 2), 0);
+			return (ft_printf("Error: Invalid right portal\n", 2));
 	}
 	else
-		return (ft_putstr_fd("Error: Portal in invalid position\n", 2), 0);
+		return (ft_printf("Error: Portal in invalid position\n", 2));
 	return (1);
 }
 

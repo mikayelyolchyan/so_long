@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:35:01 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/26 23:49:23 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:48:29 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	read_map_finalize(t_map_finalize *params)
 	if (!params->map->map)
 	{
 		cleanup_gnl(params->fd, params->temp_map, params->height);
-		ft_putstr_fd("Error: Memory allocation failed\n", 2);
+		ft_printf("Error: Memory allocation failed\n");
 		return (0);
 	}
 	i = 0;
@@ -66,9 +66,9 @@ static void	util(t_map_finalize *params, int fd, int height, int width)
 
 static int	check_map_size(int fd, char **temp_map, int width, int height)
 {
-	if (width < 8)
+	if ((height < 3 && width < 5) || (height < 5 && width < 3))
 		return (cleanup_gnl(fd, temp_map, height), \
-			ft_putstr_fd("Error: Map must be at least 3x8\n", 2), 0);
+			ft_printf("Error: Map must be at least 3x5\n", 2), 0);
 	return (1);
 }
 
@@ -87,10 +87,10 @@ int	read_map_store_lines(int fd, char **temp_map, int line_count, t_map *map)
 		line = get_next_line(fd);
 		if (!line || line[0] == '\n' || line[0] == '\0')
 			return (free(line), cleanup_gnl(fd, temp_map, height), \
-				ft_putstr_fd("Error: Unexpected end of file\n", 2), 0);
+			ft_printf("Error: Unexpected end or start of file\n", 2), 0);
 		if (is_space(line[0]) || !read_map_check_line(line, &width, &i))
 			return (free(line), cleanup_gnl(fd, temp_map, height), \
-		ft_putstr_fd("Error: Map have invalid isspace characters\n", 2), 0);
+		ft_printf("Error: Map have invalid isspace characters\n", 2), 0);
 		temp_map[height++] = line;
 	}
 	if (check_map_size(fd, temp_map, width, height) == 0)
