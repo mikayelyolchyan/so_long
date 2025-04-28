@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 22:34:47 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/26 23:32:59 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:43:25 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	check_elements_init(t_map *map, \
 
 	if (!map || !map->map || !start || !total)
 	{
-		ft_putstr_fd("Error: Invalid arguments\n", 2);
+		ft_printf("Error: Invalid arguments\n");
 		return (0);
 	}
 	i = 0;

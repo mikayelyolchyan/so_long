@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:37:57 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/26 23:39:20 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:44:10 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	validate_map_check(char *filename, \
 {
 	if (!filename || !map)
 	{
-		ft_putstr_fd("Error: Invalid arguments\n", 2);
+		ft_printf("Error: Invalid arguments\n", 2);
 		return (0);
 	}
 	if (!check_extension(filename) || !read_map(filename, map))
@@ -60,7 +60,7 @@ int	validate_map(char *filename, t_map *map)
 	if (!visited)
 	{
 		free_map(map);
-		ft_putstr_fd("Error: Memory allocation failed\n", 2);
+		ft_printf("Error: Memory allocation failed\n", 2);
 		return (0);
 	}
 	flood_fill(map, start, &reached, visited);
@@ -69,7 +69,7 @@ int	validate_map(char *filename, t_map *map)
 		reached.power_ups != total.power_ups || \
 		reached.exits != total.exits || reached.portals != total.portals)
 		return (free_map(map), \
-			ft_putstr_fd("Error: Not all elements reachable\n", 2), 0);
+			ft_printf("Error: Not all elements reachable\n", 2), 0);
 	map->ghost_count = total.ghost_count;
 	return (1);
 }
