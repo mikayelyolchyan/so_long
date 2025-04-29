@@ -51,6 +51,16 @@ For detailed information, refer to the [**subject of this project**](en.subject.
 * The game must be displayed in a window using the MiniLibX library.
 * The player can move up, down, left, and right using the keyboard.
 
-#### The program takes the following arguments:
+## 🌟 Bonus Part
 
+#### The subject describes the game as follows:
+
+* Player lose when they touch an enemy patrol.
+* Add sprite animation.
+* Display the movement count directly on screen instead of writing it in the shell.	
+
+## 👨‍💻 Usage
+
+#### The program takes the following arguments:
 `./so_long <map_file>`
+* The map must be a .ber file
