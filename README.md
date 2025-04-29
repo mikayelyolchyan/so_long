@@ -3,11 +3,11 @@
 <div align="center">
 
   <!-- Project Name -->
-  <h1>So Long</h1>
+  <h1>So Long | PACMAN </h1>
 
   <!-- Short Description -->
   <p align="center">
-	  <b>Pacman in C</b><br>
+	  <b>2D game in C</b><br>
   </p>
 
   <h3>
