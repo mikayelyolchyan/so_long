@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:38:48 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/26 17:38:49 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:13:21 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	init_map(char *argv, t_map **map)
 	{
 		free(*map);
 		*map = NULL;
-		ft_printf("Error: Invalid map\n");
+		ft_printf("Error: Invalid map or file\n");
 		return (1);
 	}
 	return (0);

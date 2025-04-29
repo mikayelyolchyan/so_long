@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:35:48 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/28 17:43:14 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:12:37 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ static int	read_map_count_lines(int fd, int *line_count)
 		free(line);
 		if (result == -1)
 			return (ft_printf(\
-				"Error: Unexpected non-empty line after empty line\n", 2), 0);
+				"Error: Unexpected non-empty line after empty line\n"), 0);
 	}
 	if (found_empty)
-		return (ft_printf("Error: Empty line(s) after map\n", 2), 0);
+		return (ft_printf("Error: Empty line(s) after map\n"), 0);
 	return (*line_count >= 3);
 }
 
@@ -65,7 +65,7 @@ static int	read_map_allocate(int fd, char ***temp_map, int line_count)
 	*temp_map = ft_calloc(sizeof(char *), line_count);
 	if (!*temp_map)
 	{
-		ft_printf("Error: Memory allocation failed\n", 2);
+		ft_printf("Error: Memory allocation failed\n");
 		close(fd);
 		return (0);
 	}
@@ -78,14 +78,15 @@ int	read_map(char *filename, t_map *map)
 	int	line_count;
 
 	if (!filename || !map)
-		return (ft_printf("Error: Invalid arguments\n", 2), 0);
+		return (ft_printf("Error: Invalid arguments\n"), 0);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (ft_printf("Error: Cannot open file\n", 2), 0);
+		return (ft_printf("Error: Cannot open file\n"), 0);
 	if (!read_map_count_lines(fd, &line_count))
 	{
 		close(fd);
-		return (ft_printf("Error: Map must be at least 3x5\n", 2), 0);
+		return (ft_printf(\
+			"Error: Map must be at least 3x5/5x3 \n"), 0);
 	}
 	close(fd);
 	fd = open(filename, O_RDONLY);
