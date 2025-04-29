@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:31:28 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/29 21:27:39 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/29 21:31:00 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,15 @@ void	ghost_is_eaten_move(t_game *game, t_ghost *ghost)
 	else if (ghost->direction == LEFT)
 	{
 		ghost->x -= 16;
-		if (game->map->map[ghost->y / 32][(ghost->x - 32) / 32] == 'T')
+		if (ghost->x % 32 == 0 && \
+			game->map->map[ghost->y / 32][(ghost->x - 32) / 32] == 'T')
 			handle_ghost_portal(game, ghost, 1);
 	}
 	else if (ghost->direction == RIGHT)
 	{
 		ghost->x += 16;
-		if (game->map->map[ghost->y / 32][(ghost->x + 32) / 32] == 'T')
+		if (ghost->x % 32 == 0 && \
+			game->map->map[ghost->y / 32][(ghost->x + 32) / 32] == 'T')
 			handle_ghost_portal(game, ghost, 0);
 	}
 }
