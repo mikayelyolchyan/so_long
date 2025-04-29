@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:31:28 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/28 19:16:10 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/29 21:27:39 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ghost_move(t_game *game, t_ghost *ghost)
 		ghost->x += 4;
 		if (ghost->x % 32 == 0 && \
 			game->map->map[ghost->y / 32][(ghost->x + 32) / 32] == 'T')
-			handle_ghost_portal(game, game->r_ghost, 0);
+			handle_ghost_portal(game, ghost, 0);
 	}
 }
 
