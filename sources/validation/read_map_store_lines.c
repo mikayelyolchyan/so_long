@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:35:01 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/28 17:48:29 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:08:51 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	check_map_size(int fd, char **temp_map, int width, int height)
 {
 	if ((height < 3 && width < 5) || (height < 5 && width < 3))
 		return (cleanup_gnl(fd, temp_map, height), \
-			ft_printf("Error: Map must be at least 3x5\n", 2), 0);
+			ft_printf("Error: Map must be at least 3x5\n"), 0);
 	return (1);
 }
 
@@ -87,10 +87,10 @@ int	read_map_store_lines(int fd, char **temp_map, int line_count, t_map *map)
 		line = get_next_line(fd);
 		if (!line || line[0] == '\n' || line[0] == '\0')
 			return (free(line), cleanup_gnl(fd, temp_map, height), \
-			ft_printf("Error: Unexpected end or start of file\n", 2), 0);
+			ft_printf("Error: Unexpected end or start of file\n"), 0);
 		if (is_space(line[0]) || !read_map_check_line(line, &width, &i))
 			return (free(line), cleanup_gnl(fd, temp_map, height), \
-		ft_printf("Error: Map have invalid isspace characters\n", 2), 0);
+		ft_printf("Error: Map have invalid isspace characters\n"), 0);
 		temp_map[height++] = line;
 	}
 	if (check_map_size(fd, temp_map, width, height) == 0)

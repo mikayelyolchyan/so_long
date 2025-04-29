@@ -6,7 +6,7 @@
 /*   By: miyolchy <miyolchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:03:35 by miyolchy          #+#    #+#             */
-/*   Updated: 2025/04/28 17:39:56 by miyolchy         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:08:51 by miyolchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	check_elements_portal(t_map *map, t_check_elements_variables *vars)
 			map->map[vars->i][vars->j - 1] != '1' || \
 			map->map[vars->i][vars->j + 1] == '1' || \
 			map->map[vars->i][vars->j + 1] == 'E')
-			return (ft_printf("Error: Invalid Left portal\n", 2));
+			return (ft_printf("Error: Invalid Left portal\n"));
 	}
 	else if (vars->j == map->width - 2)
 	{
@@ -60,10 +60,10 @@ static int	check_elements_portal(t_map *map, t_check_elements_variables *vars)
 		map->map[vars->i][vars->j + 1] != '1' || \
 		map->map[vars->i][vars->j - 1] == '1' || \
 		map->map[vars->i][vars->j - 1] == 'E')
-			return (ft_printf("Error: Invalid right portal\n", 2));
+			return (ft_printf("Error: Invalid right portal\n"));
 	}
 	else
-		return (ft_printf("Error: Portal in invalid position\n", 2));
+		return (ft_printf("Error: Portal in invalid position\n"));
 	return (1);
 }
 
