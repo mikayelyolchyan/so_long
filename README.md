@@ -18,8 +18,6 @@
 	    <a href="#-bonus-part">🌟 Bonus Part</a>
     <span> · </span>
       <a href="#-usage">👨‍💻 Usage</a>
-    <span> · </span>
-      <a href="#-screenshots">🌄 Screenshots</a>
   </h3>
 </div>
 
