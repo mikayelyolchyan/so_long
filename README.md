@@ -26,7 +26,7 @@
 ---
 
 <p align="center">
-  <img src="game_gifs/pacman.gif" width="1000"/>
+  <img src="game_gifs/pacman.gif" width="900"/>
 </p>
 
 ## 📜 About Project
