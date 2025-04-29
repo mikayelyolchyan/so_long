@@ -25,9 +25,9 @@
 
 ---
 
-<p align="center">
-  <img src="game_gifs/main_game.gif" alt="Game gif" />
-</p>
+<center>
+  ![Demo](https://i.imgur.com/ddoLlCL.gif)
+</center>
 
 ## 📜 About Project
 
