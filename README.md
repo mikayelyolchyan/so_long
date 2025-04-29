@@ -25,6 +25,10 @@
 
 ---
 
+<p align="center">
+  <img src="game_gifs/main_game.gif" alt="Game gif" />
+</p>
+
 ## 📜 About Project
 
 > 42 School So Long project is a small 2D game where the player has to collect items and reach the exit. \
