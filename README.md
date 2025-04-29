@@ -25,9 +25,9 @@
 
 ---
 
-<center>
-  ![Demo](https://i.imgur.com/ddoLlCL.gif)
-</center>
+<p align="center">
+  <img src="game_gifs/pacman.gif" width="1000"/>
+</p>
 
 ## 📜 About Project
 
