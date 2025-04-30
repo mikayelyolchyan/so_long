@@ -66,12 +66,12 @@ For detailed information, refer to the [**subject of this project**](en.subject.
 ## ⚠️ Attention | A must read
 #### Frame Timing and Speed Adjustments
 
-All timing-related constants discussed here are defined using #define and must not be modified programmatically. You should only adjust their numeric values directly in the header file.
-
 The timing of animation and movement function calls is controlled by variables, meaning that each processor — depending on its power and processing speed — will produce different animation speeds.
 To ensure a smooth and comfortable gameplay experience, you must adjust the main variable that controls the overall speed: GAME_FRAME_LIMIT, located in so_long.h.
 You must also tune all other related constants declared using #define.
 The value of GAME_FRAME_LIMIT should be a number that is a power of two — for example: 2048, 1024, 512, 256, 128, 64, etc.
+
+All timing-related constants discussed here are defined using #define and must not be modified programmatically. You should only adjust their numeric values directly in the header file.
 
 #### Variable Descriptions
 
