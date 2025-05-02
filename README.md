@@ -105,6 +105,8 @@ For example, on Kali Linux, the W key might produce the keycode 119, while on Ub
 To help with this, I’ve included a simple utility that lets you find the correct keycodes for your system.
 Run the keycode executable located in the keycode directory. When the window opens, press a key and its keycode will be printed in the terminal.
 
+## 🕹️ For playing
+Run ```make``` in the main repository. Then execute ```./so_long``` to start the game.
 #### The program takes the following arguments:
 `./so_long <map_file>`
-* The map must be a .ber file
+* The map must be a .ber file. The .ber files can be found in the maps folder.
